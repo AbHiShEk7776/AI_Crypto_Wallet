@@ -184,6 +184,38 @@ export const contactAPI = {
   // Get favorite contacts
   getFavorites: () => api.get('/contacts', { params: { favorite: true } })
 };
+export const swapAPI = {
+  // Get supported tokens
+  getTokens: () => api.get('/dapp/tokens'),
+  
+  // Get swap quote
+  getQuote: (fromToken, toToken, amount, network = 'sepolia') =>
+    api.post('/dapp/swap/quote', { fromToken, toToken, amount, network }),
+  
+  // Execute swap with password
+  executeSwap: (password, swapParams, network = 'sepolia') =>
+    api.post('/dapp/swap/execute', { password, swapParams, network }),
+  
+  // Estimate gas for swap
+  estimateGas: (fromToken, toToken, amount, from, network = 'sepolia') =>
+    api.post('/dapp/swap/estimate-gas', { fromToken, toToken, amount, from, network }),
+  
+  // Get token info
+  getTokenInfo: (tokenAddress, network = 'sepolia') =>
+    api.post('/dapp/token/info', { tokenAddress, network }),
+  
+  // Get token balance
+  getTokenBalance: (address, tokenAddress, network = 'sepolia') =>
+    api.post('/dapp/token/balance', { address, tokenAddress, network }),
+  
+  // Check token allowance
+  checkAllowance: (tokenAddress, owner, spender, network = 'sepolia') =>
+    api.post('/dapp/approve/check', { tokenAddress, owner, spender, network }),
+  
+  // Approve token
+  approveToken: (password, tokenAddress, amount, network = 'sepolia') =>
+    api.post('/dapp/approve/execute', { password, tokenAddress, amount, network })
+};
 
 
 

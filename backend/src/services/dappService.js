@@ -1,13 +1,42 @@
 import { ethers } from 'ethers';
-import { NETWORKS, UNISWAP_V2_ROUTER, UNISWAP_V2_ROUTER_ABI, TOKENS, ERC20_ABI } from '../config/constants.js';
 import logger from '../utils/logger.js';
 import providerFactory from '../utils/providerFactory.js';
-
+import swapService from './swapService.js';
 
 /**
  * DApp Service
- * Handles decentralized application interactions (Uniswap swaps, lending protocols, etc.)
+ * Handles DEX interactions and smart contract operations
  */
+
+// Uniswap V2 addresses on Sepolia
+const UNISWAP_V2_ROUTER_ADDRESS = '0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008';
+const UNISWAP_V2_FACTORY_ADDRESS = '0x7E0987E5b3a30e3f2828572Bc5dE7a3348d0b1B1';
+
+// Test token addresses on Sepolia
+const TOKENS = {
+  WETH: '0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9',
+  DAI: '0x68194a729C2450ad26072b3D33ADaCbcef39D574',
+  USDC: '0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8',
+  USDT: '0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0'
+};
+
+// ABIs
+const ERC20_ABI = [
+  'function approve(address spender, uint256 amount) external returns (bool)',
+  'function allowance(address owner, address spender) external view returns (uint256)',
+  'function balanceOf(address account) external view returns (uint256)',
+  'function decimals() external view returns (uint8)',
+  'function symbol() external view returns (string)',
+  'function name() external view returns (string)',
+  'function totalSupply() external view returns (uint256)'
+];
+
+const ROUTER_ABI = [
+  'function getAmountsOut(uint amountIn, address[] memory path) public view returns (uint[] memory amounts)',
+  'function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)',
+  'function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external returns (uint[] memory amounts)',
+  'function swapExactTokensForTokens(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external returns (uint[] memory amounts)'
+];
 
 class DAppService {
   constructor() {
@@ -18,357 +47,249 @@ class DAppService {
     return this.providerFactory.getProvider(network);
   }
 
+  /**
+   * Get token address by symbol
+   */
+  getTokenAddress(symbol) {
+    if (symbol === 'ETH') return 'native';
+    return TOKENS[symbol] || null;
+  }
 
   /**
-   * Get swap quote from Uniswap V2
-   * Calculates expected output for a given input
-   * @param {string} fromToken - Source token symbol (ETH, USDC, DAI)
-   * @param {string} toToken - Destination token symbol
-   * @param {string} amount - Amount to swap
-   * @param {string} network - Network name
-   * @returns {Object} Swap quote details
+   * Get swap quote using SwapService
    */
   async getSwapQuote(fromToken, toToken, amount, network = 'sepolia') {
     try {
-      const provider = this.getProvider[network];
-      if (!provider) {
-        throw new Error(`Unsupported network: ${network}`);
-      }
+      logger.info('Getting swap quote', { fromToken, toToken, amount });
 
-      logger.info('Getting swap quote', { fromToken, toToken, amount, network });
+      // Use the SwapService for quotes
+      const quote = await swapService.getQuote(fromToken, toToken, amount, network);
 
-      // Get router address
-      const routerAddress = UNISWAP_V2_ROUTER[network];
-      if (!routerAddress) {
-        throw new Error(`Uniswap not available on ${network}`);
-      }
-
-      // Create router contract instance
-      const router = new ethers.Contract(
-        routerAddress,
-        UNISWAP_V2_ROUTER_ABI,
-        provider
-      );
-
-      // Build token path
-      const path = this.buildSwapPath(fromToken, toToken, network);
-
-      // Convert amount to wei (smallest unit)
-      const amountIn = ethers.parseEther(amount);
-
-      // Get amounts out from Uniswap
-      const amounts = await router.getAmountsOut(amountIn, path);
-
-      // Calculate price impact (simplified)
-      const amountOut = amounts[amounts.length - 1];
-      const expectedPrice = parseFloat(amount) / parseFloat(ethers.formatEther(amountOut));
-      const priceImpact = 0.3; // Simplified - in production, compare with pool reserves
-
-      // Calculate minimum amount with slippage (0.5% default)
-      const slippage = 0.5;
-      const minAmountOut = (amountOut * BigInt(Math.floor((100 - slippage) * 100))) / 10000n;
-
-      return {
-        fromToken,
-        toToken,
-        amountIn: amount,
-        amountInWei: amountIn.toString(),
-        amountOut: ethers.formatEther(amountOut),
-        amountOutWei: amountOut.toString(),
-        minAmountOut: ethers.formatEther(minAmountOut),
-        minAmountOutWei: minAmountOut.toString(),
-        path: path,
-        priceImpact: priceImpact.toFixed(2) + '%',
-        exchangeRate: `1 ${fromToken} = ${(parseFloat(ethers.formatEther(amountOut)) / parseFloat(amount)).toFixed(6)} ${toToken}`,
-        network
-      };
+      return quote;
     } catch (error) {
-      logger.error('Swap quote failed', {
-        fromToken,
-        toToken,
-        amount,
-        network,
-        error: error.message
-      });
-      throw new Error(`Swap quote failed: ${error.message}`);
+      logger.error('Get swap quote failed:', error);
+      throw new Error(`Failed to get quote: ${error.message}`);
     }
   }
 
   /**
-   * Build token swap path for Uniswap
-   * @param {string} fromToken - Source token
-   * @param {string} toToken - Destination token
-   * @param {string} network - Network name
-   * @returns {Array} Token path
-   */
-  buildSwapPath(fromToken, toToken, network) {
-    const tokens = TOKENS[network] || {};
-
-    const getTokenAddress = (symbol) => {
-      if (symbol === 'ETH') {
-        return tokens.WETH || ethers.ZeroAddress;
-      }
-      return tokens[symbol] || ethers.ZeroAddress;
-    };
-
-    const fromAddress = getTokenAddress(fromToken);
-    const toAddress = getTokenAddress(toToken);
-
-    // Direct path if both tokens exist
-    if (fromAddress !== ethers.ZeroAddress && toAddress !== ethers.ZeroAddress) {
-      return [fromAddress, toAddress];
-    }
-
-    // Path through WETH if one is ETH
-    if (fromToken === 'ETH') {
-      return [tokens.WETH, toAddress];
-    }
-    if (toToken === 'ETH') {
-      return [fromAddress, tokens.WETH];
-    }
-
-    throw new Error(`Cannot build swap path for ${fromToken} -> ${toToken}`);
-  }
-
-  /**
-   * Build swap transaction data
-   * @param {string} fromToken - Source token
-   * @param {string} toToken - Destination token
-   * @param {string} amount - Amount to swap
-   * @param {string} recipient - Recipient address
-   * @param {number} slippage - Slippage tolerance (%)
-   * @param {string} network - Network name
-   * @returns {Object} Transaction data
+   * Build swap transaction (unsigned)
    */
   async buildSwapTransaction(fromToken, toToken, amount, recipient, slippage = 0.5, network = 'sepolia') {
     try {
-      logger.info('Building swap transaction', {
-        fromToken,
-        toToken,
-        amount,
-        recipient,
-        slippage,
-        network
-      });
-
-      // Get quote first
-      const quote = await this.getSwapQuote(fromToken, toToken, amount, network);
-
-      // Get router address
-      const routerAddress = UNISWAP_V2_ROUTER[network];
-      const provider = this.getProvider[network];
-
-      // Create router contract instance
+      const provider = this.getProvider(network);
       const router = new ethers.Contract(
-        routerAddress,
-        UNISWAP_V2_ROUTER_ABI,
+        UNISWAP_V2_ROUTER_ADDRESS,
+        ROUTER_ABI,
         provider
       );
 
-      // Calculate deadline (20 minutes from now)
-      const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+      const fromAddress = fromToken === 'ETH' ? TOKENS.WETH : this.getTokenAddress(fromToken);
+      const toAddress = toToken === 'ETH' ? TOKENS.WETH : this.getTokenAddress(toToken);
 
-      // Calculate minimum amount out with user's slippage
-      const amountOutMin = (BigInt(quote.amountOutWei) * BigInt(Math.floor((100 - slippage) * 100))) / 10000n;
+      if (!fromAddress || !toAddress) {
+        throw new Error('Invalid token');
+      }
 
+      // Get decimals
+      let fromDecimals = 18;
+      if (fromToken !== 'ETH') {
+        const tokenContract = new ethers.Contract(fromAddress, ERC20_ABI, provider);
+        fromDecimals = await tokenContract.decimals();
+      }
+
+      const amountInWei = ethers.parseUnits(amount.toString(), fromDecimals);
+      const path = [fromAddress, toAddress];
+
+      // Get expected output
+      const amounts = await router.getAmountsOut(amountInWei, path);
+      const amountOut = amounts[1];
+
+      // Calculate min output with slippage
+      const slippageBps = Math.floor(slippage * 100); // 0.5% = 50 bps
+      const minAmountOut = (amountOut * BigInt(10000 - slippageBps)) / 10000n;
+
+      const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes
+
+      // Build transaction data
       let txData;
       let value = 0n;
 
-      // Build transaction based on token types
       if (fromToken === 'ETH') {
-        // Swap ETH for Tokens
+        // ETH to Token
         txData = router.interface.encodeFunctionData('swapExactETHForTokens', [
-          amountOutMin,
-          quote.path,
+          minAmountOut,
+          path,
           recipient,
           deadline
         ]);
-        value = BigInt(quote.amountInWei);
+        value = amountInWei;
       } else if (toToken === 'ETH') {
-        // Swap Tokens for ETH
+        // Token to ETH
         txData = router.interface.encodeFunctionData('swapExactTokensForETH', [
-          BigInt(quote.amountInWei),
-          amountOutMin,
-          quote.path,
+          amountInWei,
+          minAmountOut,
+          path,
           recipient,
           deadline
         ]);
       } else {
-        // Swap Tokens for Tokens
+        // Token to Token
         txData = router.interface.encodeFunctionData('swapExactTokensForTokens', [
-          BigInt(quote.amountInWei),
-          amountOutMin,
-          quote.path,
+          amountInWei,
+          minAmountOut,
+          path,
           recipient,
           deadline
         ]);
       }
 
-      return {
-        to: routerAddress,
+      // Estimate gas
+      const gasEstimate = await provider.estimateGas({
+        to: UNISWAP_V2_ROUTER_ADDRESS,
         data: txData,
-        value: value.toString(),
-        quote: quote,
-        requiresApproval: fromToken !== 'ETH', // ERC20 tokens need approval first
-        deadline: deadline
-      };
-    } catch (error) {
-      logger.error('Swap transaction build failed', {
+        value: value,
+        from: recipient
+      });
+
+      logger.info('Swap transaction built', {
         fromToken,
         toToken,
-        amount,
-        error: error.message
+        amountIn: amount,
+        gasEstimate: gasEstimate.toString()
       });
-      throw new Error(`Swap transaction build failed: ${error.message}`);
+
+      return {
+        to: UNISWAP_V2_ROUTER_ADDRESS,
+        data: txData,
+        value: value.toString(),
+        gasLimit: gasEstimate.toString(),
+        fromToken,
+        toToken,
+        amountIn: amount,
+        minAmountOut: ethers.formatUnits(minAmountOut, 18),
+        path,
+        deadline
+      };
+    } catch (error) {
+      logger.error('Build swap transaction failed:', error);
+      throw new Error(`Failed to build transaction: ${error.message}`);
     }
   }
 
   /**
-   * Build ERC-20 token approval transaction
-   * Required before swapping ERC-20 tokens
-   * @param {string} tokenAddress - Token contract address
-   * @param {string} spender - Spender address (usually router)
-   * @param {string} amount - Amount to approve
-   * @param {string} network - Network name
-   * @returns {Object} Approval transaction data
+   * Build token approval transaction
    */
   async buildApprovalTransaction(tokenAddress, spender, amount, network = 'sepolia') {
     try {
-      logger.info('Building approval transaction', {
-        tokenAddress,
+      const provider = this.getProvider(network);
+      const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
+
+      // Use max approval for convenience (common practice)
+      const approvalAmount = amount === 'unlimited' 
+        ? ethers.MaxUint256 
+        : ethers.parseUnits(amount.toString(), 18);
+
+      const txData = tokenContract.interface.encodeFunctionData('approve', [
         spender,
-        amount,
-        network
-      });
-
-      const provider = this.getProvider[network];
-
-      // Create token contract instance
-      const token = new ethers.Contract(
-        tokenAddress,
-        ERC20_ABI,
-        provider
-      );
-
-      // Get token decimals
-      const decimals = await token.decimals();
-
-      // Convert amount to smallest unit
-      const amountWei = ethers.parseUnits(amount, decimals);
-
-      // Encode approval function call
-      const txData = token.interface.encodeFunctionData('approve', [
-        spender,
-        amountWei
+        approvalAmount
       ]);
+
+      logger.info('Approval transaction built', {
+        token: tokenAddress,
+        spender,
+        amount
+      });
 
       return {
         to: tokenAddress,
         data: txData,
         value: '0',
-        amount: amount,
-        amountWei: amountWei.toString(),
-        spender: spender
+        token: tokenAddress,
+        spender,
+        amount: approvalAmount.toString()
       };
     } catch (error) {
-      logger.error('Approval transaction build failed', {
-        tokenAddress,
-        spender,
-        amount,
-        error: error.message
-      });
-      throw new Error(`Approval transaction build failed: ${error.message}`);
+      logger.error('Build approval transaction failed:', error);
+      throw new Error(`Failed to build approval: ${error.message}`);
     }
   }
 
   /**
-   * Check token allowance for a spender
-   * @param {string} tokenAddress - Token contract address
-   * @param {string} owner - Token owner address
-   * @param {string} spender - Spender address
-   * @param {string} network - Network name
-   * @returns {string} Current allowance
+   * Check token allowance
    */
   async checkAllowance(tokenAddress, owner, spender, network = 'sepolia') {
     try {
-      const provider = this.getProvider[network];
+      const provider = this.getProvider(network);
+      const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
 
-      const token = new ethers.Contract(
-        tokenAddress,
-        ERC20_ABI,
-        provider
-      );
+      const allowance = await tokenContract.allowance(owner, spender);
+      const decimals = await tokenContract.decimals();
 
-      const allowance = await token.allowance(owner, spender);
-      const decimals = await token.decimals();
+      const allowanceFormatted = ethers.formatUnits(allowance, decimals);
+      const isApproved = allowance > 0n;
 
-      return {
-        allowance: ethers.formatUnits(allowance, decimals),
-        allowanceWei: allowance.toString(),
-        hasAllowance: allowance > 0n
-      };
-    } catch (error) {
-      logger.error('Allowance check failed', {
-        tokenAddress,
+      logger.info('Allowance checked', {
+        token: tokenAddress,
         owner,
         spender,
-        error: error.message
+        allowance: allowanceFormatted,
+        isApproved
       });
-      throw new Error(`Allowance check failed: ${error.message}`);
+
+      return {
+        allowance: allowanceFormatted,
+        allowanceWei: allowance.toString(),
+        isApproved,
+        spender
+      };
+    } catch (error) {
+      logger.error('Check allowance failed:', error);
+      throw new Error(`Failed to check allowance: ${error.message}`);
     }
   }
 
   /**
    * Get token information
-   * @param {string} tokenAddress - Token contract address
-   * @param {string} network - Network name
-   * @returns {Object} Token details
    */
   async getTokenInfo(tokenAddress, network = 'sepolia') {
     try {
-      const provider = this.getProvider[network];
+      const provider = this.getProvider(network);
+      const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
 
-      const token = new ethers.Contract(
-        tokenAddress,
-        ERC20_ABI,
-        provider
-      );
-
-      const [name, symbol, decimals] = await Promise.all([
-        token.name(),
-        token.symbol(),
-        token.decimals()
+      const [name, symbol, decimals, totalSupply] = await Promise.all([
+        tokenContract.name(),
+        tokenContract.symbol(),
+        tokenContract.decimals(),
+        tokenContract.totalSupply()
       ]);
+
+      logger.info('Token info retrieved', {
+        address: tokenAddress,
+        symbol,
+        name
+      });
 
       return {
         address: tokenAddress,
         name,
         symbol,
-        decimals: Number(decimals),
+        decimals,
+        totalSupply: ethers.formatUnits(totalSupply, decimals),
         network
       };
     } catch (error) {
-      logger.error('Token info fetch failed', {
-        tokenAddress,
-        network,
-        error: error.message
-      });
-      throw new Error(`Token info fetch failed: ${error.message}`);
+      logger.error('Get token info failed:', error);
+      throw new Error(`Failed to get token info: ${error.message}`);
     }
   }
 
   /**
-   * Estimate gas for swap transaction
-   * @param {string} fromToken - Source token
-   * @param {string} toToken - Destination token
-   * @param {string} amount - Amount to swap
-   * @param {string} from - Sender address
-   * @param {string} network - Network name
-   * @returns {Object} Gas estimate
+   * Estimate gas for swap
    */
   async estimateSwapGas(fromToken, toToken, amount, from, network = 'sepolia') {
     try {
-      const swapTx = await this.buildSwapTransaction(
+      const tx = await this.buildSwapTransaction(
         fromToken,
         toToken,
         amount,
@@ -377,34 +298,112 @@ class DAppService {
         network
       );
 
-      const provider = this.getProvider[network];
-
+      const provider = this.getProvider(network);
       const gasEstimate = await provider.estimateGas({
-        from: from,
-        to: swapTx.to,
-        data: swapTx.data,
-        value: swapTx.value
+        to: tx.to,
+        data: tx.data,
+        value: tx.value,
+        from
       });
 
       const feeData = await provider.getFeeData();
+      const gasCost = gasEstimate * (feeData.maxFeePerGas || feeData.gasPrice);
 
       return {
         gasLimit: gasEstimate.toString(),
-        maxFeePerGas: feeData.maxFeePerGas?.toString(),
-        estimatedCost: ethers.formatEther(
-          gasEstimate * (feeData.maxFeePerGas || 0n)
-        )
+        gasPrice: feeData.maxFeePerGas?.toString() || feeData.gasPrice?.toString(),
+        gasCost: ethers.formatEther(gasCost),
+        gasCostWei: gasCost.toString()
       };
     } catch (error) {
-      logger.error('Swap gas estimation failed', {
-        fromToken,
-        toToken,
-        amount,
-        error: error.message
-      });
-      throw new Error(`Swap gas estimation failed: ${error.message}`);
+      logger.error('Estimate swap gas failed:', error);
+      throw new Error(`Failed to estimate gas: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get supported tokens
+   */
+  getSupportedTokens() {
+    return {
+      tokens: [
+        { 
+          symbol: 'ETH', 
+          name: 'Ethereum', 
+          address: 'native', 
+          decimals: 18,
+          logo: '⟠'
+        },
+        { 
+          symbol: 'WETH', 
+          name: 'Wrapped Ether', 
+          address: TOKENS.WETH, 
+          decimals: 18,
+          logo: '⟠'
+        },
+        { 
+          symbol: 'DAI', 
+          name: 'Dai Stablecoin', 
+          address: TOKENS.DAI, 
+          decimals: 18,
+          logo: '◈'
+        },
+        { 
+          symbol: 'USDC', 
+          name: 'USD Coin', 
+          address: TOKENS.USDC, 
+          decimals: 6,
+          logo: '$'
+        },
+        { 
+          symbol: 'USDT', 
+          name: 'Tether USD', 
+          address: TOKENS.USDT, 
+          decimals: 6,
+          logo: '₮'
+        }
+      ]
+    };
+  }
+
+  /**
+   * Get token balance
+   */
+  async getTokenBalance(address, tokenAddress, network = 'sepolia') {
+    try {
+      const provider = this.getProvider(network);
+      
+      if (tokenAddress === 'native' || !tokenAddress) {
+        // Get ETH balance
+        const balance = await provider.getBalance(address);
+        return {
+          balance: ethers.formatEther(balance),
+          balanceWei: balance.toString(),
+          symbol: 'ETH',
+          decimals: 18
+        };
+      }
+
+      // Get ERC20 balance
+      const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
+      const [balance, decimals, symbol] = await Promise.all([
+        tokenContract.balanceOf(address),
+        tokenContract.decimals(),
+        tokenContract.symbol()
+      ]);
+
+      return {
+        balance: ethers.formatUnits(balance, decimals),
+        balanceWei: balance.toString(),
+        symbol,
+        decimals
+      };
+    } catch (error) {
+      logger.error('Get token balance failed:', error);
+      throw error;
     }
   }
 }
 
-export default new DAppService();
+const dappService = new DAppService();
+export default dappService;

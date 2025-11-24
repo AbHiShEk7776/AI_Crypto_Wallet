@@ -139,23 +139,23 @@ export const nlpValidation = {
   ]
 };
 
-export const dappValidation = {
-  swap: [
-    body('fromToken')
-      .trim()
-      .notEmpty().withMessage('Source token is required'),
-    body('toToken')
-      .trim()
-      .notEmpty().withMessage('Destination token is required'),
-    body('amount')
-      .notEmpty().withMessage('Amount is required')
-      .custom(isValidAmount),
-    body('slippage')
-      .optional()
-      .isFloat({ min: 0, max: 50 }).withMessage('Slippage must be 0-50%'),
-    validate
-  ]
-};
+// export const dappValidation = {
+//   swap: [
+//     body('fromToken')
+//       .trim()
+//       .notEmpty().withMessage('Source token is required'),
+//     body('toToken')
+//       .trim()
+//       .notEmpty().withMessage('Destination token is required'),
+//     body('amount')
+//       .notEmpty().withMessage('Amount is required')
+//       .custom(isValidAmount),
+//     body('slippage')
+//       .optional()
+//       .isFloat({ min: 0, max: 50 }).withMessage('Slippage must be 0-50%'),
+//     validate
+//   ]
+// };
 export const contactValidation = {
   add: [
     body('alias')
@@ -206,6 +206,170 @@ export const contactValidation = {
     body('favorite')
       .optional()
       .isBoolean().withMessage('Favorite must be a boolean'),
+    
+    validate
+  ]
+};
+export const dappValidation = {
+  swapQuote: [
+    body('fromToken')
+      .trim()
+      .notEmpty().withMessage('From token is required')
+      .isString(),
+    
+    body('toToken')
+      .trim()
+      .notEmpty().withMessage('To token is required')
+      .isString(),
+    
+    body('amount')
+      .notEmpty().withMessage('Amount is required')
+      .isString(),
+    
+    body('network')
+      .optional()
+      .isString()
+      .toLowerCase()
+      .isIn(['sepolia', 'ethereum', 'polygon']),
+    
+    validate
+  ],
+  
+  executeSwap: [
+    body('password')
+      .notEmpty().withMessage('Password is required'),
+    
+    body('swapParams')
+      .isObject().withMessage('Swap parameters required'),
+    
+    body('swapParams.fromToken')
+      .trim()
+      .notEmpty().withMessage('From token is required'),
+    
+    body('swapParams.toToken')
+      .trim()
+      .notEmpty().withMessage('To token is required'),
+    
+    body('swapParams.amountIn')
+      .notEmpty().withMessage('Amount is required'),
+    
+    body('swapParams.minAmountOut')
+      .notEmpty().withMessage('Minimum output amount is required'),
+    
+    body('network')
+      .optional()
+      .isString(),
+    
+    validate
+  ],
+  
+  approveToken: [
+    body('password')
+      .notEmpty().withMessage('Password is required'),
+    
+    body('tokenAddress')
+      .trim()
+      .notEmpty().withMessage('Token address is required')
+      .custom(isEthereumAddress),
+    
+    body('amount')
+      .optional()
+      .isString(),
+    
+    body('network')
+      .optional()
+      .isString(),
+    
+    validate
+  ],
+  
+  buildSwap: [
+    body('fromToken')
+      .trim()
+      .notEmpty().withMessage('From token is required'),
+    
+    body('toToken')
+      .trim()
+      .notEmpty().withMessage('To token is required'),
+    
+    body('amount')
+      .notEmpty().withMessage('Amount is required'),
+    
+    body('recipient')
+      .trim()
+      .notEmpty().withMessage('Recipient is required')
+      .custom(isEthereumAddress),
+    
+    body('slippage')
+      .optional()
+      .isFloat({ min: 0, max: 50 }),
+    
+    validate
+  ],
+  
+  buildApproval: [
+    body('tokenAddress')
+      .trim()
+      .notEmpty().withMessage('Token address is required')
+      .custom(isEthereumAddress),
+    
+    body('spender')
+      .trim()
+      .notEmpty().withMessage('Spender address is required')
+      .custom(isEthereumAddress),
+    
+    body('amount')
+      .optional()
+      .isString(),
+    
+    validate
+  ],
+  
+  checkAllowance: [
+    body('tokenAddress')
+      .trim()
+      .notEmpty().withMessage('Token address is required')
+      .custom(isEthereumAddress),
+    
+    body('owner')
+      .trim()
+      .notEmpty().withMessage('Owner address is required')
+      .custom(isEthereumAddress),
+    
+    body('spender')
+      .trim()
+      .notEmpty().withMessage('Spender address is required')
+      .custom(isEthereumAddress),
+    
+    validate
+  ],
+  
+  tokenInfo: [
+    body('tokenAddress')
+      .trim()
+      .notEmpty().withMessage('Token address is required')
+      .custom(isEthereumAddress),
+    
+    body('network')
+      .optional()
+      .isString(),
+    
+    validate
+  ],
+  
+  tokenBalance: [
+    body('address')
+      .trim()
+      .notEmpty().withMessage('Address is required')
+      .custom(isEthereumAddress),
+    
+    body('tokenAddress')
+      .optional()
+      .isString(),
+    
+    body('network')
+      .optional()
+      .isString(),
     
     validate
   ]

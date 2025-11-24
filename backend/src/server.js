@@ -33,7 +33,10 @@ import providerFactory from './utils/providerFactory.js';
  * Express application setup
  * Natural Language Powered Crypto Wallet Backend
  */
-
+// GLOBAL BIGINT SERIALIZATION FIX
+BigInt.prototype.toJSON = function() {
+  return this.toString();
+};
 const app = express();
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || 'localhost';
