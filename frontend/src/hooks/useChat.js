@@ -1,130 +1,76 @@
 import { useState, useCallback } from 'react';
-import { nlpAPI } from '@services/api';
-import toast from 'react-hot-toast';
-import { parseError } from '@utils/formatters';
-
-/**
- * Custom hook for chat/NLP operations
- * Manages conversation state and intent parsing
- */
+import nlpAPI from '@services/nlpAPI';
 
 export const useChat = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm your crypto wallet assistant powered by AI. How can I help you today?"
+      content: 'Hi! I\'m your crypto wallet assistant. I can help you check balances, send transactions, swap tokens, and more. What would you like to do?'
     }
   ]);
   const [loading, setLoading] = useState(false);
   const [ollamaHealth, setOllamaHealth] = useState(null);
 
-  /**
-   * Check if Ollama is running
-   */
   const checkOllamaHealth = useCallback(async () => {
     try {
       const { data } = await nlpAPI.checkHealth();
       setOllamaHealth(data);
-
-      if (!data.running) {
-        toast.error('AI service is offline. Please start Ollama.');
-      } else if (!data.modelAvailable) {
-        toast.error(`Model ${data.model} not found. Please install it.`);
-      }
-
-      return data;
     } catch (error) {
-      console.error('Ollama health check failed:', error);
-      setOllamaHealth({ running: false });
-      return { running: false };
+      setOllamaHealth({
+        running: false,
+        modelAvailable: false
+      });
     }
   }, []);
 
-  /**
-   * Send message and get AI response
-   */
-  const sendMessage = useCallback(async (userMessage) => {
-    if (!userMessage.trim()) return;
-
+  const sendMessage = useCallback(async (content) => {
     // Add user message
-    const newUserMessage = { role: 'user', content: userMessage };
-    setMessages((prev) => [...prev, newUserMessage]);
+    const userMessage = { role: 'user', content };
+    setMessages(prev => [...prev, userMessage]);
     setLoading(true);
 
     try {
-      // Get conversation history (last 4 messages)
-      const history = messages.slice(-4);
+      // Send to NLP backend
+      const { data } = await nlpAPI.chat(content, messages);
 
-      // Parse intent using AI
-      const { data } = await nlpAPI.parseIntent(userMessage, history);
-
-      let responseMessage;
-
-      if (!data.success) {
-        responseMessage = {
-          role: 'assistant',
-          content: data.error || "I couldn't understand that. Can you rephrase?"
-        };
-      } else if (data.intent === 'conversation') {
-        responseMessage = {
+      if (data.success) {
+        // Add assistant response
+        const assistantMessage = {
           role: 'assistant',
           content: data.response
         };
-      } else {
-        // Return structured intent for handling by caller
+        setMessages(prev => [...prev, assistantMessage]);
+
+        // Return intent and parameters for UI handling
         return {
-          success: true,
           intent: data.intent,
           parameters: data.parameters,
-          explanation: data.explanation,
-          requiresConfirmation: data.requiresConfirmation,
-          confidence: data.confidence
+          explanation: data.response
         };
       }
-
-      setMessages((prev) => [...prev, responseMessage]);
-      return { success: true, message: responseMessage };
-
     } catch (error) {
-      console.error('Message send error:', error);
       const errorMessage = {
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please make sure the AI service is running.'
+        content: error.response?.data?.error || 'Sorry, I encountered an error. Please try again.'
       };
-      setMessages((prev) => [...prev, errorMessage]);
-      toast.error(parseError(error));
-      return { success: false, error: parseError(error) };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
+
+    return null;
   }, [messages]);
 
-  /**
-   * Add assistant message manually
-   */
   const addAssistantMessage = useCallback((content) => {
-    setMessages((prev) => [...prev, { role: 'assistant', content }]);
-  }, []);
-
-  /**
-   * Clear conversation
-   */
-  const clearMessages = useCallback(() => {
-    setMessages([
-      {
-        role: 'assistant',
-        content: "Conversation cleared. How can I help you?"
-      }
-    ]);
+    setMessages(prev => [...prev, { role: 'assistant', content }]);
   }, []);
 
   return {
     messages,
     loading,
-    ollamaHealth,
     sendMessage,
-    addAssistantMessage,
-    clearMessages,
-    checkOllamaHealth
+    ollamaHealth,
+    checkOllamaHealth,
+    addAssistantMessage
   };
 };

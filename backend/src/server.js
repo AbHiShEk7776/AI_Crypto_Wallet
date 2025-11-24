@@ -43,6 +43,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || 'localhost';
 
+
 // Create logs directory if it doesn't exist
 const logsDir = 'logs';
 if (!fs.existsSync(logsDir)) {

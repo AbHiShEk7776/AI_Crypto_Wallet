@@ -1,48 +1,75 @@
-/**
- * Transaction Schema
- * Stores all user transaction history
- */
+import mongoose from 'mongoose';
 
-export const TransactionSchema = {
-  _id: 'ObjectId',
-  userId: 'ObjectId',  // Reference to users collection
-  walletAddress: 'string',
+const transactionSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    index: true
+  },
+  hash: {
+    type: String,
+    required: true,
+    index: true
+  },
+  from: {
+    type: String,
+    required: true,
+    lowercase: true
+  },
+  to: {
+    type: String,
+    required: true,
+    lowercase: true
+  },
+  value: {
+    type: String,
+    required: true
+  },
+  valueWei: String,
+  type: {
+    type: String,
+    enum: ['sent', 'received', 'swap'],
+    required: true,
+    index: true
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'success', 'failed'],
+    default: 'pending',
+    index: true
+  },
+  network: {
+    type: String,
+    required: true,
+    index: true
+  },
+  token: {
+    type: String,
+    default: 'ETH'
+  },
+  gasUsed: String,
+  gasPrice: String,
+  blockNumber: Number,
+  blockHash: String,
+  timestamp: {
+    type: Date,
+    default: Date.now,
+    index: true
+  },
   
-  // Transaction Details
-  hash: 'string',
-  from: 'string',
-  to: 'string',
-  value: 'string',
-  valueWei: 'string',
-  
-  // Gas & Fees
-  gasUsed: 'string',
-  effectiveGasPrice: 'string',
-  gasCost: 'string',
-  
-  // Status
-  status: 'string',  // 'success', 'failed', 'pending'
-  type: 'string',    // 'sent', 'received', 'swap', 'contract'
-  
-  // Blockchain Data
-  blockNumber: 'number',
-  blockHash: 'string',
-  confirmations: 'number',
-  network: 'string',  // 'sepolia', 'ethereum', etc.
-  
-  // Token (if applicable)
-  token: 'string',    // 'ETH', 'DAI', etc.
-  tokenAddress: 'string',
-  
-  // Metadata
-  timestamp: 'number',
-  createdAt: 'Date',
-  updatedAt: 'Date'
-};
+  // For swaps
+  fromToken: String,
+  toToken: String,
+  amountIn: String,
+  amountOut: String
+}, {
+  timestamps: true
+});
 
-// Indexes needed:
-// - userId (for querying user's transactions)
-// - walletAddress (for querying wallet transactions)
-// - hash (for lookups)
-// - timestamp (for sorting)
-// - network (for filtering)
+// Compound indexes for efficient queries
+transactionSchema.index({ userId: 1, timestamp: -1 });
+transactionSchema.index({ userId: 1, type: 1 });
+transactionSchema.index({ hash: 1 });
+
+export default mongoose.model('Transaction', transactionSchema);

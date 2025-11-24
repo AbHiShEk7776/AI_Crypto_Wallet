@@ -66,8 +66,8 @@ async sendWithPassword(req, res, next) {
     console.log('\n🔐 === SEND WITH PASSWORD ===');
     console.log('User ID:', userId);
     console.log('Wallet:', userWalletAddress);
-    console.log('txParams:', txParams);
-    console.log('network:', network);
+    console.log('To:', txParams.to);
+    console.log('Value:', txParams.value);
     console.log('============================\n');
 
     if (!password) {
@@ -89,26 +89,40 @@ async sendWithPassword(req, res, next) {
       network
     );
 
-    // Log transaction to database
+    // === LOG FOR BOTH SENDER AND RECIPIENT ===
     try {
-      await transactionHistoryService.logTransaction(
+      await transactionHistoryService.logTransactionForBoth(
         userId,
         userWalletAddress,
+        txParams.to,
         {
           ...result,
-          network,
-          type: 'sent'
-        }
+          value: txParams.value
+        },
+        network
       );
-      logger.info('Transaction logged to database');
-      await contactService.updateContactStats(userId, txParams.to, {
-        ...result,
-        type: 'sent'
+      logger.info('✅ Transaction logged for both parties');
+
+      // Update contact stats for sender
+      try {
+        await contactService.updateContactStats(userId, txParams.to, {
+          ...result,
+          type: 'sent'
+        });
+      } catch (contactError) {
+        logger.warn('Failed to update contact stats:', contactError);
       }
-    );
-     emailService.sendTransactionNotification(user, txData).catch(error => {
-        logger.error('Failed to send transaction email:', error);
+
+      // Send email notifications
+      emailService.sendTransactionNotification(req.user, {
+        ...result,
+        type: 'sent',
+        to: txParams.to,
+        value: txParams.value
+      }).catch(error => {
+        logger.error('Failed to send email:', error);
       });
+
     } catch (logError) {
       // Don't fail the transaction if logging fails
       logger.error('Failed to log transaction:', logError);
@@ -118,6 +132,7 @@ async sendWithPassword(req, res, next) {
       success: true,
       transaction: result
     });
+
   } catch (error) {
     logger.error('Send with password failed:', error);
     res.status(RESPONSE_CODES.BAD_REQUEST).json({
@@ -126,6 +141,7 @@ async sendWithPassword(req, res, next) {
     });
   }
 }
+
 
 /**
  * Get transaction history for authenticated user
