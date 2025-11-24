@@ -1,0 +1,256 @@
+import transactionService from '../services/transactionService.js';
+import logger from '../utils/logger.js';
+import { RESPONSE_CODES } from '../config/constants.js';
+import authService from '../services/authService.js';
+import transactionHistoryService from '../services/transactionHistoryService.js'; 
+import contactService from '../services/contactService.js';
+
+/**
+ * Transaction Controller
+ * Handles HTTP requests for transaction operations
+ */
+
+class TransactionController {
+  /**
+   * Estimate gas for transaction
+   * POST /api/transaction/estimate-gas
+   */
+  async estimateGas(req, res, next) {
+    try {
+      const { txParams, network } = req.body;
+
+      logger.info('Estimate gas request', { txParams, network });
+
+      const gasEstimate = await transactionService.estimateGas(txParams, network);
+
+      res.status(RESPONSE_CODES.SUCCESS).json({
+        success: true,
+        gasEstimate
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Simulate transaction
+   * POST /api/transaction/simulate
+   */
+  async simulateTransaction(req, res, next) {
+    try {
+      const { txParams, network } = req.body;
+
+      logger.info('Simulate transaction request', { txParams, network });
+
+      const simulation = await transactionService.simulateTransaction(txParams, network);
+
+      res.status(RESPONSE_CODES.SUCCESS).json({
+        success: true,
+        simulation
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  /**
+ * Send transaction using password (no private key in request)
+ * POST /api/transaction/send-with-password
+ */
+async sendWithPassword(req, res, next) {
+  try {
+    const { password, txParams, network } = req.body;
+    const userId = req.user.id;
+    const userWalletAddress = req.user.walletAddress;
+
+    console.log('\n🔐 === SEND WITH PASSWORD ===');
+    console.log('User ID:', userId);
+    console.log('Wallet:', userWalletAddress);
+    console.log('txParams:', txParams);
+    console.log('network:', network);
+    console.log('============================\n');
+
+    if (!password) {
+      return res.status(RESPONSE_CODES.BAD_REQUEST).json({
+        success: false,
+        error: 'Password is required'
+      });
+    }
+
+    // Get private key using password
+    logger.info('Retrieving private key with password');
+    const privateKey = await authService.getWalletPrivateKey(userId, password);
+
+    // Send transaction
+    logger.info('Sending transaction with decrypted key');
+    const result = await transactionService.sendTransaction(
+      privateKey,
+      txParams,
+      network
+    );
+
+    // Log transaction to database
+    try {
+      await transactionHistoryService.logTransaction(
+        userId,
+        userWalletAddress,
+        {
+          ...result,
+          network,
+          type: 'sent'
+        }
+      );
+      logger.info('Transaction logged to database');
+      await contactService.updateContactStats(userId, txParams.to, {
+        ...result,
+        type: 'sent'
+      });
+    } catch (logError) {
+      // Don't fail the transaction if logging fails
+      logger.error('Failed to log transaction:', logError);
+    }
+
+    res.status(RESPONSE_CODES.SUCCESS).json({
+      success: true,
+      transaction: result
+    });
+  } catch (error) {
+    logger.error('Send with password failed:', error);
+    res.status(RESPONSE_CODES.BAD_REQUEST).json({
+      success: false,
+      error: error.message
+    });
+  }
+}
+
+/**
+ * Get transaction history for authenticated user
+ * GET /api/transaction/history
+ */
+async getHistory(req, res, next) {
+  try {
+    const userId = req.user.id;
+    const { limit, skip, network, type } = req.query;
+
+    logger.info('Get transaction history', { userId, limit, skip });
+
+    const history = await transactionHistoryService.getUserTransactions(
+      userId,
+      {
+        limit: parseInt(limit) || 50,
+        skip: parseInt(skip) || 0,
+        network,
+        type
+      }
+    );
+
+    res.status(RESPONSE_CODES.SUCCESS).json({
+      success: true,
+      ...history
+    });
+  } catch (error) {
+    logger.error('Get history failed:', error);
+    next(error);
+  }
+}
+
+
+
+  /**
+   * Send transaction
+   * POST /api/transaction/send
+   */
+  async sendTransaction(req, res, next) {
+    try {
+      const { privateKey, txParams, network } = req.body;
+      
+
+      logger.info('Send transaction request', {
+        to: txParams.to,
+        value: txParams.value,
+        network
+      });
+
+      const result = await transactionService.sendTransaction(
+        privateKey,
+        txParams,
+        network
+      );
+
+      res.status(RESPONSE_CODES.SUCCESS).json({
+        success: true,
+        transaction: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Get transaction receipt
+   * POST /api/transaction/receipt
+   */
+  async getReceipt(req, res, next) {
+    try {
+      const { txHash, network } = req.body;
+
+      logger.info('Get receipt request', { txHash, network });
+
+      const receipt = await transactionService.getTransactionReceipt(txHash, network);
+
+      res.status(RESPONSE_CODES.SUCCESS).json({
+        success: true,
+        receipt
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Get nonce for address
+   * POST /api/transaction/nonce
+   */
+  async getNonce(req, res, next) {
+    try {
+      const { address, network } = req.body;
+
+      logger.info('Get nonce request', { address, network });
+
+      const nonce = await transactionService.getNonce(address, network);
+
+      res.status(RESPONSE_CODES.SUCCESS).json({
+        success: true,
+        nonce
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Cancel pending transaction
+   * POST /api/transaction/cancel
+   */
+  async cancelTransaction(req, res, next) {
+    try {
+      const { privateKey, nonce, network } = req.body;
+
+      logger.info('Cancel transaction request', { nonce, network });
+
+      const result = await transactionService.cancelTransaction(
+        privateKey,
+        nonce,
+        network
+      );
+
+      res.status(RESPONSE_CODES.SUCCESS).json({
+        success: true,
+        result
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+}
+
+export default new TransactionController();

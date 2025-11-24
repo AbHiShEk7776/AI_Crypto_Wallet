@@ -1,0 +1,499 @@
+2025-11-23 17:54:12 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 17:54:12 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:104:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763900652058",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 17:54:12 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 17:54:12 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:104:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763900652058",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 17:56:25 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 17:56:25 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:104:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763900785923",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:04:38 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:04:38 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:104:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763901278881",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:04:38 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:04:38 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:104:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763901278881",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:09:33 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:09:33 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:104:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763901573049",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:13:49 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:13:49 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763901829498",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:13:49 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:13:49 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763901829498",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:22:41 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:22:41 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763902361198",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:22:49 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:22:49 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763902369196",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:23:23 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:23:23 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763902403470",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:23:23 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:23:23 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763902403470",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:27:24 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:27:24 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763902644266",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:27:24 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:27:24 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763902644266",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:30:19 [ERROR]: Gas estimation failed {
+  "txParams": {
+    "from": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+    "to": "0x507abad2d580a8e04e16008570f9cc942c385833",
+    "value": "0.001"
+  },
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:30:19 [ERROR]: Gas estimation failed: Unsupported network: sepolia {
+  "stack": "Error: Gas estimation failed: Unsupported network: sepolia\n    at TransactionService.estimateGas (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/transactionService.js:117:13)\n    at estimateGas (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/transactionController.js:21:52)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/transaction/estimate-gas?_t=1763902819174",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:39:05 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:39:05 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763903345407",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:39:05 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:39:05 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763903345407",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:57:05 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:57:05 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763904425439",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:57:05 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:57:05 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763904425439",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:57:33 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:57:33 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763904453394",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 18:57:33 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 18:57:33 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763904453394",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:02:10 [ERROR]: Send with password failed: authService is not defined {
+  "stack": "ReferenceError: authService is not defined\n    at sendWithPassword (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/transactionController.js:68:24)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-rate-limit/dist/index.mjs:779:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-rate-limit/dist/index.mjs:663:5"
+}
+2025-11-23 19:02:10 [ERROR]: authService is not defined {
+  "stack": "ReferenceError: authService is not defined\n    at sendWithPassword (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/transactionController.js:68:24)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-rate-limit/dist/index.mjs:779:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-rate-limit/dist/index.mjs:663:5",
+  "url": "/api/transaction/send-with-password?_t=1763904729829",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:06:43 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:06:43 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905003465",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:06:43 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:06:43 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905003465",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:06:54 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:06:54 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905014678",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:07:43 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:07:43 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905063399",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:07:43 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:07:43 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905063399",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:07:45 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:07:45 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905065183",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:08:09 [ERROR]: Swap quote failed {
+  "fromToken": "ETH",
+  "toToken": "DAI",
+  "amount": "0.01",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:08:09 [ERROR]: Swap quote failed: Unsupported network: sepolia {
+  "stack": "Error: Swap quote failed: Unsupported network: sepolia\n    at DAppService.getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/dappService.js:93:13)\n    at getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/dappController.js:26:39)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/dapp/swap/quote?_t=1763905089206",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:08:15 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:08:15 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905095448",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:08:15 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:08:15 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905095448",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:09:09 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:09:09 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905148995",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:09:09 [ERROR]: Transaction history fetch failed {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia",
+  "error": "Unsupported network: sepolia"
+}
+2025-11-23 19:09:09 [ERROR]: Transaction history fetch failed: Unsupported network: sepolia {
+  "stack": "Error: Transaction history fetch failed: Unsupported network: sepolia\n    at WalletService.getTransactionHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/walletService.js:265:13)\n    at getHistory (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/walletController.js:106:48)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/errorHandler.js:71:19\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at validate (file:///home/abhishek/Crypto_Wallet_MP/backend/src/middleware/validator.js:19:3)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/route.js:157:13)\n    at middleware (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/express-validator/lib/middlewares/check.js:16:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "url": "/api/wallet/history?_t=1763905148995",
+  "method": "POST",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:24:46 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906086039",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:24:46 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906086039",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:25:57 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906157719",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:25:57 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906157719",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:26:23 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906183231",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:26:23 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906183231",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:26:53 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906213232",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:27:23 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906243231",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:27:53 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906273231",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:28:23 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906303230",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:28:53 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906333230",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:29:23 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906363230",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:29:53 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906393230",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:30:23 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906423230",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-23 19:30:53 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763906453230",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:30:09 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960409833",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:30:09 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960409833",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:30:26 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960409833",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:30:40 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960440335",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:31:10 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960470333",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:31:40 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960500340",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
+2025-11-24 10:32:10 [ERROR]: Cannot convert undefined or null to object {
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.keys (<anonymous>)\n    at file:///home/abhishek/Crypto_Wallet_MP/backend/src/server.js:80:41\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)\n    at /home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:297:9\n    at processParams (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:582:12)\n    at next (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:291:5)\n    at urlencodedParser (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/body-parser/lib/types/urlencoded.js:68:7)\n    at Layer.handleRequest (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/abhishek/Crypto_Wallet_MP/backend/node_modules/router/index.js:342:13)",
+  "url": "/api/transaction/history?limit=20&network=sepolia&_t=1763960530339",
+  "method": "GET",
+  "ip": "127.0.0.1"
+}
