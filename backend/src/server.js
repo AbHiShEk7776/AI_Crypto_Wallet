@@ -11,6 +11,7 @@ import database from './config/database.js';
 import authService from './services/authService.js';
 import transactionHistoryService from './services/transactionHistoryService.js';
 import contactService from './services/contactService.js';
+import emailService from './services/emailService.js'; 
 
 // Import routes
 import authRoutes from './routes/auth.routes.js';
@@ -20,6 +21,7 @@ import nlpRoutes from './routes/nlp.routes.js';
 import dappRoutes from './routes/dapp.routes.js';
 import demoRoutes from './routes/demo.routes.js';
 import contactRoutes from './routes/contact.routes.js'
+
 
 // Import middleware  
 import { errorHandler } from './middleware/errorHandler.js';
@@ -188,7 +190,9 @@ const startServer = async () => {
      logger.info('👥 Initializing contact service...');
     await contactService.initialize();
     logger.info('✅ Contact service initialized');
-    
+     logger.info('📧 Initializing email service...');
+    await emailService.initialize();
+    logger.info('✅ Email service initialized');
     // 4. Start Express server
     server = app.listen(PORT, HOST, () => {
       logger.info('');

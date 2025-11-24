@@ -4,6 +4,7 @@ import { RESPONSE_CODES } from '../config/constants.js';
 import authService from '../services/authService.js';
 import transactionHistoryService from '../services/transactionHistoryService.js'; 
 import contactService from '../services/contactService.js';
+import emailService from '../services/emailService.js'; 
 
 /**
  * Transaction Controller
@@ -103,6 +104,10 @@ async sendWithPassword(req, res, next) {
       await contactService.updateContactStats(userId, txParams.to, {
         ...result,
         type: 'sent'
+      }
+    );
+     emailService.sendTransactionNotification(user, txData).catch(error => {
+        logger.error('Failed to send transaction email:', error);
       });
     } catch (logError) {
       // Don't fail the transaction if logging fails
@@ -129,9 +134,46 @@ async sendWithPassword(req, res, next) {
 async getHistory(req, res, next) {
   try {
     const userId = req.user.id;
-    const { limit, skip, network, type } = req.query;
+    const { 
+      limit, 
+      skip, 
+      network, 
+      type,
+      contactAddress,
+      startDate,
+      endDate,
+      minAmount,
+      maxAmount,
+      status,
+      search,
+      sortBy,
+      sortOrder
+    } = req.query;
 
-    logger.info('Get transaction history', { userId, limit, skip });
+    console.log('\n📜 === GET TRANSACTION HISTORY ===');
+    console.log('User ID:', userId);
+    console.log('Filters:', { 
+      limit, 
+      skip, 
+      network, 
+      type, 
+      contactAddress,
+      startDate,
+      endDate,
+      search
+    });
+    console.log('==================================\n');
+
+    logger.info('Get transaction history', { 
+      userId, 
+      filters: req.query 
+    });
+
+    // Ensure service is initialized
+    if (!transactionHistoryService.collection) {
+      logger.warn('Transaction service not initialized, initializing now...');
+      await transactionHistoryService.initialize();
+    }
 
     const history = await transactionHistoryService.getUserTransactions(
       userId,
@@ -139,7 +181,16 @@ async getHistory(req, res, next) {
         limit: parseInt(limit) || 50,
         skip: parseInt(skip) || 0,
         network,
-        type
+        type,
+        contactAddress,
+        startDate,
+        endDate,
+        minAmount: minAmount ? parseFloat(minAmount) : null,
+        maxAmount: maxAmount ? parseFloat(maxAmount) : null,
+        status,
+        search,
+        sortBy: sortBy || 'timestamp',
+        sortOrder: sortOrder || 'desc'
       }
     );
 
@@ -149,9 +200,15 @@ async getHistory(req, res, next) {
     });
   } catch (error) {
     logger.error('Get history failed:', error);
-    next(error);
+    logger.error('Stack:', error.stack);
+    
+    res.status(RESPONSE_CODES.SERVER_ERROR).json({
+      success: false,
+      error: error.message || 'Failed to fetch transaction history'
+    });
   }
 }
+
 
 
 

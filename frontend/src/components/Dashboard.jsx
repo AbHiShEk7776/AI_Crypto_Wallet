@@ -323,7 +323,7 @@ export default function Dashboard() {
                     {tx.type === 'received' ? '+' : '-'}{tx.value} {tx.token || 'ETH'}
                   </p>
                   <p className="text-xs text-gray-500">
-                    {new Date(tx.timestamp * 1000).toLocaleDateString()}
+                    {new Date(tx.timestamp).toLocaleDateString()}
                   </p>
                 </div>
                 

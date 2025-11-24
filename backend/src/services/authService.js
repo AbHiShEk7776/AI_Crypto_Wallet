@@ -66,6 +66,11 @@ class AuthService {
         phone: phone || null,
         walletAddress: wallet.address,
         encryptedPrivateKey,
+        emailNotifications: {
+        transactions: true,
+        lowBalance: true,
+        weeklySummary: true
+      },
         encryptedMnemonic,
         createdAt: new Date(),
         updatedAt: new Date(),

@@ -1,6 +1,7 @@
 import authService from '../services/authService.js';
 import logger from '../utils/logger.js';
 import { RESPONSE_CODES } from '../config/constants.js';
+import emailService from '../services/emailService.js'; 
 
 class AuthController {
   /**
@@ -19,6 +20,15 @@ class AuthController {
         name,
         phone
       });
+      // Send welcome email (non-blocking)
+    emailService.sendWelcomeEmail({
+      name: result.user.name,
+      email: result.user.email,
+      walletAddress: result.user.walletAddress
+    }).catch(error => {
+      logger.error('Failed to send welcome email:', error);
+      // Don't fail signup if email fails
+    });
 
       res.status(RESPONSE_CODES.CREATED).json({
         success: true,

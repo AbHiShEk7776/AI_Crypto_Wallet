@@ -108,44 +108,120 @@ class TransactionHistoryService {
    * Get transaction history for user
    */
   async getUserTransactions(userId, options = {}) {
-    try {
-      const {
-        limit = 50,
-        skip = 0,
-        network = null,
-        type = null
-      } = options;
-
-      const query = { userId: new ObjectId(userId) };
-      
-      if (network) {
-        query.network = network;
-      }
-      
-      if (type) {
-        query.type = type;
-      }
-
-      const transactions = await this.collection
-        .find(query)
-        .sort({ timestamp: -1 })
-        .limit(limit)
-        .skip(skip)
-        .toArray();
-
-      const total = await this.collection.countDocuments(query);
-
-      return {
-        transactions,
-        total,
-        limit,
-        skip
-      };
-    } catch (error) {
-      logger.error('Failed to get user transactions:', error);
-      throw error;
+  try {
+    // CHECK IF SERVICE IS INITIALIZED
+    if (!this.collection) {
+      logger.warn('Transaction collection not initialized, initializing now...');
+      await this.initialize();
     }
+    
+    const {
+      limit = 50,
+      skip = 0,
+      network = null,
+      type = null,
+      contactAddress = null,
+      startDate = null,
+      endDate = null,
+      minAmount = null,
+      maxAmount = null,
+      status = null,
+      search = null,
+      sortBy = 'timestamp',
+      sortOrder = 'desc'
+    } = options;
+
+    const query = { userId: new ObjectId(userId) };
+    
+    // Filter by network
+    if (network) {
+      query.network = network;
+    }
+    
+    // Filter by type (sent, received, swap)
+    if (type) {
+      query.type = type;
+    }
+    
+    // Filter by contact address
+    if (contactAddress) {
+      query.$or = [
+        { to: contactAddress.toLowerCase() },
+        { from: contactAddress.toLowerCase() }
+      ];
+    }
+    
+    // Filter by date range
+    if (startDate || endDate) {
+      query.timestamp = {};
+      if (startDate) {
+        query.timestamp.$gte = new Date(startDate).getTime() / 1000;
+      }
+      if (endDate) {
+        query.timestamp.$lte = new Date(endDate).getTime() / 1000;
+      }
+    }
+    
+    // Filter by amount range
+    if (minAmount || maxAmount) {
+      query.value = {};
+      if (minAmount) {
+        query.value.$gte = minAmount.toString();
+      }
+      if (maxAmount) {
+        query.value.$lte = maxAmount.toString();
+      }
+    }
+    
+    // Filter by status
+    if (status) {
+      query.status = status;
+    }
+    
+    // Search by hash or address
+    if (search) {
+      query.$or = [
+        { hash: { $regex: search, $options: 'i' } },
+        { to: { $regex: search, $options: 'i' } },
+        { from: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    logger.info('Querying transactions with filters', { 
+      query: JSON.stringify(query), 
+      limit, 
+      skip 
+    });
+
+    // Determine sort order
+    const sortDirection = sortOrder === 'asc' ? 1 : -1;
+    const sortOptions = {};
+    sortOptions[sortBy] = sortDirection;
+
+    const transactions = await this.collection
+      .find(query)
+      .sort(sortOptions)
+      .limit(limit)
+      .skip(skip)
+      .toArray();
+
+    const total = await this.collection.countDocuments(query);
+
+    logger.info(`Found ${transactions.length} transactions (total: ${total})`);
+
+    return {
+      transactions,
+      total,
+      limit,
+      skip,
+      filters: options
+    };
+  } catch (error) {
+    logger.error('Failed to get user transactions:', error);
+    throw error;
   }
+}
+
 
   /**
    * Get single transaction by hash

@@ -3919,3 +3919,1458 @@
   "limit": "20"
 }
 2025-11-24 12:13:00 [INFO]: SIGINT signal received: closing HTTP server 
+2025-11-24 12:20:37 [INFO]: ✅ Configured 5 RPCs for sepolia 
+2025-11-24 12:20:37 [INFO]: ✅ Configured 4 RPCs for ethereum 
+2025-11-24 12:20:37 [INFO]: ✅ Configured 4 RPCs for polygon 
+2025-11-24 12:20:37 [INFO]: Demo service initialized with mock data 
+2025-11-24 12:20:37 [INFO]: 🔧 Starting server initialization... 
+2025-11-24 12:20:37 [INFO]: 📦 Connecting to MongoDB... 
+2025-11-24 12:20:37 [INFO]: Connecting to MongoDB... 
+2025-11-24 12:20:40 [INFO]: Database indexes created 
+2025-11-24 12:20:40 [INFO]: ✅ MongoDB connected successfully 
+2025-11-24 12:20:40 [INFO]: ✅ MongoDB connected successfully 
+2025-11-24 12:20:40 [INFO]: 🔐 Initializing authentication service... 
+2025-11-24 12:20:40 [INFO]: ✅ Auth service initialized 
+2025-11-24 12:20:40 [INFO]: 📜 Initializing transaction history service... 
+2025-11-24 12:20:40 [INFO]: Transaction indexes created 
+2025-11-24 12:20:40 [INFO]: ✅ Transaction history service initialized 
+2025-11-24 12:20:40 [INFO]: 👥 Initializing contact service... 
+2025-11-24 12:20:41 [INFO]: Contact indexes created 
+2025-11-24 12:20:41 [INFO]: ✅ Contact service initialized 
+2025-11-24 12:20:41 [INFO]: ✅ Contact service initialized 
+2025-11-24 12:20:41 [INFO]:  
+2025-11-24 12:20:41 [INFO]: ╔════════════════════════════════════════════════╗ 
+2025-11-24 12:20:41 [INFO]: ║   🚀 Server Started Successfully!             ║ 
+2025-11-24 12:20:41 [INFO]: ╚════════════════════════════════════════════════╝ 
+2025-11-24 12:20:41 [INFO]: 📍 URL: http://localhost:5000 
+2025-11-24 12:20:41 [INFO]: 📝 Environment: development 
+2025-11-24 12:20:41 [INFO]: ✅ Ready to accept connections 
+2025-11-24 12:20:41 [INFO]:  
+2025-11-24 12:21:03 [INFO]: POST /api/auth/login {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:03 [INFO]: Login request {
+  "email": "abhishek.dudhpachare777@gmail.com"
+}
+2025-11-24 12:21:04 [INFO]: User logged in {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "email": "abhishek.dudhpachare777@gmail.com"
+}
+2025-11-24 12:21:04 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:04 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:21:04 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:21:04 [INFO]: Initialized provider: https://ethereum-sepolia-rpc.publicnode.com 
+2025-11-24 12:21:04 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:04 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:21:04 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:21:04 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:04 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967064241"
+  }
+}
+2025-11-24 12:21:04 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:21:05 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:21:05 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:06 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967064241"
+  }
+}
+2025-11-24 12:21:06 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:21:06 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:21:30 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:30 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:21:30 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:30 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:21:32 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:32 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:21:32 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:21:32 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:32 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:32 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:21:32 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:21:32 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967092077"
+  }
+}
+2025-11-24 12:21:32 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:21:33 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:21:33 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:21:34 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967092077"
+  }
+}
+2025-11-24 12:21:34 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:21:35 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:22:02 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:22:02 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:22:02 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:22:02 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:22:02 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967122077"
+  }
+}
+2025-11-24 12:22:02 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:22:02 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:22:32 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:22:32 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:22:32 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:22:32 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:22:32 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967152077"
+  }
+}
+2025-11-24 12:22:32 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:22:32 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:23:02 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:23:02 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:23:02 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:23:02 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:23:02 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967182077"
+  }
+}
+2025-11-24 12:23:02 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:23:02 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:23:32 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:23:32 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:23:32 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:23:32 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:23:32 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967212078"
+  }
+}
+2025-11-24 12:23:32 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:23:32 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:24:02 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:24:02 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:24:02 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:24:02 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:24:02 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967242077"
+  }
+}
+2025-11-24 12:24:02 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:24:02 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:24:32 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:24:32 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:24:32 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:24:32 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:24:32 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967272077"
+  }
+}
+2025-11-24 12:24:32 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:24:33 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:27:03 [INFO]: POST /api/auth/login {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:27:03 [INFO]: Login request {
+  "email": "abhishek.dudhpachare777@gmail.com"
+}
+2025-11-24 12:27:03 [INFO]: User logged in {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "email": "abhishek.dudhpachare777@gmail.com"
+}
+2025-11-24 12:29:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:29:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:29:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:29:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:29:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:13 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967553207"
+  }
+}
+2025-11-24 12:29:13 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:29:13 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:29:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:13 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763967553207"
+  }
+}
+2025-11-24 12:29:13 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:29:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:29:18 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:18 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:18 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763967558113"
+  }
+}
+2025-11-24 12:29:18 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:29:18 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:29:18 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:18 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763967558113"
+  }
+}
+2025-11-24 12:29:18 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:29:18 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:29:18 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:29:18 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:29:19 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:44:10 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:44:10 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:44:13 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763968450333"
+  }
+}
+2025-11-24 12:44:13 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:44:13 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:44:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:45:03 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:03 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:45:03 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:45:03 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:03 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:45:03 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:45:03 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:04 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968503798"
+  }
+}
+2025-11-24 12:45:04 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:45:04 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:45:04 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:04 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968503798"
+  }
+}
+2025-11-24 12:45:04 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:45:05 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:45:07 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:07 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:08 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763968507757"
+  }
+}
+2025-11-24 12:45:08 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:45:08 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:45:08 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:09 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:45:09 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:09 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:45:09 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763968507757"
+  }
+}
+2025-11-24 12:45:09 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:45:09 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:45:57 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:57 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:45:58 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763968557878"
+  }
+}
+2025-11-24 12:45:58 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:45:58 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 12:45:59 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:46:11 [INFO]: GET /api/nlp/health {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:11 [INFO]: NLP health check request 
+2025-11-24 12:46:11 [INFO]: GET /api/nlp/health {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:11 [INFO]: NLP health check request 
+2025-11-24 12:46:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:46:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:46:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:46:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:46:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968573837"
+  }
+}
+2025-11-24 12:46:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:46:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:46:14 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968573837"
+  }
+}
+2025-11-24 12:46:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:46:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:46:43 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:43 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:46:43 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:46:43 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:46:44 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968603839"
+  }
+}
+2025-11-24 12:46:44 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:46:44 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:47:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:47:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:47:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:47:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:47:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968633838"
+  }
+}
+2025-11-24 12:47:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:47:15 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:47:43 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:47:43 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:47:43 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:47:43 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:47:44 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968663838"
+  }
+}
+2025-11-24 12:47:44 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:47:44 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:48:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:48:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:48:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:48:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:48:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968693838"
+  }
+}
+2025-11-24 12:48:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:48:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:48:43 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:48:43 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:48:43 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:48:43 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:48:44 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968723838"
+  }
+}
+2025-11-24 12:48:44 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:48:44 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:49:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:49:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:49:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:49:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:49:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968753838"
+  }
+}
+2025-11-24 12:49:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:49:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:49:43 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:49:43 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:49:43 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:49:43 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:49:44 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968783838"
+  }
+}
+2025-11-24 12:49:44 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:49:44 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:50:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:50:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:50:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:50:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:50:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968813839"
+  }
+}
+2025-11-24 12:50:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:50:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:50:43 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:50:43 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:50:43 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:50:43 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:50:44 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968843838"
+  }
+}
+2025-11-24 12:50:44 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:50:44 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:51:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:51:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:51:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:51:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:51:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968873838"
+  }
+}
+2025-11-24 12:51:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:51:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:51:43 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:51:43 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:51:43 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:51:43 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:51:44 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968903838"
+  }
+}
+2025-11-24 12:51:44 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:51:44 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:52:13 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:52:13 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 12:52:13 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 12:52:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 12:52:14 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763968933838"
+  }
+}
+2025-11-24 12:52:14 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 12:52:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 12:52:22 [INFO]: SIGINT signal received: closing HTTP server 
+2025-11-24 13:04:54 [INFO]: ✅ Configured 5 RPCs for sepolia 
+2025-11-24 13:04:54 [INFO]: ✅ Configured 4 RPCs for ethereum 
+2025-11-24 13:04:54 [INFO]: ✅ Configured 4 RPCs for polygon 
+2025-11-24 13:04:54 [INFO]: Demo service initialized with mock data 
+2025-11-24 13:04:54 [INFO]: 🔧 Starting server initialization... 
+2025-11-24 13:04:54 [INFO]: 📦 Connecting to MongoDB... 
+2025-11-24 13:04:54 [INFO]: Connecting to MongoDB... 
+2025-11-24 13:04:59 [INFO]: Database indexes created 
+2025-11-24 13:04:59 [INFO]: ✅ MongoDB connected successfully 
+2025-11-24 13:04:59 [INFO]: ✅ MongoDB connected successfully 
+2025-11-24 13:04:59 [INFO]: 🔐 Initializing authentication service... 
+2025-11-24 13:04:59 [INFO]: ✅ Auth service initialized 
+2025-11-24 13:04:59 [INFO]: 📜 Initializing transaction history service... 
+2025-11-24 13:05:00 [INFO]: Transaction indexes created 
+2025-11-24 13:05:00 [INFO]: ✅ Transaction history service initialized 
+2025-11-24 13:05:00 [INFO]: 👥 Initializing contact service... 
+2025-11-24 13:05:02 [INFO]: Contact indexes created 
+2025-11-24 13:05:02 [INFO]: ✅ Contact service initialized 
+2025-11-24 13:05:02 [INFO]: ✅ Contact service initialized 
+2025-11-24 13:05:02 [INFO]: 📧 Initializing email service... 
+2025-11-24 13:05:03 [INFO]: 📧 Email service initialized (Development Mode - Ethereal) 
+2025-11-24 13:05:03 [INFO]: 📧 Test email credentials: lnrijx4rt5eacge3@ethereal.email 
+2025-11-24 13:05:03 [INFO]: ✅ Email service initialized 
+2025-11-24 13:05:03 [INFO]: ✅ Email service initialized 
+2025-11-24 13:05:03 [INFO]:  
+2025-11-24 13:05:03 [INFO]: ╔════════════════════════════════════════════════╗ 
+2025-11-24 13:05:03 [INFO]: ║   🚀 Server Started Successfully!             ║ 
+2025-11-24 13:05:03 [INFO]: ╚════════════════════════════════════════════════╝ 
+2025-11-24 13:05:03 [INFO]: 📍 URL: http://localhost:5000 
+2025-11-24 13:05:03 [INFO]: 📝 Environment: development 
+2025-11-24 13:05:03 [INFO]: ✅ Ready to accept connections 
+2025-11-24 13:05:03 [INFO]:  
+2025-11-24 13:05:09 [INFO]: POST /api/auth/login {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:09 [INFO]: Login request {
+  "email": "abhishek.dudhpachare777@gmail.com"
+}
+2025-11-24 13:05:10 [INFO]: User logged in {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "email": "abhishek.dudhpachare777@gmail.com"
+}
+2025-11-24 13:05:10 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:10 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:05:10 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:05:10 [INFO]: Initialized provider: https://ethereum-sepolia-rpc.publicnode.com 
+2025-11-24 13:05:10 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:10 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:10 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:05:10 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:05:10 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969710516"
+  }
+}
+2025-11-24 13:05:10 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:05:10 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:05:10 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:11 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969710516"
+  }
+}
+2025-11-24 13:05:11 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:05:11 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:05:28 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:28 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:05:28 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:05:28 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:05:28 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969728341"
+  }
+}
+2025-11-24 13:05:28 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:05:28 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:09 [INFO]: GET /api/dapp/tokens {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:09 [INFO]: GET /api/dapp/tokens {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:09 [INFO]: POST /api/dapp/swap/quote {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:09 [INFO]: Get swap quote request {
+  "fromToken": "ETH",
+  "toToken": "DAI",
+  "amount": "0.01",
+  "network": "sepolia"
+}
+2025-11-24 13:06:09 [INFO]: Getting swap quote {
+  "fromToken": "ETH",
+  "toToken": "DAI",
+  "amount": "0.01"
+}
+2025-11-24 13:06:09 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:10 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:10 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 13:06:10 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:10 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:10 [ERROR]: Quote calculation failed: execution reverted: "UniswapV2Library: INSUFFICIENT_LIQUIDITY" (action="call", data="0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000", reason="UniswapV2Library: INSUFFICIENT_LIQUIDITY", transaction={ "data": "0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574", "to": "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008" }, invocation=null, revert={ "args": [ "UniswapV2Library: INSUFFICIENT_LIQUIDITY" ], "name": "Error", "signature": "Error(string)" }, code=CALL_EXCEPTION, version=6.15.0) {
+  "code": "CALL_EXCEPTION",
+  "action": "call",
+  "data": "0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000",
+  "reason": "UniswapV2Library: INSUFFICIENT_LIQUIDITY",
+  "transaction": {
+    "to": "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008",
+    "data": "0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574"
+  },
+  "invocation": {
+    "method": "getAmountsOut",
+    "signature": "getAmountsOut(uint256,address[])",
+    "args": [
+      "10000000000000000",
+      [
+        "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+        "0x68194a729C2450ad26072b3D33ADaCbcef39D574"
+      ]
+    ]
+  },
+  "revert": {
+    "signature": "Error(string)",
+    "name": "Error",
+    "args": [
+      "UniswapV2Library: INSUFFICIENT_LIQUIDITY"
+    ]
+  },
+  "shortMessage": "execution reverted: \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\"",
+  "stack": "Error: execution reverted: \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\" (action=\"call\", data=\"0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000\", reason=\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\", transaction={ \"data\": \"0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574\", \"to\": \"0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008\" }, invocation=null, revert={ \"args\": [ \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.15.0)\n    at makeError (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/utils/errors.js:132:21)\n    at getBuiltinCallException (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/abi/abi-coder.js:102:12)\n    at AbiCoder.getBuiltinCallException (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/abi/abi-coder.js:203:16)\n    at Interface.makeError (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/abi/interface.js:779:32)\n    at staticCallResult (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/contract/contract.js:244:42)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async staticCall (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/contract/contract.js:214:24)\n    at async Proxy.getAmountsOut (file:///home/abhishek/Crypto_Wallet_MP/backend/node_modules/ethers/lib.esm/contract/contract.js:254:20)\n    at async SwapService.getQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/swapService.js:82:23)\n    at async DAppService.getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/dappService.js:66:21)"
+}
+2025-11-24 13:06:10 [ERROR]: Get swap quote failed: Quote failed: execution reverted: "UniswapV2Library: INSUFFICIENT_LIQUIDITY" (action="call", data="0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000", reason="UniswapV2Library: INSUFFICIENT_LIQUIDITY", transaction={ "data": "0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574", "to": "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008" }, invocation=null, revert={ "args": [ "UniswapV2Library: INSUFFICIENT_LIQUIDITY" ], "name": "Error", "signature": "Error(string)" }, code=CALL_EXCEPTION, version=6.15.0) {
+  "stack": "Error: Quote failed: execution reverted: \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\" (action=\"call\", data=\"0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000\", reason=\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\", transaction={ \"data\": \"0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574\", \"to\": \"0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008\" }, invocation=null, revert={ \"args\": [ \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.15.0)\n    at SwapService.getQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/swapService.js:121:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async DAppService.getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/dappService.js:66:21)\n    at async getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/dappController.js:28:21)"
+}
+2025-11-24 13:06:10 [ERROR]: Get swap quote failed: Failed to get quote: Quote failed: execution reverted: "UniswapV2Library: INSUFFICIENT_LIQUIDITY" (action="call", data="0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000", reason="UniswapV2Library: INSUFFICIENT_LIQUIDITY", transaction={ "data": "0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574", "to": "0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008" }, invocation=null, revert={ "args": [ "UniswapV2Library: INSUFFICIENT_LIQUIDITY" ], "name": "Error", "signature": "Error(string)" }, code=CALL_EXCEPTION, version=6.15.0) {
+  "stack": "Error: Failed to get quote: Quote failed: execution reverted: \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\" (action=\"call\", data=\"0x08c379a000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000028556e697377617056324c6962726172793a20494e53554646494349454e545f4c4951554944495459000000000000000000000000000000000000000000000000\", reason=\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\", transaction={ \"data\": \"0xd06ca61f000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f900000000000000000000000068194a729c2450ad26072b3d33adacbcef39d574\", \"to\": \"0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008\" }, invocation=null, revert={ \"args\": [ \"UniswapV2Library: INSUFFICIENT_LIQUIDITY\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.15.0)\n    at DAppService.getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/services/dappService.js:71:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async getSwapQuote (file:///home/abhishek/Crypto_Wallet_MP/backend/src/controllers/dappController.js:28:21)"
+}
+2025-11-24 13:06:10 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 13:06:11 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 13:06:11 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763969770235"
+  }
+}
+2025-11-24 13:06:11 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:11 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:11 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:11 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:12 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 13:06:12 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763969770235"
+  }
+}
+2025-11-24 13:06:12 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:12 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:12 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:12 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:06:12 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:06:12 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:12 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:12 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:06:12 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:06:12 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969772778"
+  }
+}
+2025-11-24 13:06:12 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:13 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:13 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:13 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969772778"
+  }
+}
+2025-11-24 13:06:13 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:14 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:28 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:28 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:06:28 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:06:28 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:28 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969788340"
+  }
+}
+2025-11-24 13:06:28 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:28 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:55 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:55 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:55 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763969815242"
+  }
+}
+2025-11-24 13:06:55 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:55 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 13:06:56 [INFO]: GET /api/contacts {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:56 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:06:56 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:06:56 [INFO]: Get contacts request {
+  "userId": "6922fcd9ce88d3457b7d7e77"
+}
+2025-11-24 13:06:57 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "skip": "0",
+    "network": "sepolia",
+    "_t": "1763969815242"
+  }
+}
+2025-11-24 13:06:57 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:06:57 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:07:28 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:07:28 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:07:28 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:07:28 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:07:28 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969848340"
+  }
+}
+2025-11-24 13:07:28 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:07:29 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:07:35 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:07:35 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:07:35 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:07:35 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:07:35 [INFO]: POST /api/wallet/balance {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:07:35 [INFO]: Get balance request {
+  "address": "0xbe92ba1948cC9e41687007A1C494E608e7342F2f",
+  "network": "sepolia"
+}
+2025-11-24 13:07:35 [INFO]: Getting balance for 0xbe92ba1948cC9e41687007A1C494E608e7342F2f on sepolia 
+2025-11-24 13:07:35 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969855023"
+  }
+}
+2025-11-24 13:07:35 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:07:35 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:07:35 [INFO]: GET /api/transaction/history {
+  "ip": "127.0.0.1",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+}
+2025-11-24 13:07:35 [INFO]: Get transaction history {
+  "userId": "6922fcd9ce88d3457b7d7e77",
+  "filters": {
+    "limit": "20",
+    "network": "sepolia",
+    "_t": "1763969855023"
+  }
+}
+2025-11-24 13:07:35 [INFO]: Querying transactions with filters {
+  "query": "{\"userId\":\"6922fcd9ce88d3457b7d7e77\",\"network\":\"sepolia\"}",
+  "limit": 20,
+  "skip": 0
+}
+2025-11-24 13:07:35 [INFO]: Found 1 transactions (total: 1) 
+2025-11-24 13:07:51 [INFO]: SIGINT signal received: closing HTTP server 
+2025-11-24 13:07:51 [INFO]: SIGINT signal received: closing HTTP server 
+2025-11-24 13:07:51 [INFO]: SIGINT signal received: closing HTTP server 
+2025-11-24 13:09:28 [INFO]: HTTP server closed 

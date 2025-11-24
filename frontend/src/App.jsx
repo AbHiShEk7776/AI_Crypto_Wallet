@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Link,useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import toast from 'react-hot-toast';
 import useWalletStore from '@store/walletStore';
-import { LogOut, Users, Send, ArrowLeftRight, MessageSquare, LayoutDashboard } from 'lucide-react';
+import { LogOut, Users, Send, ArrowLeftRight, MessageSquare, LayoutDashboard ,Clock,Settings2} from 'lucide-react';
 
 // Import components
 import LandingPage from '@components/LandingPage';
@@ -14,6 +14,8 @@ import ChatInterface from '@components/ChatInterface';
 import SendTransaction from '@components/SendTransaction';
 import SwapTokens from '@components/SwapTokens';
 import ContactsPage from './components/Contacts/ContactsPage';
+import TransactionHistory from './components/TransactionHistory';
+import Settings from './components/Settings';
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -50,7 +52,7 @@ function NavBar() {
           <Link to="/dashboard" className="text-xl font-bold gradient-text">
             NLP Crypto Wallet
           </Link>
-          
+
           <div className="flex items-center gap-3">
             {/* User Info */}
             {user && (
@@ -105,11 +107,10 @@ function NavBar() {
         <nav className="flex items-center gap-1">
           <Link
             to="/dashboard"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
-              isActive('/dashboard')
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${isActive('/dashboard')
                 ? 'bg-indigo-100 text-indigo-700'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             <LayoutDashboard className="w-4 h-4" />
             Dashboard
@@ -117,11 +118,10 @@ function NavBar() {
 
           <Link
             to="/send"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
-              isActive('/send')
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${isActive('/send')
                 ? 'bg-indigo-100 text-indigo-700'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             <Send className="w-4 h-4" />
             Send
@@ -129,11 +129,10 @@ function NavBar() {
 
           <Link
             to="/swap"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
-              isActive('/swap')
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${isActive('/swap')
                 ? 'bg-indigo-100 text-indigo-700'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             <ArrowLeftRight className="w-4 h-4" />
             Swap
@@ -141,23 +140,44 @@ function NavBar() {
 
           <Link
             to="/contacts"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
-              isActive('/contacts')
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${isActive('/contacts')
                 ? 'bg-indigo-100 text-indigo-700'
                 : 'text-gray-700 hover:bg-gray-100'
-            }`}
+              }`}
           >
             <Users className="w-4 h-4" />
             Contacts
           </Link>
-
-          <Link
-            to="/chat"
+        <Link
+            to="/history"
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
-              isActive('/chat')
+              isActive('/history')
                 ? 'bg-indigo-100 text-indigo-700'
                 : 'text-gray-700 hover:bg-gray-100'
             }`}
+          >
+            <Clock className="w-4 h-4" />
+            History
+          </Link>
+          <Link
+    to="/settings"
+    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
+      isActive('/settings')
+        ? 'bg-indigo-100 text-indigo-700'
+        : 'text-gray-700 hover:bg-gray-100'
+    }`}
+  >
+    <Settings2 className="w-4 h-4" />
+    Settings
+  </Link>
+
+
+          <Link
+            to="/chat"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${isActive('/chat')
+                ? 'bg-indigo-100 text-indigo-700'
+                : 'text-gray-700 hover:bg-gray-100'
+              }`}
           >
             <MessageSquare className="w-4 h-4" />
             AI Chat
@@ -182,7 +202,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
-            
+
             {/* Protected Routes */}
             <Route path="/dashboard" element={
               <ProtectedRoute>
@@ -209,7 +229,17 @@ export default function App() {
                 <ContactsPage />
               </ProtectedRoute>
             } />
-            
+            <Route path="/history" element={
+              <ProtectedRoute>
+                <TransactionHistory />
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            } />
+
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
