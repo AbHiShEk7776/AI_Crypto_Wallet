@@ -12,7 +12,10 @@ import {
   Send,
   ExternalLink,
   ArrowUpRight,
-  ArrowDownLeft
+  ArrowDownLeft,
+  X,
+  Sparkles,
+  TrendingUp
 } from 'lucide-react';
 import useWalletStore from '@store/walletStore';
 
@@ -94,80 +97,89 @@ export default function ContactsPage() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Users className="w-8 h-8" />
-            My Contacts
-          </h1>
-          <p className="text-gray-600 mt-1">
-            Save wallet addresses with custom names for easy sending
-          </p>
+    <div className="min-h-screen pb-20">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+        
+        {/* Header */}
+        <div className="flex items-center justify-between animate-fade-in">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-2 text-shadow flex items-center gap-3">
+              <Users className="w-10 h-10" />
+              My Contacts
+            </h1>
+            <p className="text-white/70">
+              Save wallet addresses with custom names for easy sending
+            </p>
+          </div>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="px-6 py-3 gradient-pink text-white rounded-xl font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+          >
+            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
+            Add Contact
+          </button>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium flex items-center gap-2 transition"
-        >
-          <Plus className="w-4 h-4" />
-          Add Contact
-        </button>
-      </div>
 
-      {/* Search */}
-      <div className="bg-white rounded-xl shadow p-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by name or address..."
-            className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+        {/* Search */}
+        <div className="glass-dark rounded-2xl p-4 shadow-dark animate-fade-in">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by name or address..."
+              className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition"
+            />
+          </div>
+        </div>
+
+        {/* Contacts Grid */}
+        <div className="animate-fade-in">
+          {loading ? (
+            <div className="glass-dark rounded-2xl p-12 text-center">
+              <div className="w-12 h-12 border-4 border-white/20 border-t-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-white/70">Loading contacts...</p>
+            </div>
+          ) : filteredContacts.length === 0 ? (
+            <div className="glass-dark rounded-2xl p-12 text-center">
+              <Users className="w-16 h-16 text-white/30 mx-auto mb-4" />
+              <p className="text-white/70">
+                {searchQuery ? 'No contacts found' : 'No contacts yet. Add your first contact!'}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {filteredContacts.map((contact) => (
+                <ContactCard
+                  key={contact._id}
+                  contact={contact}
+                  onDelete={handleDeleteContact}
+                  onToggleFavorite={handleToggleFavorite}
+                  onViewDetails={setSelectedContact}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Add Contact Modal */}
+        {showAddModal && (
+          <AddContactModal
+            onClose={() => setShowAddModal(false)}
+            onAdd={handleAddContact}
           />
-        </div>
-      </div>
+        )}
 
-      {/* Contacts List */}
-      <div className="bg-white rounded-xl shadow">
-        {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading contacts...</div>
-        ) : filteredContacts.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
-            {searchQuery ? 'No contacts found' : 'No contacts yet. Add your first contact!'}
-          </div>
-        ) : (
-          <div className="divide-y">
-            {filteredContacts.map((contact) => (
-              <ContactCard
-                key={contact._id}
-                contact={contact}
-                onDelete={handleDeleteContact}
-                onToggleFavorite={handleToggleFavorite}
-                onViewDetails={setSelectedContact}
-              />
-            ))}
-          </div>
+        {/* Contact Details Modal */}
+        {selectedContact && (
+          <ContactDetailsModal
+            contact={selectedContact}
+            onClose={() => setSelectedContact(null)}
+            onUpdate={fetchContacts}
+          />
         )}
       </div>
-
-      {/* Add Contact Modal */}
-      {showAddModal && (
-        <AddContactModal
-          onClose={() => setShowAddModal(false)}
-          onAdd={handleAddContact}
-        />
-      )}
-
-      {/* Contact Details Modal */}
-      {selectedContact && (
-        <ContactDetailsModal
-          contact={selectedContact}
-          onClose={() => setSelectedContact(null)}
-          onUpdate={fetchContacts}
-        />
-      )}
     </div>
   );
 }
@@ -175,77 +187,83 @@ export default function ContactsPage() {
 // Contact Card Component
 function ContactCard({ contact, onDelete, onToggleFavorite, onViewDetails }) {
   return (
-    <div className="p-4 hover:bg-gray-50 transition">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4 flex-1">
-          {/* Avatar */}
-          <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-            {contact.alias[0].toUpperCase()}
+    <div className="glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover group border border-white/10">
+      <div className="flex items-start justify-between mb-4">
+        {/* Avatar & Info */}
+        <div className="flex items-center gap-4 flex-1 min-w-0">
+          <div className="relative flex-shrink-0">
+            <div className="w-14 h-14 gradient-pink rounded-xl flex items-center justify-center text-white font-bold text-xl">
+              {contact.alias[0].toUpperCase()}
+            </div>
+            {contact.favorite && (
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center">
+                <Star className="w-3 h-3 fill-yellow-400 text-yellow-900" />
+              </div>
+            )}
           </div>
           
-          {/* Info */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-lg">{contact.alias}</h3>
-              {contact.favorite && (
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              )}
-            </div>
-            <p className="text-sm text-gray-600 font-mono truncate">
-              {contact.walletAddress}
+            <h3 className="font-bold text-lg text-white mb-1 truncate">{contact.alias}</h3>
+            <p className="text-sm text-white/60 font-mono truncate">
+              {contact.walletAddress.slice(0, 10)}...{contact.walletAddress.slice(-8)}
             </p>
             {contact.transactionCount > 0 && (
-              <p className="text-xs text-gray-500 mt-1">
-                {contact.transactionCount} transaction{contact.transactionCount !== 1 ? 's' : ''}
-              </p>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-1 px-2 py-1 bg-white/5 rounded-lg">
+                  <TrendingUp className="w-3 h-3 text-green-400" />
+                  <span className="text-xs text-white/70">
+                    {contact.transactionCount} tx{contact.transactionCount !== 1 ? 's' : ''}
+                  </span>
+                </div>
+              </div>
             )}
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => onToggleFavorite(contact)}
-            className="p-2 hover:bg-gray-200 rounded-lg transition"
-            title={contact.favorite ? 'Remove from favorites' : 'Add to favorites'}
-          >
-            <Star className={`w-4 h-4 ${contact.favorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'}`} />
-          </button>
-          
-          <button
-            onClick={() => onViewDetails(contact)}
-            className="px-3 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-lg text-sm font-medium flex items-center gap-1 transition"
-          >
-            <Send className="w-4 h-4" />
-            Send
-          </button>
-          
-          <button
-            onClick={() => onDelete(contact._id, contact.alias)}
-            className="p-2 hover:bg-red-100 text-red-600 rounded-lg transition"
-            title="Delete contact"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
+        {/* Favorite Button */}
+        <button
+          onClick={() => onToggleFavorite(contact)}
+          className="p-2 hover:bg-white/10 rounded-lg transition"
+        >
+          <Star className={`w-5 h-5 ${contact.favorite ? 'fill-yellow-400 text-yellow-400' : 'text-white/40'}`} />
+        </button>
       </div>
 
       {/* Tags */}
       {contact.tags && contact.tags.length > 0 && (
-        <div className="flex gap-2 mt-2 ml-16">
+        <div className="flex flex-wrap gap-2 mb-4">
           {contact.tags.map((tag, i) => (
             <span
               key={i}
-              className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+              className="px-2 py-1 bg-white/10 text-white/70 text-xs rounded-lg"
             >
               {tag}
             </span>
           ))}
         </div>
       )}
+
+      {/* Actions */}
+      <div className="flex gap-2">
+        <button
+          onClick={() => onViewDetails(contact)}
+          className="flex-1 py-3 gradient-pink text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300"
+        >
+          <Send className="w-4 h-4" />
+          Send
+        </button>
+        <button
+          onClick={() => onDelete(contact._id, contact.alias)}
+          className="px-4 py-3 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition"
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 }
+
+// Add Contact Modal
 function AddContactModal({ onClose, onAdd }) {
   const [formData, setFormData] = useState({
     alias: '',
@@ -279,19 +297,30 @@ function AddContactModal({ onClose, onAdd }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b">
-          <h2 className="text-2xl font-bold">Add New Contact</h2>
-          <p className="text-gray-600 text-sm mt-1">
-            Save a wallet address with a custom name
-          </p>
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="glass-dark border border-white/20 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-dark-lg">
+        {/* Header */}
+        <div className="p-6 border-b border-white/10">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-white">Add New Contact</h2>
+              <p className="text-white/60 text-sm mt-1">
+                Save a wallet address with a custom name
+              </p>
+            </div>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-white/10 rounded-lg transition text-white/70 hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-6 space-y-5">
           {/* Alias */}
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-semibold text-white/90 mb-2">
               Name / Alias *
             </label>
             <input
@@ -299,7 +328,7 @@ function AddContactModal({ onClose, onAdd }) {
               value={formData.alias}
               onChange={(e) => setFormData({ ...formData, alias: e.target.value })}
               placeholder="e.g., Alice, Bob's Wallet"
-              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition"
               required
               maxLength={50}
             />
@@ -307,7 +336,7 @@ function AddContactModal({ onClose, onAdd }) {
 
           {/* Wallet Address */}
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-semibold text-white/90 mb-2">
               Wallet Address *
             </label>
             <input
@@ -315,21 +344,21 @@ function AddContactModal({ onClose, onAdd }) {
               value={formData.walletAddress}
               onChange={(e) => setFormData({ ...formData, walletAddress: e.target.value })}
               placeholder="0x..."
-              className="w-full px-4 py-3 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl font-mono text-sm text-white placeholder-white/40 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition"
               required
             />
           </div>
 
           {/* Notes */}
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-semibold text-white/90 mb-2">
               Notes (Optional)
             </label>
             <textarea
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="Add notes about this contact..."
-              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition resize-none"
               rows={3}
               maxLength={500}
             />
@@ -337,7 +366,7 @@ function AddContactModal({ onClose, onAdd }) {
 
           {/* Tags */}
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-semibold text-white/90 mb-2">
               Tags (Optional)
             </label>
             <div className="flex gap-2 mb-2">
@@ -347,12 +376,12 @@ function AddContactModal({ onClose, onAdd }) {
                 onChange={(e) => setTagInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                 placeholder="Add tag..."
-                className="flex-1 px-4 py-2 border rounded-lg text-sm"
+                className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-white/40 focus:border-pink-500 transition"
               />
               <button
                 type="button"
                 onClick={addTag}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium"
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-semibold text-white transition"
               >
                 Add
               </button>
@@ -362,15 +391,15 @@ function AddContactModal({ onClose, onAdd }) {
                 {formData.tags.map((tag, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm flex items-center gap-2"
+                    className="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-lg text-sm flex items-center gap-2 border border-pink-500/30"
                   >
                     {tag}
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="hover:text-indigo-900"
+                      className="hover:text-pink-200 transition"
                     >
-                      ×
+                      <X className="w-3 h-3" />
                     </button>
                   </span>
                 ))}
@@ -379,14 +408,15 @@ function AddContactModal({ onClose, onAdd }) {
           </div>
 
           {/* Favorite */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/10">
             <input
               type="checkbox"
               checked={formData.favorite}
               onChange={(e) => setFormData({ ...formData, favorite: e.target.checked })}
-              className="w-4 h-4 text-indigo-600 rounded"
+              className="w-5 h-5 rounded border-white/20 bg-white/5 text-yellow-500 focus:ring-2 focus:ring-yellow-500/20"
             />
-            <label className="text-sm font-medium">
+            <label className="text-sm font-semibold text-white/90 flex items-center gap-2">
+              <Star className="w-4 h-4 text-yellow-400" />
               Add to favorites
             </label>
           </div>
@@ -396,14 +426,15 @@ function AddContactModal({ onClose, onAdd }) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 border rounded-lg font-medium hover:bg-gray-50"
+              className="flex-1 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium"
+              className="flex-1 py-3 gradient-pink text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
             >
+              <Sparkles className="w-4 h-4" />
               Add Contact
             </button>
           </div>
@@ -440,7 +471,6 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
   };
 
   const handleSendTo = () => {
-    // Navigate to send page with pre-filled address
     navigate('/send', { 
       state: { 
         recipientAddress: contact.walletAddress,
@@ -450,59 +480,59 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="glass-dark border border-white/20 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-dark-lg">
         {/* Header */}
-        <div className="p-6 border-b">
-          <div className="flex items-start justify-between">
+        <div className="p-6 border-b border-white/10">
+          <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+              <div className="w-16 h-16 gradient-pink rounded-2xl flex items-center justify-center text-white font-bold text-2xl">
                 {contact.alias[0].toUpperCase()}
               </div>
               <div>
-                <h2 className="text-2xl font-bold flex items-center gap-2">
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                   {contact.alias}
                   {contact.favorite && (
                     <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   )}
                 </h2>
-                <p className="text-sm text-gray-600 font-mono mt-1">
+                <p className="text-sm text-white/60 font-mono mt-1">
                   {contact.walletAddress}
                 </p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-white/10 rounded-lg transition text-white/70 hover:text-white"
             >
-              ×
+              <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-4">
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <p className="text-2xl font-bold">{contact.transactionCount || 0}</p>
-              <p className="text-xs text-gray-600">Transactions</p>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+              <p className="text-2xl font-bold text-white">{contact.transactionCount || 0}</p>
+              <p className="text-xs text-white/60 mt-1">Transactions</p>
             </div>
-            <div className="text-center p-3 bg-green-50 rounded-lg">
-              <p className="text-2xl font-bold text-green-700">
+            <div className="text-center p-4 bg-green-500/10 rounded-xl border border-green-500/30">
+              <p className="text-2xl font-bold text-green-400">
                 {parseFloat(contact.totalReceived || 0).toFixed(4)}
               </p>
-              <p className="text-xs text-gray-600">Received (ETH)</p>
+              <p className="text-xs text-green-300/80 mt-1">Received (ETH)</p>
             </div>
-            <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <p className="text-2xl font-bold text-blue-700">
+            <div className="text-center p-4 bg-blue-500/10 rounded-xl border border-blue-500/30">
+              <p className="text-2xl font-bold text-blue-400">
                 {parseFloat(contact.totalSent || 0).toFixed(4)}
               </p>
-              <p className="text-xs text-gray-600">Sent (ETH)</p>
+              <p className="text-xs text-blue-300/80 mt-1">Sent (ETH)</p>
             </div>
           </div>
 
           {/* Send Button */}
           <button
             onClick={handleSendTo}
-            className="w-full mt-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium flex items-center justify-center gap-2"
+            className="w-full mt-4 py-3 gradient-pink text-white rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <Send className="w-4 h-4" />
             Send to {contact.alias}
@@ -510,24 +540,24 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
         </div>
 
         {/* Tabs */}
-        <div className="border-b">
+        <div className="border-b border-white/10">
           <div className="flex">
             <button
               onClick={() => setActiveTab('transactions')}
-              className={`flex-1 py-3 font-medium ${
+              className={`flex-1 py-3 font-semibold transition ${
                 activeTab === 'transactions'
-                  ? 'border-b-2 border-indigo-600 text-indigo-600'
-                  : 'text-gray-600'
+                  ? 'border-b-2 border-pink-500 text-pink-400'
+                  : 'text-white/60 hover:text-white/80'
               }`}
             >
               Transactions
             </button>
             <button
               onClick={() => setActiveTab('details')}
-              className={`flex-1 py-3 font-medium ${
+              className={`flex-1 py-3 font-semibold transition ${
                 activeTab === 'details'
-                  ? 'border-b-2 border-indigo-600 text-indigo-600'
-                  : 'text-gray-600'
+                  ? 'border-b-2 border-pink-500 text-pink-400'
+                  : 'text-white/60 hover:text-white/80'
               }`}
             >
               Details
@@ -539,44 +569,48 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
         <div className="p-6">
           {activeTab === 'transactions' ? (
             <div>
-              <h3 className="font-semibold mb-3">Transaction History</h3>
+              <h3 className="font-semibold text-white mb-4">Transaction History</h3>
               {loading ? (
-                <p className="text-center py-8 text-gray-500">Loading...</p>
+                <div className="text-center py-12">
+                  <div className="w-10 h-10 border-4 border-white/20 border-t-pink-500 rounded-full animate-spin mx-auto mb-3"></div>
+                  <p className="text-white/60 text-sm">Loading...</p>
+                </div>
               ) : transactions.length === 0 ? (
-                <p className="text-center py-8 text-gray-500">
-                  No transactions yet with this contact
-                </p>
+                <div className="text-center py-12">
+                  <TrendingUp className="w-12 h-12 text-white/30 mx-auto mb-3" />
+                  <p className="text-white/60">No transactions yet with this contact</p>
+                </div>
               ) : (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {transactions.map((tx) => (
                     <div
                       key={tx.hash}
-                      className="p-4 bg-gray-50 rounded-lg flex items-center justify-between"
+                      className="p-4 bg-white/5 rounded-xl border border-white/10 flex items-center justify-between hover:bg-white/10 transition"
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          tx.type === 'received' ? 'bg-green-100' : 'bg-blue-100'
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                          tx.type === 'received' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'
                         }`}>
                           {tx.type === 'received' ? (
-                            <ArrowDownLeft className="w-4 h-4 text-green-600" />
+                            <ArrowDownLeft className="w-5 h-5" />
                           ) : (
-                            <ArrowUpRight className="w-4 h-4 text-blue-600" />
+                            <ArrowUpRight className="w-5 h-5" />
                           )}
                         </div>
                         <div>
-                          <p className="font-medium">
+                          <p className="font-medium text-white">
                             {tx.type === 'received' ? 'Received from' : 'Sent to'} {contact.alias}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-white/50">
                             {new Date(tx.timestamp * 1000).toLocaleDateString()}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">
+                        <p className="font-semibold text-white">
                           {tx.type === 'received' ? '+' : '-'}{tx.value} ETH
                         </p>
-                        <p className="text-xs text-gray-500">{tx.status}</p>
+                        <p className="text-xs text-white/50">{tx.status}</p>
                       </div>
                     </div>
                   ))}
@@ -584,13 +618,13 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
               )}
             </div>
           ) : (
-            <div className="space-y-4">
-              <h3 className="font-semibold">Contact Details</h3>
+            <div className="space-y-5">
+              <h3 className="font-semibold text-white">Contact Details</h3>
               
               {contact.notes && (
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-1">Notes</p>
-                  <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-white/90 mb-2">Notes</p>
+                  <p className="text-sm text-white/70 bg-white/5 p-4 rounded-xl border border-white/10">
                     {contact.notes}
                   </p>
                 </div>
@@ -598,12 +632,12 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
 
               {contact.tags && contact.tags.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">Tags</p>
+                  <p className="text-sm font-semibold text-white/90 mb-2">Tags</p>
                   <div className="flex flex-wrap gap-2">
                     {contact.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm"
+                        className="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-lg text-sm border border-pink-500/30"
                       >
                         {tag}
                       </span>
@@ -612,21 +646,23 @@ function ContactDetailsModal({ contact, onClose, onUpdate }) {
                 </div>
               )}
 
-              <div>
-                <p className="text-sm font-medium text-gray-700 mb-1">Added</p>
-                <p className="text-sm text-gray-600">
-                  {new Date(contact.createdAt).toLocaleString()}
-                </p>
-              </div>
-
-              {contact.lastTransactionDate && (
-                <div>
-                  <p className="text-sm font-medium text-gray-700 mb-1">Last Transaction</p>
-                  <p className="text-sm text-gray-600">
-                    {new Date(contact.lastTransactionDate).toLocaleString()}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                  <p className="text-sm font-semibold text-white/90 mb-1">Added</p>
+                  <p className="text-sm text-white/70">
+                    {new Date(contact.createdAt).toLocaleDateString()}
                   </p>
                 </div>
-              )}
+
+                {contact.lastTransactionDate && (
+                  <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                    <p className="text-sm font-semibold text-white/90 mb-1">Last Transaction</p>
+                    <p className="text-sm text-white/70">
+                      {new Date(contact.lastTransactionDate).toLocaleDateString()}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>

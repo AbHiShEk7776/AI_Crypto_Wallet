@@ -3,7 +3,7 @@ import { useChat } from '@hooks/useChat';
 import useWalletStore from '@store/walletStore';
 import { demoAPI, walletAPI } from '@services/api';
 import toast from 'react-hot-toast';
-import { Send, Mic, AlertCircle, Zap, Sparkles } from 'lucide-react';
+import { Send, Mic, AlertCircle, Zap, Sparkles, Bot, User, Loader } from 'lucide-react';
 import { formatNumber } from '@utils/formatters';
 
 export default function ChatInterface() {
@@ -28,7 +28,6 @@ export default function ChatInterface() {
     const result = await sendMessage(content);
     
     if (result?.intent) {
-      // Handle specific intents with live data
       if (result.intent === 'check_balance') {
         try {
           const api = demoMode ? demoAPI : walletAPI;
@@ -91,120 +90,180 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl h-[80vh] flex flex-col">
-      {/* Header */}
-      <div className="p-6 border-b flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-bold">Chat with Your Wallet</h2>
-            <Sparkles className="w-5 h-5 text-indigo-600" />
-          </div>
-          <p className="text-sm text-gray-600 mt-1">
-            Network: {network} | Address: {wallet.address.slice(0, 10)}...
-            {demoMode && <span className="ml-2 text-amber-600">(Demo Mode)</span>}
-          </p>
-        </div>
-        
-        {ollamaHealth && (!ollamaHealth.running || !ollamaHealth.modelAvailable) && (
-          <div className="text-red-600 text-sm flex items-center gap-2">
-            <AlertCircle className="w-4 h-4" />
-            <div>
-              <p className="font-medium">AI Offline</p>
-              <p className="text-xs">Start Ollama: <code>ollama serve</code></p>
-            </div>
-          </div>
-        )}
-
-        {demoMode && ollamaHealth?.running && (
-          <div className="text-amber-600 text-sm flex items-center gap-2">
-            <Zap className="w-4 h-4" />
-            <span>Demo Mode Active</span>
-          </div>
-        )}
-      </div>
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {messages.length === 1 && (
-          <div className="bg-gray-50 rounded-lg p-4 mb-4">
-            <p className="font-medium text-gray-900 mb-2">Try asking:</p>
-            <div className="flex flex-wrap gap-2">
-              {suggestedQuestions.map((q, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleSuggestion(q)}
-                  className="text-xs bg-white border hover:bg-gray-50 px-3 py-2 rounded-lg transition"
-                >
-                  {q}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div 
-              className={`px-4 py-3 rounded-2xl max-w-[80%] ${
-                m.role === 'user' 
-                  ? 'bg-indigo-600 text-white' 
-                  : 'bg-gray-100 text-gray-900'
-              }`}
-              style={{ whiteSpace: 'pre-wrap' }}
-            >
-              {m.content.split('**').map((part, idx) => 
-                idx % 2 === 0 ? part : <strong key={idx}>{part}</strong>
-              )}
-            </div>
-          </div>
-        ))}
-        
-        {loading && (
-          <div className="flex justify-start">
-            <div className="bg-gray-100 text-gray-900 px-4 py-3 rounded-2xl">
-              <div className="flex gap-2">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+    <div className="min-h-screen pb-20">
+      <div className="max-w-5xl mx-auto px-4 py-6">
+        <div className="glass-dark rounded-3xl shadow-dark-lg h-[85vh] flex flex-col border border-white/10 overflow-hidden animate-fade-in">
+          
+          {/* Header */}
+          <div className="p-6 border-b border-white/10 bg-gradient-to-r from-indigo-500/10 to-purple-500/10">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 gradient-primary rounded-xl flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">AI Wallet Assistant</h2>
+                    <p className="text-sm text-white/60 flex items-center gap-2">
+                      {network} • {wallet.address.slice(0, 8)}...{wallet.address.slice(-6)}
+                      {demoMode && (
+                        <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 text-xs rounded-full flex items-center gap-1">
+                          <Zap className="w-3 h-3" />
+                          Demo
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Status Indicators */}
+              <div className="flex items-center gap-3">
+                {ollamaHealth && (!ollamaHealth.running || !ollamaHealth.modelAvailable) ? (
+                  <div className="px-3 py-2 bg-red-500/20 rounded-xl border border-red-500/30 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-red-400" />
+                    <div className="text-left">
+                      <p className="text-xs font-semibold text-red-300">AI Offline</p>
+                      <p className="text-xs text-red-400">Start Ollama</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-3 py-2 bg-green-500/20 rounded-xl border border-green-500/30 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-semibold text-green-300">AI Ready</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        )}
-        
-        <div ref={endRef} />
-      </div>
 
-      {/* Input */}
-      <div className="p-6 border-t">
-        <div className="flex gap-3">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-            placeholder="Ask me anything... (e.g., 'What's my balance?' or 'Send 0.1 ETH to 0x...')"
-            className="flex-1 border px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-            disabled={loading}
-          />
-          <button 
-            onClick={() => toast('Voice input coming soon! 🎤')} 
-            className="px-4 py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition"
-          >
-            <Mic className="w-5 h-5" />
-          </button>
-          <button 
-            onClick={handleSend}
-            disabled={loading || !input.trim()}
-            className="px-4 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50 disabled:cursor-not-allowed transition"
-          >
-            <Send className="w-5 h-5" />
-          </button>
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-black/20">
+            {/* Welcome & Suggestions */}
+            {messages.length === 1 && (
+              <div className="glass-light rounded-2xl p-6 border border-white/10 mb-6 animate-fade-in">
+                <div className="flex items-center gap-3 mb-4">
+                  <Bot className="w-8 h-8 text-indigo-400" />
+                  <div>
+                    <p className="font-bold text-white text-lg">Hi there! 👋</p>
+                    <p className="text-sm text-white/70">I'm your AI wallet assistant. Try asking:</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {suggestedQuestions.map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSuggestion(q)}
+                      className="text-left text-sm bg-white/5 hover:bg-white/10 border border-white/10 hover:border-indigo-500/50 px-4 py-3 rounded-xl transition-all duration-300 text-white/90 hover:text-white group"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Sparkles className="w-3 h-3 text-indigo-400 group-hover:text-indigo-300" />
+                        {q}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Chat Messages */}
+            {messages.map((m, i) => (
+              <div 
+                key={i} 
+                className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
+              >
+                {m.role === 'assistant' && (
+                  <div className="w-8 h-8 gradient-primary rounded-xl flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <Bot className="w-5 h-5 text-white" />
+                  </div>
+                )}
+                
+                <div 
+                  className={`px-5 py-3 rounded-2xl max-w-[75%] shadow-lg ${
+                    m.role === 'user' 
+                      ? 'gradient-blue text-white' 
+                      : 'glass-light border border-white/10 text-white'
+                  }`}
+                  style={{ whiteSpace: 'pre-wrap' }}
+                >
+                  {m.content.split('**').map((part, idx) => 
+                    idx % 2 === 0 ? part : <strong key={idx} className="font-bold">{part}</strong>
+                  )}
+                </div>
+
+                {m.role === 'user' && (
+                  <div className="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center ml-3 flex-shrink-0 mt-1 border border-white/20">
+                    <User className="w-5 h-5 text-white" />
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {/* Loading */}
+            {loading && (
+              <div className="flex justify-start animate-fade-in">
+                <div className="w-8 h-8 gradient-primary rounded-xl flex items-center justify-center mr-3 flex-shrink-0">
+                  <Bot className="w-5 h-5 text-white" />
+                </div>
+                <div className="glass-light border border-white/10 px-5 py-4 rounded-2xl">
+                  <div className="flex gap-2">
+                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div ref={endRef} />
+          </div>
+
+          {/* Input Area */}
+          <div className="p-6 border-t border-white/10 bg-gradient-to-r from-indigo-500/5 to-purple-500/5">
+            <div className="flex gap-3">
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+                placeholder="Ask me anything... (e.g., 'What's my balance?' or 'Send 0.1 ETH to 0x...')"
+                className="flex-1 bg-white/5 border border-white/10 px-5 py-4 rounded-xl text-white placeholder-white/40 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                disabled={loading}
+              />
+              
+              <button 
+                onClick={() => toast('Voice input coming soon! 🎤')} 
+                className="px-4 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 group"
+                title="Voice input (coming soon)"
+              >
+                <Mic className="w-5 h-5 text-white/70 group-hover:text-white" />
+              </button>
+              
+              <button 
+                onClick={handleSend}
+                disabled={loading || !input.trim()}
+                className="px-6 py-4 gradient-primary text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 font-semibold group"
+              >
+                {loading ? (
+                  <Loader className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                    Send
+                  </>
+                )}
+              </button>
+            </div>
+            
+            {demoMode && (
+              <div className="mt-3 flex items-start gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                <Zap className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-amber-300">
+                  Demo mode active: All actions are simulated. Toggle off in the navbar for real blockchain transactions.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-        
-        {demoMode && (
-          <p className="text-xs text-amber-600 mt-2">
-            💡 Demo mode: All actions are simulated. Toggle off in the navbar for real blockchain transactions.
-          </p>
-        )}
       </div>
     </div>
   );

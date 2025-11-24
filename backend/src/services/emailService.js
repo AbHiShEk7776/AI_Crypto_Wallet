@@ -160,7 +160,7 @@ class EmailService {
             </a>
             
             <p style="margin-top: 30px; font-size: 14px; color: #6b7280;">
-              Questions? Reply to this email or check our documentation.
+              Questions?Check our documentation.
             </p>
           </div>
           

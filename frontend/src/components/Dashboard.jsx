@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useWalletStore from '@store/walletStore';
-import { walletAPI, demoAPI, transactionAPI } from '@services/api';  // ADD transactionAPI
+import { walletAPI, demoAPI, transactionAPI } from '@services/api';
 import toast from 'react-hot-toast';
 import { 
   formatNumber, 
@@ -17,7 +17,16 @@ import {
   Zap, 
   AlertTriangle, 
   Copy, 
-  CheckCircle 
+  CheckCircle,
+  Wallet,
+  Eye,
+  EyeOff,
+  ArrowUpRight,
+  ArrowDownLeft,
+  TrendingUp,
+  Users,
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 export default function Dashboard() {
@@ -29,24 +38,22 @@ export default function Dashboard() {
     transactions, 
     setTransactions, 
     demoMode,
-    isAuthenticated  // ADD THIS
+    isAuthenticated
   } = useWalletStore();
   
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showFaucetModal, setShowFaucetModal] = useState(false);
+  const [balanceVisible, setBalanceVisible] = useState(true);
 
   const isLowBalance = !demoMode && parseFloat(balance) < 0.01;
   const isTestnet = network === 'sepolia';
 
-  // =====================================================
   // Fetch Balance
-  // =====================================================
   const fetchBalance = async () => {
     try {
       setLoading(true);
 
-      // DEMO MODE: Set fixed demo balance
       if (demoMode) {
         setBalance('2.5000');
         console.log('✅ Demo balance set to 2.5 ETH');
@@ -54,9 +61,7 @@ export default function Dashboard() {
         return;
       }
 
-      // REAL MODE: Fetch from blockchain
       console.log('Calling getBalance with:', wallet.address, network);
-
       const { data } = await walletAPI.getBalance(wallet.address, network);
 
       if (data.success) {
@@ -71,22 +76,19 @@ export default function Dashboard() {
     }
   };
 
-  // =====================================================
   // Fetch Transaction History
-  // =====================================================
   const fetchTransactionHistory = async () => {
     try {
       console.log('📜 Fetching transaction history...');
 
       if (demoMode) {
-        // Demo transactions
         const demoTxs = [
           {
             hash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
             from: '0x1111111111111111111111111111111111111111',
             to: wallet.address,
             value: '0.5',
-            timestamp: Math.floor(Date.now() / 1000) - 3600,
+            timestamp: Date.now() - 3600000,
             blockNumber: 12345678,
             status: 'success',
             type: 'received',
@@ -98,7 +100,7 @@ export default function Dashboard() {
             from: wallet.address,
             to: '0x2222222222222222222222222222222222222222',
             value: '0.1',
-            timestamp: Math.floor(Date.now() / 1000) - 7200,
+            timestamp: Date.now() - 7200000,
             blockNumber: 12345600,
             status: 'success',
             type: 'sent',
@@ -112,7 +114,6 @@ export default function Dashboard() {
         return;
       }
 
-      // REAL MODE: Fetch from database (only if authenticated)
       if (!isAuthenticated) {
         console.log('⚠️ Not authenticated, skipping history fetch');
         return;
@@ -129,13 +130,9 @@ export default function Dashboard() {
       }
     } catch (error) {
       console.error('❌ Failed to load transaction history:', error);
-      // Don't show error toast - history is non-critical
     }
   };
 
-  // =====================================================
-  // Copy Address Handler
-  // =====================================================
   const handleCopyAddress = async () => {
     const success = await copyToClipboard(wallet.address);
     if (success) {
@@ -147,9 +144,6 @@ export default function Dashboard() {
     }
   };
 
-  // =====================================================
-  // Effects
-  // =====================================================
   useEffect(() => {
     if (wallet && wallet.address) {
       console.log('🔄 Wallet changed, fetching data...');
@@ -158,189 +152,306 @@ export default function Dashboard() {
     }
   }, [wallet?.address, network, demoMode, isAuthenticated]);
 
-  // Auto-refresh balance every 30 seconds (only in real mode)
   useEffect(() => {
     if (!demoMode && wallet?.address) {
       const interval = setInterval(() => {
         console.log('🔄 Auto-refreshing balance...');
         fetchBalance();
         fetchTransactionHistory();
-      }, 30000); // 30 seconds
+      }, 30000);
 
       return () => clearInterval(interval);
     }
   }, [wallet?.address, network, demoMode, isAuthenticated]);
 
-  // =====================================================
-  // Render
-  // =====================================================
-  return (
-    <div className="space-y-6 animate-fadeIn">
-      {/* Demo Mode Banner */}
-      {demoMode && (
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-center gap-3">
-          <Zap className="w-5 h-5 text-amber-600" />
-          <div>
-            <p className="font-medium text-amber-900">Demo Mode Active</p>
-            <p className="text-sm text-amber-700">All transactions are simulated. No real blockchain interaction.</p>
-          </div>
-        </div>
-      )}
+  // Calculate stats
+  const stats = {
+    sent: transactions.filter(tx => tx.type === 'sent').length,
+    received: transactions.filter(tx => tx.type === 'received').length,
+    total: transactions.length
+  };
 
-      {/* Low Balance Warning */}
-      {isLowBalance && isTestnet && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+  return (
+    <div className="min-h-screen pb-20">
+      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+        
+        {/* Demo Mode Banner */}
+        {demoMode && (
+          <div className="glass-light border border-amber-500/30 rounded-2xl p-4 flex items-center gap-3 animate-fade-in">
+            <div className="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center">
+              <Zap className="w-6 h-6 text-amber-400" />
+            </div>
             <div className="flex-1">
-              <p className="font-medium text-blue-900">Get Free Testnet ETH</p>
-              <p className="text-sm text-blue-700 mt-1">
-                You need testnet ETH to send transactions. Current balance: {parseFloat(balance).toFixed(6)} ETH
-              </p>
-              
-              <button
-                onClick={() => setShowFaucetModal(true)}
-                className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium inline-flex items-center gap-2 transition"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Get Testnet ETH (Free)
-              </button>
+              <p className="font-semibold text-amber-300">Demo Mode Active</p>
+              <p className="text-sm text-amber-200/80">All transactions are simulated. No real blockchain interaction.</p>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Balance Card */}
-      <div className="bg-white rounded-2xl shadow p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex-1">
-            <p className="text-gray-600 text-sm mb-1">Your Wallet Address</p>
-            <div className="flex items-center gap-2">
-              <p className="font-mono text-sm">{wallet.address}</p>
+        {/* Low Balance Warning */}
+        {isLowBalance && isTestnet && (
+          <div className="glass-light border border-blue-500/30 rounded-2xl p-4 animate-fade-in">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="w-6 h-6 text-blue-400" />
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-blue-300">Get Free Testnet ETH</p>
+                <p className="text-sm text-blue-200/80 mt-1">
+                  You need testnet ETH to send transactions. Current balance: {parseFloat(balance).toFixed(6)} ETH
+                </p>
+                
+                <button
+                  onClick={() => setShowFaucetModal(true)}
+                  className="mt-3 px-4 py-2 gradient-blue text-white rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:shadow-lg transition"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Get Testnet ETH (Free)
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Balance Card - Large & Prominent */}
+        <div className="relative overflow-hidden rounded-3xl gradient-primary p-8 text-white shadow-dark-lg animate-fade-in">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="relative z-10">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <Wallet className="w-5 h-5" />
+                <span className="text-sm font-medium opacity-90">Total Balance</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setBalanceVisible(!balanceVisible)}
+                  className="p-2 hover:bg-white/10 rounded-lg transition"
+                >
+                  {balanceVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                </button>
+                {demoMode && (
+                  <div className="flex items-center gap-1 px-2 py-1 bg-amber-500/20 rounded-full">
+                    <Zap className="w-3 h-3" />
+                    <span className="text-xs font-medium">Demo</span>
+                  </div>
+                )}
+                <button 
+                  onClick={() => {
+                    fetchBalance();
+                    fetchTransactionHistory();
+                  }}
+                  className="p-2 hover:bg-white/10 rounded-lg transition"
+                  disabled={loading}
+                >
+                  <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                </button>
+              </div>
+            </div>
+
+            {/* Balance */}
+            <div className="mb-6">
+              <div className="text-5xl font-bold mb-2">
+                {balanceVisible ? (
+                  <>{parseFloat(balance).toFixed(4)} <span className="text-2xl opacity-80">ETH</span></>
+                ) : (
+                  '••••••'
+                )}
+              </div>
+              <p className="text-lg opacity-75">
+                {balanceVisible && `≈ $${(parseFloat(balance) * 2000).toFixed(2)} USD`}
+              </p>
+            </div>
+
+            {/* Wallet Address */}
+            <div className="flex items-center gap-2 p-3 bg-white/10 rounded-xl backdrop-blur">
+              <code className="text-sm flex-1 font-mono">
+                {wallet.address.slice(0, 10)}...{wallet.address.slice(-8)}
+              </code>
               <button
                 onClick={handleCopyAddress}
-                className="p-1 hover:bg-gray-100 rounded transition"
-                title="Copy address"
+                className="p-2 hover:bg-white/10 rounded-lg transition"
               >
-                {copied ? (
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                ) : (
-                  <Copy className="w-4 h-4 text-gray-600" />
-                )}
+                {copied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
           </div>
-          <button 
-            onClick={() => {
-              fetchBalance();
-              fetchTransactionHistory();
-            }}
-            className="p-2 hover:bg-gray-100 rounded-lg transition"
-            disabled={loading}
-            title="Refresh"
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in">
+          <Link
+            to="/send"
+            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
           >
-            <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
-          </button>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-orange-500/20 rounded-full blur-2xl"></div>
+            <div className="relative z-10">
+              <div className="w-12 h-12 gradient-orange rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <Send className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-white">Send</h3>
+              <p className="text-xs text-white/60 mt-1">Transfer tokens</p>
+            </div>
+          </Link>
+
+          <Link
+            to="/swap"
+            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
+          >
+            <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl"></div>
+            <div className="relative z-10">
+              <div className="w-12 h-12 gradient-purple rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <ArrowLeftRight className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-white">Swap</h3>
+              <p className="text-xs text-white/60 mt-1">Exchange tokens</p>
+            </div>
+          </Link>
+
+          <Link
+            to="/contacts"
+            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
+          >
+            <div className="absolute top-0 right-0 w-20 h-20 bg-pink-500/20 rounded-full blur-2xl"></div>
+            <div className="relative z-10">
+              <div className="w-12 h-12 gradient-pink rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-white">Contacts</h3>
+              <p className="text-xs text-white/60 mt-1">Address book</p>
+            </div>
+          </Link>
+
+          <Link
+            to="/chat"
+            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
+          >
+            <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl"></div>
+            <div className="relative z-10">
+              <div className="w-12 h-12 gradient-blue rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <MessageSquare className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-white">AI Chat</h3>
+              <p className="text-xs text-white/60 mt-1">Smart assistant</p>
+            </div>
+          </Link>
         </div>
 
-        <div className="text-center py-6 border-t">
-          <p className="text-gray-600 text-sm mb-1">Balance</p>
-          <p className="text-4xl font-bold">{formatNumber(balance, 6)} ETH</p>
-          <p className="text-gray-500 text-xs mt-1">
-            Network: {network} {demoMode && '(Demo)'}
-          </p>
-          
-          {isLowBalance && isTestnet && (
-            <button
-              onClick={() => setShowFaucetModal(true)}
-              className="mt-4 text-sm text-blue-600 hover:text-blue-700 font-medium"
-            >
-              Need testnet ETH? Get it free →
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="grid grid-cols-3 gap-4">
-        <Link
-          to="/chat"
-          className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition flex flex-col items-center gap-3 group"
-        >
-          <MessageSquare className="w-8 h-8 text-indigo-600 group-hover:scale-110 transition" />
-          <span className="font-medium">AI Chat</span>
-        </Link>
-        <Link
-          to="/send"
-          className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition flex flex-col items-center gap-3 group"
-        >
-          <Send className="w-8 h-8 text-indigo-600 group-hover:scale-110 transition" />
-          <span className="font-medium">Send</span>
-        </Link>
-        <Link
-          to="/swap"
-          className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition flex flex-col items-center gap-3 group"
-        >
-          <ArrowLeftRight className="w-8 h-8 text-indigo-600 group-hover:scale-110 transition" />
-          <span className="font-medium">Swap</span>
-        </Link>
-      </div>
-
-      {/* Recent Transactions */}
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-bold mb-4">Recent Transactions</h2>
-        
-        {transactions.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            <p>No transactions yet</p>
-            <p className="text-sm mt-2">Send your first transaction to get started!</p>
+        {/* Stats Row */}
+        <div className="grid grid-cols-3 gap-4 animate-fade-in">
+          <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                <ArrowDownLeft className="w-5 h-5 text-green-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white">{stats.received}</p>
+                <p className="text-xs text-white/60">Received</p>
+              </div>
+            </div>
           </div>
-        ) : (
-          <div className="space-y-3">
-            {transactions.slice(0, 5).map((tx) => (
-              <div
-                key={tx.hash}
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
-              >
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    tx.type === 'received' ? 'bg-green-100' : 'bg-blue-100'
+
+          <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
+                <ArrowUpRight className="w-5 h-5 text-orange-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white">{stats.sent}</p>
+                <p className="text-xs text-white/60">Sent</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-indigo-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white">{stats.total}</p>
+                <p className="text-xs text-white/60">Total</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Transactions */}
+        <div className="glass-dark rounded-2xl shadow-dark p-6 border border-white/10 animate-fade-in">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-white">Recent Activity</h2>
+            <Link
+              to="/history"
+              className="text-sm font-medium text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition"
+            >
+              View All
+              <ExternalLink className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="text-center py-8">
+              <div className="w-12 h-12 border-4 border-white/20 border-t-indigo-500 rounded-full animate-spin mx-auto mb-3"></div>
+              <p className="text-white/60">Loading...</p>
+            </div>
+          ) : transactions.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-white/40" />
+              </div>
+              <p className="text-white/70">No transactions yet</p>
+              <p className="text-sm text-white/50 mt-1">Send your first transaction to get started!</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {transactions.slice(0, 5).map((tx) => (
+                <div
+                  key={tx.hash}
+                  className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-xl transition cursor-pointer group border border-white/5"
+                  onClick={() => !demoMode && window.open(getExplorerUrl(tx.hash, network), '_blank')}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    tx.type === 'received' ? 'bg-green-500/20' : 
+                    tx.type === 'swap' ? 'bg-purple-500/20' : 'bg-orange-500/20'
                   }`}>
-                    {tx.type === 'received' ? '↓' : '↑'}
+                    {tx.type === 'received' ? (
+                      <ArrowDownLeft className="w-5 h-5 text-green-400" />
+                    ) : tx.type === 'swap' ? (
+                      <ArrowLeftRight className="w-5 h-5 text-purple-400" />
+                    ) : (
+                      <ArrowUpRight className="w-5 h-5 text-orange-400" />
+                    )}
                   </div>
-                  <div>
-                    <p className="font-medium">
-                      {tx.type === 'received' ? 'Received' : 'Sent'}
-                    </p>
-                    <p className="text-xs text-gray-500 font-mono">
+                  
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-white capitalize">{tx.type}</p>
+                    <p className="text-sm text-white/50 font-mono truncate">
                       {tx.hash.slice(0, 10)}...{tx.hash.slice(-8)}
                     </p>
                   </div>
+
+                  <div className="text-right">
+                    <p className="font-semibold text-white">
+                      {tx.type === 'received' ? '+' : '-'}{tx.value} {tx.token || 'ETH'}
+                    </p>
+                    <p className="text-xs text-white/50">
+                      {new Date(tx.timestamp).toLocaleDateString()}
+                    </p>
+                  </div>
+
+                  {!demoMode && (
+                    <ExternalLink className="w-4 h-4 text-white/40 opacity-0 group-hover:opacity-100 transition" />
+                  )}
                 </div>
-                
-                <div className="text-right">
-                  <p className="font-semibold">
-                    {tx.type === 'received' ? '+' : '-'}{tx.value} {tx.token || 'ETH'}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    {new Date(tx.timestamp).toLocaleDateString()}
-                  </p>
-                </div>
-                
-                {!demoMode && (
-                  <a
-                    href={getExplorerUrl(tx.hash, network)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="ml-2 p-2 hover:bg-white rounded transition"
-                  >
-                    <ExternalLink className="w-4 h-4 text-gray-600" />
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Faucet Modal */}
@@ -361,6 +472,8 @@ export default function Dashboard() {
     </div>
   );
 }
+
+// Faucet Modal Component
 function FaucetModal({ address, network, onClose, onSuccess }) {
   const [copied, setCopied] = useState(false);
 
@@ -397,20 +510,6 @@ function FaucetModal({ address, network, onClose, onSuccess }) {
         amount: '0.1 ETH',
         requires: 'Twitter account',
         speed: 'Instant'
-      },
-      {
-        name: 'Infura Faucet',
-        url: 'https://www.infura.io/faucet/sepolia',
-        amount: '0.5 ETH/day',
-        requires: 'Infura account (free)',
-        speed: '1-2 min'
-      },
-      {
-        name: 'LearnWeb3 Faucet',
-        url: 'https://learnweb3.io/faucets/sepolia',
-        amount: '0.5 ETH',
-        requires: 'Free email signup',
-        speed: 'Instant'
       }
     ]
   };
@@ -427,32 +526,34 @@ function FaucetModal({ address, network, onClose, onSuccess }) {
   const currentFaucets = faucets[network] || [];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="glass-dark border border-white/20 rounded-3xl shadow-dark-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="p-6 border-b sticky top-0 bg-white">
+        <div className="p-6 border-b border-white/10 sticky top-0 glass-dark">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">Get Free Testnet ETH</h2>
+            <div>
+              <h2 className="text-2xl font-bold text-white">Get Free Testnet ETH</h2>
+              <p className="text-sm text-white/60 mt-1">
+                Visit any faucet below to get free {network} testnet ETH
+              </p>
+            </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg transition text-2xl"
+              className="p-2 hover:bg-white/10 rounded-lg transition text-white text-2xl"
             >
               ×
             </button>
           </div>
-          <p className="text-sm text-gray-600 mt-2">
-            Visit any faucet below to get free {network} testnet ETH. You'll need to paste your wallet address.
-          </p>
         </div>
 
         {/* Your Address */}
-        <div className="p-6 bg-gray-50">
-          <p className="text-sm font-medium text-gray-700 mb-2">Your Wallet Address (Copy this):</p>
-          <div className="flex items-center gap-2 p-3 bg-white rounded-lg border">
-            <code className="flex-1 text-sm font-mono break-all">{address}</code>
+        <div className="p-6 bg-white/5">
+          <p className="text-sm font-semibold text-white/90 mb-2">Your Wallet Address (Copy this):</p>
+          <div className="flex items-center gap-2 p-3 bg-white/10 rounded-xl border border-white/20">
+            <code className="flex-1 text-sm font-mono break-all text-white">{address}</code>
             <button
               onClick={handleCopy}
-              className="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium flex items-center gap-2 flex-shrink-0 transition"
+              className="px-3 py-2 gradient-primary text-white rounded-lg text-sm font-semibold flex items-center gap-2 flex-shrink-0 hover:shadow-lg transition"
             >
               {copied ? (
                 <>
@@ -471,47 +572,43 @@ function FaucetModal({ address, network, onClose, onSuccess }) {
 
         {/* Faucet List */}
         <div className="p-6">
-          <h3 className="font-semibold mb-4">Available Faucets:</h3>
+          <h3 className="font-semibold text-white mb-4">Available Faucets:</h3>
           <div className="space-y-3">
             {currentFaucets.map((faucet, idx) => (
               <div
                 key={idx}
-                className={`p-4 border-2 rounded-lg hover:bg-gray-50 transition ${
-                  faucet.recommended ? 'border-green-500 bg-green-50' : 'border-gray-200'
+                className={`p-4 rounded-xl border transition ${
+                  faucet.recommended 
+                    ? 'border-green-500/30 bg-green-500/10' 
+                    : 'border-white/10 bg-white/5 hover:bg-white/10'
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-semibold text-gray-900">{faucet.name}</h4>
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <h4 className="font-semibold text-white">{faucet.name}</h4>
                       {faucet.recommended && (
-                        <span className="px-2 py-1 bg-green-600 text-white text-xs rounded-full">
+                        <span className="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full font-semibold">
                           Recommended
                         </span>
                       )}
                       {faucet.badge && (
-                        <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded-full">
+                        <span className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded-full font-semibold">
                           {faucet.badge}
                         </span>
                       )}
                     </div>
-                    <div className="mt-2 space-y-1">
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">Amount:</span> {faucet.amount}
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">Requires:</span> {faucet.requires}
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">Speed:</span> {faucet.speed}
-                      </p>
+                    <div className="space-y-1 text-sm text-white/70">
+                      <p><span className="font-medium">Amount:</span> {faucet.amount}</p>
+                      <p><span className="font-medium">Requires:</span> {faucet.requires}</p>
+                      <p><span className="font-medium">Speed:</span> {faucet.speed}</p>
                     </div>
                   </div>
                   <a
                     href={faucet.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium flex items-center gap-2 flex-shrink-0 transition"
+                    className="px-4 py-2 gradient-primary text-white rounded-xl text-sm font-semibold flex items-center gap-2 flex-shrink-0 hover:shadow-lg transition"
                   >
                     Visit
                     <ExternalLink className="w-4 h-4" />
@@ -523,24 +620,27 @@ function FaucetModal({ address, network, onClose, onSuccess }) {
         </div>
 
         {/* Instructions */}
-        <div className="p-6 bg-blue-50 border-t">
-          <h3 className="font-semibold text-blue-900 mb-2">📋 Quick Instructions:</h3>
-          <ol className="list-decimal list-inside space-y-1 text-sm text-blue-800">
+        <div className="p-6 bg-blue-500/10 border-t border-white/10">
+          <h3 className="font-semibold text-blue-300 mb-3 flex items-center gap-2">
+            <Sparkles className="w-5 h-5" />
+            Quick Instructions:
+          </h3>
+          <ol className="list-decimal list-inside space-y-2 text-sm text-blue-200/90">
             <li>Click "Copy" above to copy your wallet address</li>
             <li>Click "Visit" on any faucet (Chainlink recommended)</li>
             <li>Paste your address on the faucet website</li>
             <li>Complete any verification (login/captcha)</li>
             <li>Request testnet ETH</li>
             <li>Wait 1-2 minutes for ETH to arrive</li>
-            <li>Come back and click "Refresh" on your dashboard</li>
+            <li>Come back and click "Done" below</li>
           </ol>
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t flex justify-end">
+        <div className="p-6 border-t border-white/10 flex justify-end">
           <button
             onClick={onSuccess}
-            className="px-6 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-medium transition"
+            className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white transition"
           >
             Done - Refresh Balance
           </button>
