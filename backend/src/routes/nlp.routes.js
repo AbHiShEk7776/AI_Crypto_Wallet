@@ -1,43 +1,45 @@
 import express from 'express';
-import axios from 'axios';
+import Groq from 'groq-sdk';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 import { generalLimiter } from '../middleware/rateLimiter.js';
 import { asyncHandler } from '../middleware/errorHandler.js';
 
 const router = express.Router();
 
-// Ollama configuration
-const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
-const MODEL_NAME = process.env.OLLAMA_MODEL || 'llama3.2:latest';
+// Initialize Groq client
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY
+});
 
-// Health check endpoint (no auth required)
+const MODEL_NAME = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
+
+// Health check endpoint
 router.get(
   '/health',
   generalLimiter,
   asyncHandler(async (req, res) => {
     try {
-      const response = await axios.get(`${OLLAMA_URL}/api/tags`);
-      const models = response.data.models || [];
-      const modelAvailable = models.some(m => m.name.includes('llama'));
+      const hasApiKey = !!process.env.GROQ_API_KEY;
       
       res.json({
         success: true,
         running: true,
-        modelAvailable,
-        models: models.map(m => m.name)
+        modelAvailable: hasApiKey,
+        service: 'Groq',
+        model: MODEL_NAME
       });
     } catch (error) {
       res.json({
         success: true,
         running: false,
         modelAvailable: false,
-        error: 'Ollama not running'
+        error: 'Groq API key not configured'
       });
     }
   })
 );
 
-// Chat endpoint with intent extraction (protected)
+// Chat endpoint with Groq
 router.post(
   '/chat',
   authMiddleware,
@@ -45,34 +47,89 @@ router.post(
   asyncHandler(async (req, res) => {
     const { message, conversationHistory = [] } = req.body;
     
-    console.log('💬 NLP Chat request:', message);
+    console.log('💬 NLP Chat request:', message.substring(0, 50) + '...');
     
-    // Build context-aware prompt
-    const systemPrompt = `You are a helpful cryptocurrency wallet assistant. You help users with:
-- Checking their wallet balance
-- Sending crypto transactions
-- Swapping tokens
-- Explaining blockchain concepts
-- Providing transaction history
+    // Enhanced system prompt for action initiation
+    const systemPrompt = `You are an intelligent crypto wallet assistant that helps users perform blockchain operations.
 
-IMPORTANT: Detect the user's intent and respond accordingly. For actionable requests (send, swap, check balance), extract parameters.
+USER CONTEXT:
+- Wallet Network: ${req.user?.network || 'sepolia'}
+- User ID: ${req.user?.id}
 
-User wallet context:
-- Network: ${req.user?.network || 'sepolia'}
-- Has active wallet: true
+YOUR CAPABILITIES:
+You can help users with these ACTIONS:
 
-Response format:
-If the user wants to perform an action, include:
+1. CHECK_BALANCE - Check wallet balance
+   Examples: "What's my balance?" "How much ETH do I have?" "Check my wallet"
+
+2. SEND_CRYPTO - Send cryptocurrency to an address
+   Examples: "Send 0.1 ETH to 0x123..." "Transfer 5 USDC to Alice"
+   Required: recipient address, amount, token
+
+3. SWAP_TOKENS - Swap one token for another
+   Examples: "Swap 1 ETH for USDC" "Exchange 100 USDC to DAI"
+   Required: fromToken, toToken, amount
+
+4. TRANSACTION_HISTORY - View past transactions
+   Examples: "Show my transactions" "Transaction history" "Recent activity"
+
+5. VIEW_CONTACTS - Show saved contacts
+   Examples: "Show my contacts" "List saved addresses" "My address book"
+
+6. EXPLAIN - Explain blockchain concepts
+   Examples: "What is gas?" "Explain smart contracts" "What is DeFi?"
+
+RESPONSE FORMAT:
+When user wants to perform an action, respond EXACTLY in this format:
+
 INTENT: <action_name>
-PARAMETERS: <json_object>
-EXPLANATION: <friendly explanation>
+PARAMETERS: {"param1": "value1", "param2": "value2"}
+EXPLANATION: <brief friendly explanation>
 
-Otherwise just provide a helpful conversational response.`;
+When user asks a general question, just respond conversationally.
 
-    // Prepare messages for Ollama
+IMPORTANT RULES:
+- Always extract Ethereum addresses (0x followed by 40 hex characters)
+- Always extract amounts with token symbols (ETH, USDC, DAI, etc.)
+- Be concise (under 80 words)
+- Confirm the action before execution
+- If required parameters are missing, ask for them
+- Use lowercase for intent names
+- Use proper JSON format for parameters
+
+EXAMPLE RESPONSES:
+
+User: "Send 0.5 ETH to 0xABC123def456..."
+Assistant:
+INTENT: send_crypto
+PARAMETERS: {"recipient": "0xABC123def456...", "amount": "0.5", "token": "ETH"}
+EXPLANATION: I'll help you send 0.5 ETH to that address. Please confirm this transaction in the next step.
+
+User: "What's my balance?"
+Assistant:
+INTENT: check_balance
+PARAMETERS: {}
+EXPLANATION: Let me check your wallet balance for you.
+
+User: "Swap 2 ETH for USDC"
+Assistant:
+INTENT: swap_tokens
+PARAMETERS: {"fromToken": "ETH", "toToken": "USDC", "amount": "2"}
+EXPLANATION: I'll help you swap 2 ETH for USDC. Let me get you the best exchange rate.
+
+User: "Show my recent transactions"
+Assistant:
+INTENT: transaction_history
+PARAMETERS: {}
+EXPLANATION: Here's your recent transaction history.
+
+User: "What is gas fee?"
+Assistant: Gas fees are the transaction costs paid to blockchain miners for processing your transactions. Think of it like a service fee that varies based on network congestion.`;
+
+    // Build messages array
     const messages = [
       { role: 'system', content: systemPrompt },
-      ...conversationHistory.map(msg => ({
+      ...conversationHistory.slice(-5).map(msg => ({
         role: msg.role,
         content: msg.content
       })),
@@ -80,41 +137,44 @@ Otherwise just provide a helpful conversational response.`;
     ];
 
     try {
-      // Call Ollama API
-      const ollamaResponse = await axios.post(
-        `${OLLAMA_URL}/api/chat`,
-        {
-          model: MODEL_NAME,
-          messages: messages,
-          stream: false,
-          options: {
-            temperature: 0.7,
-            top_p: 0.9
-          }
-        },
-        { timeout: 30000 }
-      );
+      console.log('🤖 Calling Groq API with', MODEL_NAME);
+      const startTime = Date.now();
+      
+      // Call Groq API
+      const completion = await groq.chat.completions.create({
+        messages: messages,
+        model: MODEL_NAME,
+        temperature: 0.7,
+        max_tokens: 250,
+        top_p: 0.9,
+        stream: false
+      });
 
-      const aiResponse = ollamaResponse.data.message.content;
-      console.log('🤖 AI Response:', aiResponse);
+      const duration = Date.now() - startTime;
+      console.log(`✅ Groq response received in ${duration}ms`);
+
+      const aiResponse = completion.choices[0].message.content;
+      console.log('🤖 AI Response:', aiResponse.substring(0, 100) + '...');
 
       // Parse intent if present
-      const intentMatch = aiResponse.match(/INTENT:\s*(\w+)/);
-      const paramsMatch = aiResponse.match(/PARAMETERS:\s*(\{[^}]+\})/);
-      const explanationMatch = aiResponse.match(/EXPLANATION:\s*(.+?)(?=\n\n|$)/s);
+      const intentMatch = aiResponse.match(/INTENT:\s*(\w+)/i);
+      const paramsMatch = aiResponse.match(/PARAMETERS:\s*(\{[^}]+\})/i);
+      const explanationMatch = aiResponse.match(/EXPLANATION:\s*(.+?)(?=\n\n|INTENT:|$)/is);
 
       let intent = null;
       let parameters = {};
       let explanation = aiResponse;
 
       if (intentMatch) {
-        intent = intentMatch[1];
+        intent = intentMatch[1].toLowerCase();
+        console.log('🎯 Detected intent:', intent);
         
         if (paramsMatch) {
           try {
             parameters = JSON.parse(paramsMatch[1]);
+            console.log('📋 Extracted parameters:', parameters);
           } catch (e) {
-            console.log('Failed to parse parameters:', e);
+            console.log('⚠️ Failed to parse parameters:', e.message);
           }
         }
         
@@ -128,25 +188,43 @@ Otherwise just provide a helpful conversational response.`;
         response: explanation,
         intent: intent,
         parameters: parameters,
-        raw: aiResponse
+        processingTime: duration,
+        model: MODEL_NAME
       });
 
     } catch (error) {
-      console.error('❌ NLP Chat error:', error.message);
+      console.error('❌ Groq API error:', error.message);
       
-      if (error.code === 'ECONNREFUSED') {
-        return res.status(503).json({
+      if (error.status === 401) {
+        return res.status(500).json({
           success: false,
-          error: 'Ollama is not running. Please start it with: ollama serve'
+          error: 'Invalid Groq API key. Please check your configuration.'
         });
       }
       
-      throw error; // Let asyncHandler catch it
+      if (error.status === 429) {
+        return res.status(429).json({
+          success: false,
+          error: 'Rate limit exceeded. Please try again in a moment.'
+        });
+      }
+
+      if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
+        return res.status(503).json({
+          success: false,
+          error: 'Unable to reach AI service. Please check your internet connection.'
+        });
+      }
+      
+      res.status(500).json({
+        success: false,
+        error: 'AI service temporarily unavailable. Please try again.'
+      });
     }
   })
 );
 
-// Extract intent from user message (fallback) - protected
+// Fallback regex-based intent extraction (no AI needed)
 router.post(
   '/extract-intent',
   authMiddleware,
@@ -154,13 +232,15 @@ router.post(
   asyncHandler(async (req, res) => {
     const { message } = req.body;
     
-    // Simple regex-based intent detection as fallback
+    console.log('🔍 Regex intent extraction for:', message);
+    
     const intents = {
-      check_balance: /balance|how much|funds|wallet/i,
+      check_balance: /balance|how much|funds|wallet balance|my balance/i,
       send_crypto: /send|transfer|pay/i,
       swap_tokens: /swap|exchange|trade/i,
-      transaction_history: /history|transactions|past/i,
-      explain: /what is|explain|tell me about/i
+      transaction_history: /history|transactions|past|recent|activity/i,
+      view_contacts: /contacts|address book|saved addresses/i,
+      explain: /what is|explain|tell me about|how does|define/i
     };
 
     let detectedIntent = null;
@@ -171,7 +251,6 @@ router.post(
       }
     }
 
-    // Extract parameters
     const parameters = {};
     
     // Extract Ethereum address
@@ -180,17 +259,27 @@ router.post(
       parameters.recipient = addressMatch[0];
     }
 
-    // Extract amount
-    const amountMatch = message.match(/(\d+\.?\d*)\s*(ETH|USDC|DAI)/i);
+    // Extract amount and token
+    const amountMatch = message.match(/(\d+\.?\d*)\s*(ETH|USDC|DAI|MATIC|BNB)/i);
     if (amountMatch) {
       parameters.amount = amountMatch[1];
       parameters.token = amountMatch[2].toUpperCase();
     }
 
+    // Extract swap tokens
+    const swapMatch = message.match(/(ETH|USDC|DAI|MATIC)\s+(?:for|to)\s+(ETH|USDC|DAI|MATIC)/i);
+    if (swapMatch) {
+      parameters.fromToken = swapMatch[1].toUpperCase();
+      parameters.toToken = swapMatch[2].toUpperCase();
+    }
+
+    console.log('🎯 Regex detected:', { intent: detectedIntent, parameters });
+
     res.json({
       success: true,
       intent: detectedIntent,
-      parameters: parameters
+      parameters: parameters,
+      method: 'regex'
     });
   })
 );
