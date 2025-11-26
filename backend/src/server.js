@@ -79,23 +79,23 @@ app.use((req, res, next) => {
     console.log('\n╔══════════════════════════════════════════════════╗');
     console.log('║           GLOBAL REQUEST DEBUG                   ║');
     console.log('╚══════════════════════════════════════════════════╝');
-    console.log('🕒 Time:', new Date().toLocaleString());
-    console.log('🔧 Method:', req.method);
-    console.log('📍 Full URL:', req.originalUrl);
-    console.log('📍 Path:', req.path);
-    console.log('📦 Body:', JSON.stringify(req.body, null, 2));
+    console.log(' Time:', new Date().toLocaleString());
+    console.log(' Method:', req.method);
+    console.log(' Full URL:', req.originalUrl);
+    console.log(' Path:', req.path);
+    console.log(' Body:', JSON.stringify(req.body, null, 2));
     // Only log body for POST/PUT/PATCH requests
 if (req.method !== 'GET' && req.body) {
-  console.log('📦 Body:', JSON.stringify(req.body, null, 2));
-  console.log('📋 Body Keys:', Object.keys(req.body));
+  console.log(' Body:', JSON.stringify(req.body, null, 2));
+  console.log(' Body Keys:', Object.keys(req.body));
 }
 
 // Log query params for GET requests
 if (req.method === 'GET' && req.query && Object.keys(req.query).length > 0) {
-  console.log('❓ Query Params:', JSON.stringify(req.query, null, 2));
+  console.log(' Query Params:', JSON.stringify(req.query, null, 2));
 }
 
-    console.log('🌐 IP:', req.ip);
+    console.log(' IP:', req.ip);
     console.log('═══════════════════════════════════════════════════\n');
   }
   next();
@@ -175,39 +175,39 @@ const startServer = async () => {
     logger.info('🔧 Starting server initialization...');
     
     // 1. Connect to MongoDB
-    logger.info('📦 Connecting to MongoDB...');
+    logger.info(' Connecting to MongoDB...');
     await database.connect();
-    logger.info('✅ MongoDB connected successfully');
+    logger.info(' MongoDB connected successfully');
     
     // 2. Initialize auth service
-    logger.info('🔐 Initializing authentication service...');
+    logger.info(' Initializing authentication service...');
     await authService.initialize();
-    logger.info('✅ Auth service initialized');
+    logger.info(' Auth service initialized');
     
     // 3. Initialize transaction history service
-    logger.info('📜 Initializing transaction history service...');
+    logger.info(' Initializing transaction history service...');
     await transactionHistoryService.initialize();
-    logger.info('✅ Transaction history service initialized');
-     logger.info('👥 Initializing contact service...');
+    logger.info(' Transaction history service initialized');
+     logger.info(' Initializing contact service...');
     await contactService.initialize();
-    logger.info('✅ Contact service initialized');
-     logger.info('📧 Initializing email service...');
+    logger.info(' Contact service initialized');
+     logger.info(' Initializing email service...');
     await emailService.initialize();
-    logger.info('✅ Email service initialized');
+    logger.info(' Email service initialized');
     // 4. Start Express server
     server = app.listen(PORT, HOST, () => {
       logger.info('');
       logger.info('╔════════════════════════════════════════════════╗');
-      logger.info('║   🚀 Server Started Successfully!             ║');
+      logger.info('║       Server Started Successfully!             ║');
       logger.info('╚════════════════════════════════════════════════╝');
-      logger.info(`📍 URL: http://${HOST}:${PORT}`);
-      logger.info(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-      logger.info(`✅ Ready to accept connections`);
+      logger.info(` URL: http://${HOST}:${PORT}`);
+      logger.info(` Environment: ${process.env.NODE_ENV || 'development'}`);
+      logger.info(` Ready to accept connections`);
       logger.info('');
     });
     
   } catch (error) {
-    logger.error('❌ Failed to start server:', error);
+    logger.error(' Failed to start server:', error);
     process.exit(1);
   }
 };
@@ -241,14 +241,14 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Uncaught exception handler
 process.on('uncaughtException', (error) => {
-  logger.error('❌ Uncaught Exception:', error);
+  logger.error(' Uncaught Exception:', error);
   logger.error('Stack:', error.stack);
   process.exit(1);
 });
 
 // Unhandled promise rejection handler
 process.on('unhandledRejection', (reason, promise) => {
-  logger.error('❌ Unhandled Rejection at:', promise);
+  logger.error(' Unhandled Rejection at:', promise);
   logger.error('Reason:', reason);
   process.exit(1);
 });

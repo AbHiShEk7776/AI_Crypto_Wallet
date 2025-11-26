@@ -18,7 +18,7 @@ const nlpAPI = {
   // Check AI service health (no auth needed)
   checkHealth: async () => {
     try {
-      console.log('🔍 Checking NLP service health...');
+      console.log(' Checking NLP service health...');
       return await axios.get(`${API_URL}/nlp/health`);
     } catch (error) {
       console.error('Health check error:', error);
@@ -30,7 +30,7 @@ const nlpAPI = {
   chat: async (message, conversationHistory = []) => {
     try {
       const headers = getAuthHeader();
-      console.log('💬 Sending chat message...');
+      console.log(' Sending chat message...');
       
       return await axios.post(
         `${API_URL}/nlp/chat`,
@@ -44,7 +44,7 @@ const nlpAPI = {
         }
       );
     } catch (error) {
-      console.error('❌ Chat API error:', error.response?.data || error.message);
+      console.error(' Chat API error:', error.response?.data || error.message);
       throw error;
     }
   },

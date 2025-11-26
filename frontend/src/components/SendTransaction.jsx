@@ -90,20 +90,20 @@ export default function SendTransaction() {
 
   const validateAddress = (addr) => {
     if (!addr || typeof addr !== 'string') {
-      console.log('❌ Address is empty or not a string');
+      console.log(' Address is empty or not a string');
       return false;
     }
     
     const cleaned = addr.trim();
-    console.log('🔍 Validating address:', cleaned);
+    console.log(' Validating address:', cleaned);
     
     if (!cleaned.startsWith('0x')) {
-      console.log('❌ Address does not start with 0x');
+      console.log(' Address does not start with 0x');
       return false;
     }
     
     if (cleaned.length !== 42) {
-      console.log(`❌ Address length is ${cleaned.length} but should be 42`);
+      console.log(` Address length is ${cleaned.length} but should be 42`);
       return false;
     }
     
@@ -111,11 +111,11 @@ export default function SendTransaction() {
     const isValidHex = /^[a-fA-F0-9]{40}$/.test(hexPart);
     
     if (!isValidHex) {
-      console.log('❌ Address contains invalid characters');
+      console.log(' Address contains invalid characters');
       return false;
     }
     
-    console.log('✅ Address is valid:', cleaned);
+    console.log(' Address is valid:', cleaned);
     return true;
   };
 
@@ -141,7 +141,7 @@ export default function SendTransaction() {
       const txParams = buildTx();
 
       if (demoMode) {
-        console.log('📊 Demo gas estimate...');
+        console.log(' Demo gas estimate...');
         await new Promise(resolve => setTimeout(resolve, 800));
         
         setEstimate({
@@ -155,9 +155,9 @@ export default function SendTransaction() {
           message: 'Demo transaction will succeed' 
         });
         
-        toast.success('✅ Demo simulation passed');
+        toast.success(' Demo simulation passed');
       } else {
-        console.log('🌐 Real blockchain estimate...');
+        console.log(' Real blockchain estimate...');
         
         const [{ data: gas }, { data: sim }] = await Promise.all([
           transactionAPI.estimateGas(txParams, network),
@@ -170,12 +170,12 @@ export default function SendTransaction() {
         if (!sim.simulation.success) {
           toast.error(sim.simulation.reason || 'Transaction will fail');
         } else {
-          toast.success('✅ Simulation passed');
+          toast.success(' Simulation passed');
         }
       }
     } catch (e) {
       toast.error(e.message || 'Estimation failed');
-      console.error('❌ Estimate error:', e);
+      console.error(' Estimate error:', e);
     } finally {
       setEstimating(false);
     }
@@ -243,7 +243,7 @@ export default function SendTransaction() {
       useWalletStore.getState().setBalance(newBalance);
       
       setTxHash(fakeHash);
-      toast.success(`✅ Sent ${amount} ETH to ${to.slice(0, 6)}...${to.slice(-4)}`);
+      toast.success(` Sent ${amount} ETH to ${to.slice(0, 6)}...${to.slice(-4)}`);
       
       setTo('');
       setValue('0.001');

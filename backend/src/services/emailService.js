@@ -43,13 +43,13 @@ class EmailService {
           }
         });
         
-        logger.info('📧 Email service initialized (Development Mode - Ethereal)');
-        logger.info(`📧 Test email credentials: ${testAccount.user}`);
+        logger.info(' Email service initialized (Development Mode - Ethereal)');
+        logger.info(` Test email credentials: ${testAccount.user}`);
       }
 
-      logger.info('✅ Email service initialized');
+      logger.info(' Email service initialized');
     } catch (error) {
-      logger.error('❌ Failed to initialize email service:', error);
+      logger.error(' Failed to initialize email service:', error);
       // Don't throw - email is non-critical
     }
   }
@@ -74,7 +74,7 @@ class EmailService {
 
       const info = await this.transporter.sendMail(mailOptions);
 
-      logger.info('✅ Email sent successfully', {
+      logger.info(' Email sent successfully', {
         to,
         subject,
         messageId: info.messageId
@@ -87,7 +87,7 @@ class EmailService {
 
       return info;
     } catch (error) {
-      logger.error('❌ Failed to send email:', error);
+      logger.error(' Failed to send email:', error);
       return null;
     }
   }
@@ -138,16 +138,16 @@ class EmailService {
               <code style="font-size: 12px; word-break: break-all;">${user.walletAddress}</code>
             </div>
             
-            <h3>🚀 Getting Started:</h3>
+            <h3> Getting Started:</h3>
             <ul>
-              <li>✅ Your wallet is secured with encrypted private keys</li>
-              <li>💬 Use AI chat to manage transactions naturally</li>
-              <li>👥 Add contacts for easier sending</li>
-              <li>🔄 Swap tokens directly in the app</li>
-              <li>🎯 Try demo mode to explore features risk-free</li>
+              <li> Your wallet is secured with encrypted private keys</li>
+              <li> Use AI chat to manage transactions naturally</li>
+              <li> Add contacts for easier sending</li>
+              <li> Swap tokens directly in the app</li>
+              <li> Try demo mode to explore features risk-free</li>
             </ul>
             
-            <h3>⚠️ Security Tips:</h3>
+            <h3> Security Tips:</h3>
             <ul>
               <li>Never share your password with anyone</li>
               <li>Enable demo mode for testing</li>
@@ -215,7 +215,7 @@ class EmailService {
               <div class="tx-row">
                 <span><strong>Status:</strong></span>
                 <span style="color: ${transaction.status === 'success' ? '#10b981' : '#f59e0b'};">
-                  ${transaction.status === 'success' ? '✅ Confirmed' : '⏳ Pending'}
+                  ${transaction.status === 'success' ? ' Confirmed' : ' Pending'}
                 </span>
               </div>
               
@@ -275,7 +275,7 @@ class EmailService {
    * Send low balance alert
    */
   async sendLowBalanceAlert(user, balance, threshold = 0.01) {
-    const subject = '⚠️ Low Balance Alert';
+    const subject = ' Low Balance Alert';
     const html = `
       <!DOCTYPE html>
       <html>
@@ -293,7 +293,7 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <h1>⚠️ Low Balance Alert</h1>
+            <h1> Low Balance Alert</h1>
           </div>
           
           <div class="content">
@@ -307,7 +307,7 @@ class EmailService {
             
             <p>You may not have enough balance to complete transactions or pay for gas fees.</p>
             
-            <h3>💡 What to do:</h3>
+            <h3> What to do:</h3>
             <ul>
               <li>Add funds to your wallet</li>
               <li>Use testnet faucets for Sepolia ETH (free)</li>
@@ -354,7 +354,7 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <h1>🔐 Password Reset Request</h1>
+            <h1> Password Reset Request</h1>
           </div>
           
           <div class="content">
@@ -370,7 +370,7 @@ class EmailService {
             </p>
             
             <div class="warning">
-              <strong>⚠️ Security Notice:</strong><br>
+              <strong> Security Notice:</strong><br>
               This link expires in 1 hour. If you didn't request this, please ignore this email.
             </div>
             
@@ -395,7 +395,7 @@ class EmailService {
    * Send weekly summary email
    */
   async sendWeeklySummary(user, stats) {
-    const subject = '📊 Your Weekly Wallet Summary';
+    const subject = ' Your Weekly Wallet Summary';
     const html = `
       <!DOCTYPE html>
       <html>
@@ -415,7 +415,7 @@ class EmailService {
       <body>
         <div class="container">
           <div class="header">
-            <h1>📊 Weekly Summary</h1>
+            <h1> Weekly Summary</h1>
             <p>Your wallet activity this week</p>
           </div>
           

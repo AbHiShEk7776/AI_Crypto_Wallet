@@ -26,9 +26,9 @@ class ContactService {
       // Create indexes
       await this.createIndexes();
       
-      logger.info('✅ Contact service initialized');
+      logger.info(' Contact service initialized');
     } catch (error) {
-      logger.error('❌ Failed to initialize contact service:', error);
+      logger.error(' Failed to initialize contact service:', error);
       throw error;
     }
   }

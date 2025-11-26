@@ -47,7 +47,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { message, conversationHistory = [] } = req.body;
     
-    console.log('💬 NLP Chat request:', message.substring(0, 50) + '...');
+    console.log(' NLP Chat request:', message.substring(0, 50) + '...');
     
     // Enhanced system prompt for action initiation
     const systemPrompt = `You are an intelligent crypto wallet assistant that helps users perform blockchain operations.
@@ -137,7 +137,7 @@ Assistant: Gas fees are the transaction costs paid to blockchain miners for proc
     ];
 
     try {
-      console.log('🤖 Calling Groq API with', MODEL_NAME);
+      console.log(' Calling Groq API with', MODEL_NAME);
       const startTime = Date.now();
       
       // Call Groq API
@@ -151,10 +151,10 @@ Assistant: Gas fees are the transaction costs paid to blockchain miners for proc
       });
 
       const duration = Date.now() - startTime;
-      console.log(`✅ Groq response received in ${duration}ms`);
+      console.log(` Groq response received in ${duration}ms`);
 
       const aiResponse = completion.choices[0].message.content;
-      console.log('🤖 AI Response:', aiResponse.substring(0, 100) + '...');
+      console.log(' AI Response:', aiResponse.substring(0, 100) + '...');
 
       // Parse intent if present
       const intentMatch = aiResponse.match(/INTENT:\s*(\w+)/i);
@@ -167,14 +167,14 @@ Assistant: Gas fees are the transaction costs paid to blockchain miners for proc
 
       if (intentMatch) {
         intent = intentMatch[1].toLowerCase();
-        console.log('🎯 Detected intent:', intent);
+        console.log(' Detected intent:', intent);
         
         if (paramsMatch) {
           try {
             parameters = JSON.parse(paramsMatch[1]);
-            console.log('📋 Extracted parameters:', parameters);
+            console.log(' Extracted parameters:', parameters);
           } catch (e) {
-            console.log('⚠️ Failed to parse parameters:', e.message);
+            console.log(' Failed to parse parameters:', e.message);
           }
         }
         
@@ -193,7 +193,7 @@ Assistant: Gas fees are the transaction costs paid to blockchain miners for proc
       });
 
     } catch (error) {
-      console.error('❌ Groq API error:', error.message);
+      console.error('Groq API error:', error.message);
       
       if (error.status === 401) {
         return res.status(500).json({
@@ -224,7 +224,7 @@ Assistant: Gas fees are the transaction costs paid to blockchain miners for proc
   })
 );
 
-// Fallback regex-based intent extraction (no AI needed)
+
 router.post(
   '/extract-intent',
   authMiddleware,
@@ -273,7 +273,7 @@ router.post(
       parameters.toToken = swapMatch[2].toUpperCase();
     }
 
-    console.log('🎯 Regex detected:', { intent: detectedIntent, parameters });
+    console.log('Regex detected:', { intent: detectedIntent, parameters });
 
     res.json({
       success: true,

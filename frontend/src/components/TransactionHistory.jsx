@@ -75,7 +75,7 @@ export default function TransactionHistory() {
       if (data.success) {
         setTransactions(data.transactions);
         setTotal(data.total);
-        console.log('✅ Loaded', data.transactions.length, 'transactions');
+        console.log(' Loaded', data.transactions.length, 'transactions');
       }
     } catch (error) {
       console.error('Failed to load transactions:', error);

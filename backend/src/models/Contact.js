@@ -5,21 +5,21 @@
 
 export const ContactSchema = {
   _id: 'ObjectId',
-  userId: 'ObjectId',  // Owner of this contact
+  userId: 'ObjectId',  
   
   // Contact Details
-  alias: 'string',          // Custom name (e.g., "Alice", "Bob's Wallet")
-  walletAddress: 'string',  // The contact's wallet address
+  alias: 'string',          
+  walletAddress: 'string',  
   
   // Optional Metadata
-  notes: 'string',          // Optional notes about the contact
-  tags: ['string'],         // Tags like "friend", "family", "business"
-  favorite: 'boolean',      // Is this a favorite contact?
+  notes: 'string',          
+  tags: ['string'],         
+  favorite: 'boolean',    
   
   // Transaction Stats (calculated)
   lastTransactionDate: 'Date',
-  totalSent: 'string',      // Total amount sent to this contact
-  totalReceived: 'string',  // Total amount received from this contact
+  totalSent: 'string',      
+  totalReceived: 'string',  
   transactionCount: 'number',
   
   // Timestamps

@@ -101,7 +101,7 @@ async sendWithPassword(req, res, next) {
         },
         network
       );
-      logger.info('✅ Transaction logged for both parties');
+      logger.info('Transaction logged for both parties');
 
       // Update contact stats for sender
       try {

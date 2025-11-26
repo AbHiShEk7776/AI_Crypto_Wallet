@@ -221,7 +221,7 @@ export default function SwapTokens() {
         
         addTransaction(demoTx);
         setSwapHash(fakeHash);
-        toast.success(`✅ Swapped ${fromAmount} ${fromToken} for ${toAmount} ${toToken}!`);
+        toast.success(` Swapped ${fromAmount} ${fromToken} for ${toAmount} ${toToken}!`);
         
         setFromAmount('0.01');
         setToAmount('0');

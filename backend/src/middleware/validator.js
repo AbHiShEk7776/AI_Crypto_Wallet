@@ -19,16 +19,15 @@ export const validate = (req, res, next) => {
   next();
 };
 
-// FIXED: More robust address validator
+
 const isEthereumAddress = (value) => {
   if (!value) {
     throw new Error('Address is required');
   }
   
-  // Clean and convert to lowercase for validation
+ 
   const cleaned = String(value).trim().toLowerCase();
   
-  // Basic format check
   if (cleaned.length !== 42) {
     throw new Error(`Address must be 42 characters (got ${cleaned.length})`);
   }
@@ -37,13 +36,13 @@ const isEthereumAddress = (value) => {
     throw new Error('Address must start with 0x');
   }
   
-  // Check hex characters
+
   const hexPart = cleaned.slice(2);
   if (!/^[0-9a-f]{40}$/.test(hexPart)) {
     throw new Error('Address contains invalid characters');
   }
   
-  // Validate using ethers with lowercase (more permissive)
+ 
   try {
     ethers.getAddress(cleaned);
     return true;
@@ -82,7 +81,7 @@ export const walletValidation = {
       .trim()
       .notEmpty().withMessage('Address is required')
       .custom(isEthereumAddress),
-    // REMOVED: customSanitizer (was causing errors)
+    
     body('network')
       .optional()
       .trim()
@@ -92,7 +91,7 @@ export const walletValidation = {
       .optional({values:'null'})
       .trim()
       .custom(isEthereumAddress),
-    // REMOVED: customSanitizer
+    
     validate
   ]
 };
@@ -103,7 +102,7 @@ export const transactionValidation = {
       .trim()
       .notEmpty().withMessage('Recipient address is required')
       .custom(isEthereumAddress),
-    // REMOVED: customSanitizer
+   
     body('txParams.value')
       .notEmpty().withMessage('Amount is required')
       .custom(isValidAmount),

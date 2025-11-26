@@ -26,7 +26,7 @@ class ProviderFactory {
 
       this.currentIndex[network.name] = 0;
 
-      logger.info(`✅ Configured ${network.rpcUrls.length} RPCs for ${network.name}`);
+      logger.info(` Configured ${network.rpcUrls.length} RPCs for ${network.name}`);
     });
   }
 

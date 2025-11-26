@@ -24,37 +24,37 @@ class AuthService {
     try {
       const { email, password, name, phone } = userData;
 
-      // Validate required fields
+      
       if (!email || !password || !name) {
         throw new Error('Missing required fields: email, password, name');
       }
 
-      // Validate email format
+      
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         throw new Error('Invalid email format');
       }
 
-      // Validate password strength
+     
       if (password.length < 8) {
         throw new Error('Password must be at least 8 characters long');
       }
 
-      // Check if user already exists
+    
       const existingUser = await this.db.collection('users').findOne({ email: email.toLowerCase() });
       if (existingUser) {
         throw new Error('User already exists with this email');
       }
 
-      // Hash password
+     
       const passwordHash = await bcrypt.hash(password, 10);
 
-      // Generate new wallet
+      
       logger.info('Generating wallet for new user...');
       const mnemonic = bip39.generateMnemonic(128); // 12 words
       const wallet = ethers.Wallet.fromPhrase(mnemonic);
 
-      // Encrypt wallet data with user password
+     
       const encryptedPrivateKey = await this.encryptData(wallet.privateKey, password);
       const encryptedMnemonic = await this.encryptData(mnemonic, password);
 
@@ -105,7 +105,7 @@ class AuthService {
         wallet: {
           address: wallet.address
         },
-        mnemonic // Send this ONCE for user to save
+        mnemonic 
       };
     } catch (error) {
       logger.error('Registration failed:', error);
@@ -131,13 +131,13 @@ class AuthService {
         throw new Error('Account is suspended');
       }
 
-      // Verify password
+      
       const isValidPassword = await bcrypt.compare(password, user.passwordHash);
       if (!isValidPassword) {
         throw new Error('Invalid email or password');
       }
 
-      // Update last login
+      
       await this.db.collection('users').updateOne(
         { _id: user._id },
         { 
@@ -146,10 +146,10 @@ class AuthService {
         }
       );
 
-      // Generate token
+     
       const token = this.generateToken(user._id, user.email);
 
-      // Create session
+     
       await this.createSession(user._id, token);
 
       logger.info('User logged in', { userId: user._id, email });
@@ -203,8 +203,7 @@ class AuthService {
    * Simple encryption (password-based)
    */
   async encryptData(data, password) {
-    // In production, use proper encryption library like crypto
-    // For now, simple base64 encoding with password salt
+    
     const salt = await bcrypt.genSalt(10);
     const combined = `${salt}:${data}`;
     return Buffer.from(combined).toString('base64');

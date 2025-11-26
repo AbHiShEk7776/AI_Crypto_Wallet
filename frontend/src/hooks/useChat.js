@@ -18,13 +18,13 @@ export const useChat = () => {
     try {
       const { data } = await nlpAPI.checkHealth();
       setAiHealth(data);
-      console.log('✅ AI Health:', data);
+      console.log(' AI Health:', data);
     } catch (error) {
       setAiHealth({
         running: false,
         modelAvailable: false
       });
-      console.error('❌ Health check failed:', error);
+      console.error(' Health check failed:', error);
     }
   }, []);
 
@@ -49,7 +49,7 @@ export const useChat = () => {
     }, 2000);
 
     try {
-      console.log('📤 Sending message to AI...');
+      console.log(' Sending message to AI...');
       
       const { data } = await nlpAPI.chat(content, messages);
 
@@ -65,7 +65,7 @@ export const useChat = () => {
         };
         setMessages(prev => [...prev, assistantMessage]);
 
-        console.log('✅ AI Response:', data);
+        console.log(' AI Response:', data);
 
         // Return intent and parameters for action handling
         return {
@@ -81,7 +81,7 @@ export const useChat = () => {
         clearTimeout(timeoutRef.current);
       }
 
-      console.error('❌ Chat error:', error);
+      console.error(' Chat error:', error);
       
       let errorMsg = 'Sorry, I encountered an error. Please try again.';
       

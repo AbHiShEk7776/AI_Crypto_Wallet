@@ -39,8 +39,8 @@ export default function ChatInterface({
 
     // Handle detected intents and initiate actions
     if (result && result.intent) {
-      console.log('🎯 Detected intent:', result.intent);
-      console.log('📋 Parameters:', result.parameters);
+      console.log(' Detected intent:', result.intent);
+      console.log(' Parameters:', result.parameters);
 
       // Show processing time
       if (result.processingTime) {
@@ -74,7 +74,7 @@ export default function ChatInterface({
           break;
 
         default:
-          console.log('⚠️ Unknown intent:', result.intent);
+          console.log(' Unknown intent:', result.intent);
           break;
       }
     }

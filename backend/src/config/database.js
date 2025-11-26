@@ -21,10 +21,10 @@ class Database {
       // Create indexes
       await this.createIndexes();
       
-      logger.info('✅ MongoDB connected successfully');
+      logger.info('MongoDB connected successfully');
       return this.db;
     } catch (error) {
-      logger.error('❌ MongoDB connection failed:', error);
+      logger.error('MongoDB connection failed:', error);
       throw error;
     }
   }

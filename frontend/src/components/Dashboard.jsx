@@ -56,7 +56,7 @@ export default function Dashboard() {
 
       if (demoMode) {
         setBalance('2.5000');
-        console.log('✅ Demo balance set to 2.5 ETH');
+        console.log(' Demo balance set to 2.5 ETH');
         setLoading(false);
         return;
       }
@@ -66,7 +66,7 @@ export default function Dashboard() {
 
       if (data.success) {
         setBalance(data.balance.balance);
-        console.log('✅ Balance fetched:', data.balance.balance);
+        console.log(' Balance fetched:', data.balance.balance);
       }
     } catch (e) {
       console.error('Balance fetch error:', e);
@@ -79,7 +79,7 @@ export default function Dashboard() {
   // Fetch Transaction History
   const fetchTransactionHistory = async () => {
     try {
-      console.log('📜 Fetching transaction history...');
+      console.log(' Fetching transaction history...');
 
       if (demoMode) {
         const demoTxs = [
@@ -110,12 +110,12 @@ export default function Dashboard() {
         ];
         
         setTransactions(demoTxs);
-        console.log('✅ Demo transactions loaded:', demoTxs.length);
+        console.log(' Demo transactions loaded:', demoTxs.length);
         return;
       }
 
       if (!isAuthenticated) {
-        console.log('⚠️ Not authenticated, skipping history fetch');
+        console.log(' Not authenticated, skipping history fetch');
         return;
       }
 
@@ -126,10 +126,10 @@ export default function Dashboard() {
 
       if (data.success) {
         setTransactions(data.transactions);
-        console.log('✅ Transaction history loaded:', data.transactions.length);
+        console.log(' Transaction history loaded:', data.transactions.length);
       }
     } catch (error) {
-      console.error('❌ Failed to load transaction history:', error);
+      console.error(' Failed to load transaction history:', error);
     }
   };
 
@@ -146,7 +146,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (wallet && wallet.address) {
-      console.log('🔄 Wallet changed, fetching data...');
+      console.log(' Wallet changed, fetching data...');
       fetchBalance();
       fetchTransactionHistory();
     }
@@ -155,7 +155,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (!demoMode && wallet?.address) {
       const interval = setInterval(() => {
-        console.log('🔄 Auto-refreshing balance...');
+        console.log(' Auto-refreshing balance...');
         fetchBalance();
         fetchTransactionHistory();
       }, 30000);

@@ -19,7 +19,7 @@ class TransactionHistoryService {
       throw new Error('Database not connected');
     }
     this.collection = this.db.collection('transactions');
-    this.usersCollection = this.db.collection('users'); // Users collection reference
+    this.usersCollection = this.db.collection('users'); 
 
     // Create indexes
     await this.createIndexes();
@@ -29,13 +29,12 @@ class TransactionHistoryService {
     try {
       await this.collection.createIndex({ userId: 1 });
       await this.collection.createIndex({ walletAddress: 1 });
-      await this.collection.createIndex({ hash: 1 }); // Removed unique constraint globally
+      await this.collection.createIndex({ hash: 1 }); 
       await this.collection.createIndex({ timestamp: -1 });
       await this.collection.createIndex({ network: 1 });
       await this.collection.createIndex({ createdAt: -1 });
       await this.collection.createIndex({ type: 1 });
         
-       // Compound unique index including 'type'
     await this.collection.createIndex(
       { userId: 1, hash: 1, type: 1 },
       { unique: true }
@@ -58,7 +57,7 @@ class TransactionHistoryService {
         userId: new ObjectId(userId),
         walletAddress,
 
-        // Normalize addresses to lowercase for consistent querying but leave DB as is
+        
         from: txData.from ? txData.from.toLowerCase() : null,
         to: txData.to ? txData.to.toLowerCase() : null,
 
@@ -121,7 +120,7 @@ class TransactionHistoryService {
     try {
       const results = { sender: null, recipient: null };
 
-      // Log for sender (normalize addresses to lowercase in queries, not in storage)
+      
       results.sender = await this.logTransaction(
         senderUserId,
         senderWallet,
@@ -133,7 +132,7 @@ class TransactionHistoryService {
           to: recipientWallet
         }
       );
-      logger.info('✅ Transaction logged for sender:', senderUserId);
+      logger.info(' Transaction logged for sender:', senderUserId);
 
       if (!this.usersCollection) {
         await this.initialize();
@@ -145,7 +144,7 @@ class TransactionHistoryService {
       });
 
       if (recipient) {
-        logger.info('📥 Recipient is a user, logging received transaction');
+        logger.info(' Recipient is a user, logging received transaction');
 
         results.recipient = await this.logTransaction(
           recipient._id.toString(),
@@ -158,9 +157,9 @@ class TransactionHistoryService {
             to: recipientWallet
           }
         );
-        logger.info('✅ Transaction logged for recipient:', recipient._id);
+        logger.info(' Transaction logged for recipient:', recipient._id);
       } else {
-        logger.info('⚠️ Recipient is not a user of this app');
+        logger.info(' Recipient is not a user of this app');
       }
 
       return results;
@@ -199,7 +198,7 @@ class TransactionHistoryService {
 
       const query = { userId: new ObjectId(userId) };
 
-      // Default types to 'sent' and 'received' if none specified
+     
       if (type) {
         query.type = Array.isArray(type) ? { $in: type } : type;
       } else {

@@ -53,7 +53,6 @@ export const authMiddleware = async (req, res, next) => {
       });
     }
 
-    // Attach user to request
     req.user = {
       id: user._id,
       email: user.email,

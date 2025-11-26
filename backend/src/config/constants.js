@@ -8,11 +8,11 @@ export const NETWORKS = {
     name: 'sepolia',
     chainId: 11155111,
     rpcUrls: [
-      'https://ethereum-sepolia-rpc.publicnode.com',      // ✅ Working (1665ms)
-      'https://sepolia.gateway.tenderly.co',              // ✅ Working (1667ms)
-      'https://rpc2.sepolia.org',                         // ⚠️ Slow but backup
-      'https://1rpc.io/sepolia',                          // New alternative
-      'https://sepolia.drpc.org',                         // New alternative
+      'https://ethereum-sepolia-rpc.publicnode.com',       
+      'https://sepolia.gateway.tenderly.co',              
+      'https://rpc2.sepolia.org',                         
+      'https://1rpc.io/sepolia',                          
+      'https://sepolia.drpc.org',                         
     ],
     blockExplorer: 'https://sepolia.etherscan.io',
     nativeCurrency: {
@@ -25,10 +25,10 @@ export const NETWORKS = {
     name: 'ethereum',
     chainId: 1,
     rpcUrls: [
-      'https://ethereum-rpc.publicnode.com',              // ✅ Working (2033ms)
-      'https://eth.llamarpc.com',                         // ✅ Working (2148ms)
-      'https://rpc.flashbots.net',                        // New alternative
-      'https://eth.drpc.org',                             // New alternative
+      'https://ethereum-rpc.publicnode.com',              
+      'https://eth.llamarpc.com',                         
+      'https://rpc.flashbots.net',                        
+      'https://eth.drpc.org',                             
     ],
     blockExplorer: 'https://etherscan.io',
     nativeCurrency: {
@@ -41,10 +41,10 @@ export const NETWORKS = {
     name: 'polygon',
     chainId: 137,
     rpcUrls: [
-      'https://polygon-rpc.com',                          // ✅ Working (2080ms)
-      'https://polygon-bor-rpc.publicnode.com',           // ✅ Working (2419ms)
-      'https://polygon.drpc.org',                         // New alternative
-      'https://polygon.llamarpc.com',                     // New alternative
+      'https://polygon-rpc.com',                          
+      'https://polygon-bor-rpc.publicnode.com',           
+      'https://polygon.drpc.org',                         
+      'https://polygon.llamarpc.com',                     
     ],
     blockExplorer: 'https://polygonscan.com',
     nativeCurrency: {
@@ -93,9 +93,9 @@ export const UNISWAP_V2_ROUTER_ABI = [
 
 // Transaction confirmation times (in blocks)
 export const CONFIRMATION_BLOCKS = {
-  LOW_VALUE: 1,      // < $10
-  MEDIUM_VALUE: 3,   // $10-$1000
-  HIGH_VALUE: 6      // > $1000
+  LOW_VALUE: 1,      
+  MEDIUM_VALUE: 3,   
+  HIGH_VALUE: 6      
 };
 
 // Gas limits for different operations

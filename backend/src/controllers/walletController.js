@@ -19,15 +19,12 @@ class WalletController {
 
       const wallet = await walletService.generateWallet();
 
-      // In production, don't send private key to frontend
-      // Instead, encrypt it with user's password before storing
       res.status(RESPONSE_CODES.CREATED).json({
         success: true,
         message: 'Wallet created successfully',
         wallet: {
           address: wallet.address,
           mnemonic: wallet.mnemonic,
-          // WARNING: In production, handle private key more securely
           privateKey: wallet.privateKey
         }
       });

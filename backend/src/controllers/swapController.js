@@ -66,7 +66,7 @@ class SwapController {
 
       // Check if approval needed (if swapping tokens)
       if (swapParams.fromToken !== 'ETH') {
-        // Token approval handled separately or automatically
+        
       }
 
       // Execute swap
