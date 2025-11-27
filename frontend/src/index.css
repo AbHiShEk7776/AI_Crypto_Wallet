@@ -531,3 +531,34 @@ h1 {
   font-weight: 900;
   letter-spacing: -0.03em;
 }
+/* Smooth scrollbar for chat */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.7);
+}
+
+/* Prevent text selection while dragging */
+.select-none {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+@keyframes sparkle-float {
+  0% { transform: translateY(0px); opacity: 0.4; }
+  50% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0px); opacity: 0.4; }
+}

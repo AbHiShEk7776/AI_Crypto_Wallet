@@ -120,6 +120,282 @@ class WalletService {
     throw new Error(`Balance fetch failed: ${error.message}`);
   }
 }
+ /**
+   * ========================================
+   * AGENTIC AI METHODS - NEW
+   * ========================================
+   */
+
+  /**
+   * Get wallet balance for AI agent
+   * Simplified wrapper for getNativeBalance
+   */
+  async getBalance(address, network = 'sepolia') {
+    try {
+      const result = await this.getNativeBalance(address, network);
+      return {
+        formatted: `${result.balance} ${result.symbol}`,
+        value: result.balance,
+        symbol: result.symbol,
+        network: network,
+        wei: result.balanceWei
+      };
+    } catch (error) {
+      logger.error('AI getBalance failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get decrypted private key for transaction signing
+   * Used by AI agent for autonomous transactions
+   * @param {string} userId - User ID
+   * @param {string} password - User's wallet password
+   * @returns {string} Decrypted private key
+   */
+  async getPrivateKey(userId, password) {
+    try {
+      logger.info('Retrieving private key for user', { userId });
+
+      // Get user from database
+      const db = database.getDb();
+      const usersCollection = db.collection('users');
+      
+      const user = await usersCollection.findOne({
+        _id: new (require('mongodb').ObjectId)(userId)
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      if (!user.encryptedPrivateKey) {
+        throw new Error('No encrypted private key found for user');
+      }
+
+      // Decrypt private key using AES
+      const decrypted = CryptoJS.AES.decrypt(
+        user.encryptedPrivateKey,
+        password
+      ).toString(CryptoJS.enc.Utf8);
+
+      if (!decrypted || !decrypted.startsWith('0x')) {
+        throw new Error('Invalid password - decryption failed');
+      }
+
+      logger.info('Private key retrieved successfully', { userId });
+
+      return decrypted;
+    } catch (error) {
+      logger.error('Private key retrieval failed:', {
+        userId,
+        error: error.message
+      });
+      throw new Error(`Private key retrieval failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Create a wallet instance from private key
+   * Used by AI agent for signing transactions
+   * @param {string} privateKey - Decrypted private key
+   * @param {string} network - Network name
+   * @returns {ethers.Wallet} Connected wallet instance
+   */
+  createWalletInstance(privateKey, network = 'sepolia') {
+    try {
+      const provider = this.getProvider(network);
+      const wallet = new ethers.Wallet(privateKey, provider);
+      
+      logger.info('Wallet instance created', {
+        address: wallet.address,
+        network
+      });
+
+      return wallet;
+    } catch (error) {
+      logger.error('Wallet instance creation failed:', error);
+      throw new Error(`Wallet instance creation failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Send transaction (used by AI agent)
+   * @param {string} privateKey - Decrypted private key
+   * @param {Object} txParams - Transaction parameters
+   * @param {string} network - Network name
+   * @returns {Object} Transaction result
+   */
+  async sendTransaction(privateKey, txParams, network = 'sepolia') {
+    try {
+      logger.info('AI Agent: Sending transaction', {
+        to: txParams.to,
+        value: txParams.value,
+        network
+      });
+
+      // Create wallet instance
+      const wallet = this.createWalletInstance(privateKey, network);
+
+      // Prepare transaction
+      const tx = {
+        to: txParams.to,
+        value: ethers.parseEther(txParams.value.toString()),
+        gasLimit: txParams.gasLimit || 21000,
+      };
+
+      // Get current gas prices
+      const feeData = await wallet.provider.getFeeData();
+      
+      // Add EIP-1559 gas parameters
+      if (feeData.maxFeePerGas) {
+        tx.maxFeePerGas = feeData.maxFeePerGas;
+        tx.maxPriorityFeePerGas = feeData.maxPriorityFeePerGas;
+      } else {
+        tx.gasPrice = feeData.gasPrice;
+      }
+
+      logger.info('Transaction prepared', {
+        from: wallet.address,
+        to: tx.to,
+        value: ethers.formatEther(tx.value)
+      });
+
+      // Send transaction
+      const txResponse = await wallet.sendTransaction(tx);
+      
+      logger.info('Transaction sent', {
+        hash: txResponse.hash
+      });
+
+      // Wait for confirmation
+      const receipt = await txResponse.wait();
+
+      logger.info('Transaction confirmed', {
+        hash: receipt.hash,
+        blockNumber: receipt.blockNumber,
+        status: receipt.status
+      });
+
+      return {
+        hash: receipt.hash,
+        from: wallet.address,
+        to: txParams.to,
+        value: txParams.value,
+        blockNumber: receipt.blockNumber,
+        blockHash: receipt.blockHash,
+        gasUsed: receipt.gasUsed.toString(),
+        effectiveGasPrice: receipt.gasPrice ? receipt.gasPrice.toString() : receipt.effectiveGasPrice?.toString(),
+        status: receipt.status === 1 ? 'success' : 'failed',
+        network: network
+      };
+    } catch (error) {
+      logger.error('Transaction failed:', {
+        error: error.message,
+        code: error.code
+      });
+
+      // Handle specific errors
+      if (error.code === 'INSUFFICIENT_FUNDS') {
+        throw new Error('Insufficient funds for transaction and gas');
+      } else if (error.code === 'NONCE_EXPIRED') {
+        throw new Error('Transaction nonce expired. Please try again');
+      } else if (error.code === 'REPLACEMENT_UNDERPRICED') {
+        throw new Error('Gas price too low. Please try again with higher gas');
+      }
+
+      throw new Error(`Transaction failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Estimate gas for transaction
+   * @param {string} from - Sender address
+   * @param {string} to - Recipient address
+   * @param {string} value - Amount in ETH
+   * @param {string} network - Network name
+   * @returns {Object} Gas estimation
+   */
+  async estimateGas(from, to, value, network = 'sepolia') {
+    try {
+      const provider = this.getProvider(network);
+
+      const gasEstimate = await provider.estimateGas({
+        from,
+        to,
+        value: ethers.parseEther(value.toString())
+      });
+
+      const feeData = await provider.getFeeData();
+
+      const gasCost = gasEstimate * (feeData.gasPrice || feeData.maxFeePerGas);
+      const gasCostEth = ethers.formatEther(gasCost);
+
+      return {
+        gasLimit: gasEstimate.toString(),
+        gasPrice: feeData.gasPrice?.toString(),
+        gasPriceGwei: feeData.gasPrice ? ethers.formatUnits(feeData.gasPrice, 'gwei') : null,
+        maxFeePerGas: feeData.maxFeePerGas?.toString(),
+        maxPriorityFeePerGas: feeData.maxPriorityFeePerGas?.toString(),
+        estimatedCost: gasCostEth,
+        estimatedCostWei: gasCost.toString()
+      };
+    } catch (error) {
+      logger.error('Gas estimation failed:', error);
+      throw new Error(`Gas estimation failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Validate Ethereum address
+   * @param {string} address - Address to validate
+   * @returns {boolean} True if valid
+   */
+  isValidAddress(address) {
+    try {
+      return ethers.isAddress(address);
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Get transaction by hash
+   * @param {string} hash - Transaction hash
+   * @param {string} network - Network name
+   * @returns {Object} Transaction details
+   */
+  async getTransaction(hash, network = 'sepolia') {
+    try {
+      const provider = this.getProvider(network);
+      const tx = await provider.getTransaction(hash);
+      
+      if (!tx) {
+        throw new Error('Transaction not found');
+      }
+
+      const receipt = await provider.getTransactionReceipt(hash);
+
+      return {
+        hash: tx.hash,
+        from: tx.from,
+        to: tx.to,
+        value: ethers.formatEther(tx.value),
+        valueWei: tx.value.toString(),
+        blockNumber: tx.blockNumber,
+        blockHash: tx.blockHash,
+        gasPrice: tx.gasPrice?.toString(),
+        gasLimit: tx.gasLimit.toString(),
+        gasUsed: receipt?.gasUsed.toString(),
+        status: receipt?.status === 1 ? 'success' : 'failed',
+        confirmations: receipt?.confirmations,
+        timestamp: tx.timestamp
+      };
+    } catch (error) {
+      logger.error('Get transaction failed:', error);
+      throw new Error(`Get transaction failed: ${error.message}`);
+    }
+  }
 
 
   /**

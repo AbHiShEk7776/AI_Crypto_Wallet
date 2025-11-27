@@ -6,128 +6,161 @@ export const useChat = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm your crypto wallet assistant. I can help you:\n\n• Check your balance\n• Send transactions\n• Swap tokens\n• View transaction history\n• Manage contacts\n\nWhat would you like to do?"
+      content: "Hi! I'm your autonomous AI wallet agent. I can execute actions directly:\n\n• Check balance\n• Send transactions (with password)\n• Swap tokens (with password)\n• View history\n• Manage contacts\n\nJust tell me what to do!"
     }
   ]);
   const [loading, setLoading] = useState(false);
   const [aiHealth, setAiHealth] = useState(null);
   const timeoutRef = useRef(null);
 
-  // Check AI service health
   const checkHealth = useCallback(async () => {
     try {
       const { data } = await nlpAPI.checkHealth();
       setAiHealth(data);
-      console.log(' AI Health:', data);
     } catch (error) {
-      setAiHealth({
-        running: false,
-        modelAvailable: false
-      });
-      console.error(' Health check failed:', error);
+      setAiHealth({ running: false });
     }
   }, []);
 
-  // Send message to AI
   const sendMessage = useCallback(async (content) => {
-    const token = localStorage.getItem('auth_token');
-    if (!token) {
-      toast.error('Please login to use the chat');
-      return null;
-    }
-
-    const userMessage = { role: 'user', content };
-    setMessages(prev => [...prev, userMessage]);
-    setLoading(true);
-
-    // Show "thinking" indicator after 2 seconds
-    timeoutRef.current = setTimeout(() => {
-      toast('🤖 AI is thinking...', {
-        duration: 3000,
-        icon: '⏳'
-      });
-    }, 2000);
-
-    try {
-      console.log(' Sending message to AI...');
-      
-      const { data } = await nlpAPI.chat(content, messages);
-
-      // Clear timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      if (data.success) {
-        const assistantMessage = {
-          role: 'assistant',
-          content: data.response
-        };
-        setMessages(prev => [...prev, assistantMessage]);
-
-        console.log(' AI Response:', data);
-
-        // Return intent and parameters for action handling
-        return {
-          intent: data.intent,
-          parameters: data.parameters,
-          explanation: data.response,
-          processingTime: data.processingTime
-        };
-      }
-    } catch (error) {
-      // Clear timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      console.error(' Chat error:', error);
-      
-      let errorMsg = 'Sorry, I encountered an error. Please try again.';
-      
-      if (error.response?.status === 401) {
-        errorMsg = '🔒 Authentication failed. Please login again.';
-        toast.error('Session expired');
-      } else if (error.response?.status === 503) {
-        errorMsg = '🤖 AI service is currently unavailable. Please try again later.';
-        toast.error('AI service unavailable');
-      } else if (error.response?.status === 429) {
-        errorMsg = '⏱️ Too many requests. Please wait a moment and try again.';
-        toast.error('Rate limit exceeded');
-      } else if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
-        errorMsg = '⏱️ Request timed out. Please try again.';
-        toast.error('Request timeout');
-      } else if (error.message === 'No authentication token found') {
-        errorMsg = '🔒 Please login to use the chat.';
-        toast.error('Please login first');
-      }
-      
-      const errorMessage = {
-        role: 'assistant',
-        content: errorMsg
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setLoading(false);
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    }
-
+  const token = localStorage.getItem('auth_token');
+  if (!token) {
+    toast.error('Please login to use the AI agent');
     return null;
-  }, [messages]);
+  }
 
-  // Add assistant message manually
-  const addAssistantMessage = useCallback((content) => {
-    setMessages(prev => [...prev, { role: 'assistant', content }]);
-  }, []);
+  const userMessage = { role: 'user', content };
+  setMessages(prev => [...prev, userMessage]);
+  setLoading(true);
 
-  // Clear conversation
+  timeoutRef.current = setTimeout(() => {
+    toast('🤖 AI is processing...', {
+      duration: 3000,
+      icon: '⚡'
+    });
+  }, 2000);
+
+  try {
+    const { data } = await nlpAPI.chat(content, messages);
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    if (data.success) {
+      let responseContent = data.response;
+      const exec = data.executionResult;
+
+      // If action was executed, add execution results
+      if (data.executed && exec) {
+        const result = exec;
+
+        // ⚠️ Special case: for transaction_history, ignore model text completely
+        if (result.action === 'transaction_history') {
+          const txs = result.data?.transactions || [];
+
+          if (txs.length === 0) {
+            responseContent = 'No transactions found.'; // backend already decided this
+          } else {
+            responseContent = result.message || 'Transaction history fetched successfully.';
+            responseContent += `\n\n📊 Transaction History (${txs.length}):`;
+
+            txs.forEach((tx, i) => {
+              const icon = tx.type === 'received' ? '📥' :
+                           tx.type === 'swap' ? '🔄' : '📤';
+              const sign = tx.type === 'received' ? '+' : '-';
+
+              responseContent += `\n\n${i + 1}. ${icon} ${tx.type.toUpperCase()} ${sign}${tx.value} ${tx.token}`;
+              responseContent += `\n   From: ${tx.fromShort}`;
+              responseContent += `\n   To:   ${tx.toShort}`;
+              responseContent += `\n   Hash: ${tx.hashShort}`;
+              responseContent += `\n   Time: ${tx.date}`;
+              responseContent += `\n   Status: ${tx.status}`;
+            });
+          }
+        } else if (result.success) {
+          // Original branches for other actions stay as‑is
+          responseContent += `\n\n✅ ${result.message}`;
+
+          if (result.action === 'check_balance') {
+            responseContent += `\n\n💰 Balance: ${result.data.balance}`;
+            responseContent += `\n📍 Network: ${result.data.network}`;
+          } 
+          else if (result.action === 'send_crypto') {
+            responseContent += `\n\n📤 Transaction Details:`;
+            responseContent += `\n• Hash: ${result.data.hash.substring(0, 20)}...`;
+            responseContent += `\n• To: ${result.data.to.substring(0, 10)}...`;
+            responseContent += `\n• Amount: ${result.data.amount} ${result.data.token}`;
+            responseContent += `\n• Block: ${result.data.blockNumber}`;
+          } 
+          else if (result.action === 'view_contacts') {
+            if (result.data.count > 0) {
+              responseContent += `\n\n👥 Your Contacts (${result.data.count}):`;
+              result.data.contacts.forEach((contact, i) => {
+                responseContent += `\n${i + 1}. ${contact.name}`;
+                responseContent += `\n   📍 ${contact.displayAddress}`;
+              });
+              responseContent += `\n\n💡 Tip: Send ETH using contact names like "Send 0.1 ETH to ${result.data.contacts[0].name}"`;
+            } else {
+              responseContent += `\n\n👥 No contacts saved yet.`;
+              responseContent += `\n\n💡 Add a contact: "Save 0x... as Name"`;
+            }
+          }
+          else if (result.action === 'add_contact') {
+            responseContent += `\n\n✅ Contact Added:`;
+            responseContent += `\n• Name: ${result.data.name}`;
+            responseContent += `\n• Address: ${result.data.address}`;
+          }
+
+        } else {
+          responseContent += `\n\n❌ Error: ${result.error}`;
+        }
+      }
+
+      const assistantMessage = {
+        role: 'assistant',
+        content: responseContent
+      };
+      setMessages(prev => [...prev, assistantMessage]);
+
+      return {
+        intent: data.intent,
+        parameters: data.parameters,
+        executionResult: data.executionResult,
+        executed: data.executed
+      };
+    }
+  } catch (error) {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    console.error('❌ Chat error:', error);
+    
+    let errorMsg = 'Sorry, I encountered an error.';
+    
+    if (error.response?.status === 401) {
+      errorMsg = '🔒 Please login again.';
+      toast.error('Session expired');
+    }
+    
+    setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
+  } finally {
+    setLoading(false);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
+  return null;
+}, [messages]);
+
+
   const clearChat = useCallback(() => {
     setMessages([
       {
         role: 'assistant',
-        content: "Chat cleared! How can I help you?"
+        content: "Chat cleared! What would you like me to do?"
       }
     ]);
   }, []);
@@ -138,7 +171,6 @@ export const useChat = () => {
     sendMessage,
     aiHealth,
     checkHealth,
-    addAssistantMessage,
     clearChat
   };
 };

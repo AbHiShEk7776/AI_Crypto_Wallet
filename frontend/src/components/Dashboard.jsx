@@ -172,306 +172,291 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen pb-20">
-      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
-        
-        {/* Demo Mode Banner */}
-        {demoMode && (
-          <div className="glass-light border border-amber-500/30 rounded-2xl p-4 flex items-center gap-3 animate-fade-in">
-            <div className="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center">
-              <Zap className="w-6 h-6 text-amber-400" />
+  <div className="min-h-screen pb-20">
+    <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      
+      {/* Demo Mode Banner */}
+      {demoMode && (
+        <div className="glass-light border border-amber-500/30 rounded-2xl p-4 flex items-center gap-3 animate-fade-in">
+          <div className="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center">
+            <Zap className="w-6 h-6 text-amber-400" />
+          </div>
+          <div className="flex-1">
+            <p className="font-semibold text-amber-300">Demo Mode Active</p>
+            <p className="text-sm text-amber-200/80">All transactions are simulated. No real blockchain interaction.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Low Balance Warning */}
+      {isLowBalance && isTestnet && (
+        <div className="glass-light border border-blue-500/30 rounded-2xl p-4 animate-fade-in">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <AlertTriangle className="w-6 h-6 text-blue-400" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-amber-300">Demo Mode Active</p>
-              <p className="text-sm text-amber-200/80">All transactions are simulated. No real blockchain interaction.</p>
-            </div>
-          </div>
-        )}
-
-        {/* Low Balance Warning */}
-        {isLowBalance && isTestnet && (
-          <div className="glass-light border border-blue-500/30 rounded-2xl p-4 animate-fade-in">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-6 h-6 text-blue-400" />
-              </div>
-              <div className="flex-1">
-                <p className="font-semibold text-blue-300">Get Free Testnet ETH</p>
-                <p className="text-sm text-blue-200/80 mt-1">
-                  You need testnet ETH to send transactions. Current balance: {parseFloat(balance).toFixed(6)} ETH
-                </p>
-                
-                <button
-                  onClick={() => setShowFaucetModal(true)}
-                  className="mt-3 px-4 py-2 gradient-blue text-white rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:shadow-lg transition"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Get Testnet ETH (Free)
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Balance Card - Large & Prominent */}
-        <div className="relative overflow-hidden rounded-3xl gradient-primary p-8 text-white shadow-dark-lg animate-fade-in">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative z-10">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <Wallet className="w-5 h-5" />
-                <span className="text-sm font-medium opacity-90">Total Balance</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setBalanceVisible(!balanceVisible)}
-                  className="p-2 hover:bg-white/10 rounded-lg transition"
-                >
-                  {balanceVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                </button>
-                {demoMode && (
-                  <div className="flex items-center gap-1 px-2 py-1 bg-amber-500/20 rounded-full">
-                    <Zap className="w-3 h-3" />
-                    <span className="text-xs font-medium">Demo</span>
-                  </div>
-                )}
-                <button 
-                  onClick={() => {
-                    fetchBalance();
-                    fetchTransactionHistory();
-                  }}
-                  className="p-2 hover:bg-white/10 rounded-lg transition"
-                  disabled={loading}
-                >
-                  <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                </button>
-              </div>
-            </div>
-
-            {/* Balance */}
-            <div className="mb-6">
-              <div className="text-5xl font-bold mb-2">
-                {balanceVisible ? (
-                  <>{parseFloat(balance).toFixed(4)} <span className="text-2xl opacity-80">ETH</span></>
-                ) : (
-                  '••••••'
-                )}
-              </div>
-              <p className="text-lg opacity-75">
-                {balanceVisible && `≈ $${(parseFloat(balance) * 2000).toFixed(2)} USD`}
+              <p className="font-semibold text-blue-300">Get Free Testnet ETH</p>
+              <p className="text-sm text-blue-200/80 mt-1">
+                You need testnet ETH to send transactions. Current balance: {parseFloat(balance).toFixed(6)} ETH
               </p>
-            </div>
-
-            {/* Wallet Address */}
-            <div className="flex items-center gap-2 p-3 bg-white/10 rounded-xl backdrop-blur">
-              <code className="text-sm flex-1 font-mono">
-                {wallet.address.slice(0, 10)}...{wallet.address.slice(-8)}
-              </code>
+              
               <button
-                onClick={handleCopyAddress}
-                className="p-2 hover:bg-white/10 rounded-lg transition"
+                onClick={() => setShowFaucetModal(true)}
+                className="mt-3 px-4 py-2 gradient-blue text-white rounded-xl text-sm font-semibold inline-flex items-center gap-2 hover:shadow-lg transition"
               >
-                {copied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                <ExternalLink className="w-4 h-4" />
+                Get Testnet ETH (Free)
               </button>
             </div>
           </div>
         </div>
+      )}
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in">
-          <Link
-            to="/send"
-            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
-          >
-            <div className="absolute top-0 right-0 w-20 h-20 bg-orange-500/20 rounded-full blur-2xl"></div>
-            <div className="relative z-10">
-              <div className="w-12 h-12 gradient-orange rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <Send className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-white">Send</h3>
-              <p className="text-xs text-white/60 mt-1">Transfer tokens</p>
-            </div>
-          </Link>
-
-          <Link
-            to="/swap"
-            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
-          >
-            <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl"></div>
-            <div className="relative z-10">
-              <div className="w-12 h-12 gradient-purple rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <ArrowLeftRight className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-white">Swap</h3>
-              <p className="text-xs text-white/60 mt-1">Exchange tokens</p>
-            </div>
-          </Link>
-
-          <Link
-            to="/contacts"
-            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
-          >
-            <div className="absolute top-0 right-0 w-20 h-20 bg-pink-500/20 rounded-full blur-2xl"></div>
-            <div className="relative z-10">
-              <div className="w-12 h-12 gradient-pink rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <Users className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-white">Contacts</h3>
-              <p className="text-xs text-white/60 mt-1">Address book</p>
-            </div>
-          </Link>
-
-          <Link
-            to="/chat"
-            className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
-          >
-            <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl"></div>
-            <div className="relative z-10">
-              <div className="w-12 h-12 gradient-blue rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <MessageSquare className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-white">AI Chat</h3>
-              <p className="text-xs text-white/60 mt-1">Smart assistant</p>
-            </div>
-          </Link>
+      {/* Balance Card - Large & Prominent */}
+      <div className="relative overflow-hidden rounded-3xl gradient-primary p-8 text-white shadow-dark-lg animate-fade-in">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
         </div>
 
-        {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-4 animate-fade-in">
-          <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
-                <ArrowDownLeft className="w-5 h-5 text-green-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.received}</p>
-                <p className="text-xs text-white/60">Received</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
-                <ArrowUpRight className="w-5 h-5 text-orange-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.sent}</p>
-                <p className="text-xs text-white/60">Sent</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-indigo-400" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">{stats.total}</p>
-                <p className="text-xs text-white/60">Total</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Transactions */}
-        <div className="glass-dark rounded-2xl shadow-dark p-6 border border-white/10 animate-fade-in">
+        <div className="relative z-10">
+          {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-white">Recent Activity</h2>
-            <Link
-              to="/history"
-              className="text-sm font-medium text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition"
-            >
-              View All
-              <ExternalLink className="w-3 h-3" />
-            </Link>
+            <div className="flex items-center gap-2">
+              <Wallet className="w-5 h-5" />
+              <span className="text-sm font-medium opacity-90">Total Balance</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setBalanceVisible(!balanceVisible)}
+                className="p-2 hover:bg-white/10 rounded-lg transition"
+              >
+                {balanceVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+              </button>
+              {demoMode && (
+                <div className="flex items-center gap-1 px-2 py-1 bg-amber-500/20 rounded-full">
+                  <Zap className="w-3 h-3" />
+                  <span className="text-xs font-medium">Demo</span>
+                </div>
+              )}
+              <button 
+                onClick={() => {
+                  fetchBalance();
+                  fetchTransactionHistory();
+                }}
+                className="p-2 hover:bg-white/10 rounded-lg transition"
+                disabled={loading}
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
           </div>
 
-          {loading ? (
-            <div className="text-center py-8">
-              <div className="w-12 h-12 border-4 border-white/20 border-t-indigo-500 rounded-full animate-spin mx-auto mb-3"></div>
-              <p className="text-white/60">Loading...</p>
+          {/* Balance */}
+          <div className="mb-6">
+            <div className="text-5xl font-bold mb-2">
+              {balanceVisible ? (
+                <>{parseFloat(balance).toFixed(4)} <span className="text-2xl opacity-80">ETH</span></>
+              ) : (
+                '••••••'
+              )}
             </div>
-          ) : transactions.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-white/40" />
-              </div>
-              <p className="text-white/70">No transactions yet</p>
-              <p className="text-sm text-white/50 mt-1">Send your first transaction to get started!</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {transactions.slice(0, 5).map((tx) => (
-                <div
-                  key={tx.hash}
-                  className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-xl transition cursor-pointer group border border-white/5"
-                  onClick={() => !demoMode && window.open(getExplorerUrl(tx.hash, network), '_blank')}
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    tx.type === 'received' ? 'bg-green-500/20' : 
-                    tx.type === 'swap' ? 'bg-purple-500/20' : 'bg-orange-500/20'
-                  }`}>
-                    {tx.type === 'received' ? (
-                      <ArrowDownLeft className="w-5 h-5 text-green-400" />
-                    ) : tx.type === 'swap' ? (
-                      <ArrowLeftRight className="w-5 h-5 text-purple-400" />
-                    ) : (
-                      <ArrowUpRight className="w-5 h-5 text-orange-400" />
-                    )}
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-white capitalize">{tx.type}</p>
-                    <p className="text-sm text-white/50 font-mono truncate">
-                      {tx.hash.slice(0, 10)}...{tx.hash.slice(-8)}
-                    </p>
-                  </div>
+            <p className="text-lg opacity-75">
+              {balanceVisible && `≈ $${(parseFloat(balance) * 2000).toFixed(2)} USD`}
+            </p>
+          </div>
 
-                  <div className="text-right">
-                    <p className="font-semibold text-white">
-                      {tx.type === 'received' ? '+' : '-'}{tx.value} {tx.token || 'ETH'}
-                    </p>
-                    <p className="text-xs text-white/50">
-                      {new Date(tx.timestamp).toLocaleDateString()}
-                    </p>
-                  </div>
-
-                  {!demoMode && (
-                    <ExternalLink className="w-4 h-4 text-white/40 opacity-0 group-hover:opacity-100 transition" />
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          {/* Wallet Address */}
+          <div className="flex items-center gap-2 p-3 bg-white/10 rounded-xl backdrop-blur">
+            <code className="text-sm flex-1 font-mono">
+              {wallet.address.slice(0, 10)}...{wallet.address.slice(-8)}
+            </code>
+            <button
+              onClick={handleCopyAddress}
+              className="p-2 hover:bg-white/10 rounded-lg transition"
+            >
+              {copied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Faucet Modal */}
-      {showFaucetModal && (
-        <FaucetModal
-          address={wallet.address}
-          network={network}
-          onClose={() => setShowFaucetModal(false)}
-          onSuccess={() => {
-            setShowFaucetModal(false);
-            setTimeout(() => {
-              fetchBalance();
-              fetchTransactionHistory();
-            }, 3000);
-          }}
-        />
-      )}
+      {/* Quick Actions */}
+      <div className="grid grid-cols-3 gap-4 animate-fade-in">
+        <Link
+          to="/send"
+          className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
+        >
+          <div className="absolute top-0 right-0 w-20 h-20 bg-orange-500/20 rounded-full blur-2xl"></div>
+          <div className="relative z-10">
+            <div className="w-12 h-12 gradient-orange rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <Send className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="font-bold text-white">Send</h3>
+            <p className="text-xs text-white/60 mt-1">Transfer tokens</p>
+          </div>
+        </Link>
+
+        <Link
+          to="/swap"
+          className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
+        >
+          <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl"></div>
+          <div className="relative z-10">
+            <div className="w-12 h-12 gradient-purple rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <ArrowLeftRight className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="font-bold text-white">Swap</h3>
+            <p className="text-xs text-white/60 mt-1">Exchange tokens</p>
+          </div>
+        </Link>
+
+        <Link
+          to="/contacts"
+          className="group relative overflow-hidden glass-dark rounded-2xl p-6 shadow-dark hover:shadow-dark-lg transition-all duration-300 card-hover border border-white/10"
+        >
+          <div className="absolute top-0 right-0 w-20 h-20 bg-pink-500/20 rounded-full blur-2xl"></div>
+          <div className="relative z-10">
+            <div className="w-12 h-12 gradient-pink rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <Users className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="font-bold text-white">Contacts</h3>
+            <p className="text-xs text-white/60 mt-1">Address book</p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Stats Row */}
+      <div className="grid grid-cols-3 gap-4 animate-fade-in">
+        <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+              <ArrowDownLeft className="w-5 h-5 text-green-400" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.received}</p>
+              <p className="text-xs text-white/60">Received</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
+              <ArrowUpRight className="w-5 h-5 text-orange-400" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.sent}</p>
+              <p className="text-xs text-white/60">Sent</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-dark rounded-2xl p-5 shadow-dark border border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-indigo-400" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.total}</p>
+              <p className="text-xs text-white/60">Total</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Transactions */}
+      <div className="glass-dark rounded-2xl shadow-dark p-6 border border-white/10 animate-fade-in">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-white">Recent Activity</h2>
+          <Link
+            to="/history"
+            className="text-sm font-medium text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition"
+          >
+            View All
+            <ExternalLink className="w-3 h-3" />
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="text-center py-8">
+            <div className="w-12 h-12 border-4 border-white/20 border-t-indigo-500 rounded-full animate-spin mx-auto mb-3"></div>
+            <p className="text-white/60">Loading...</p>
+          </div>
+        ) : transactions.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Clock className="w-8 h-8 text-white/40" />
+            </div>
+            <p className="text-white/70">No transactions yet</p>
+            <p className="text-sm text-white/50 mt-1">Send your first transaction to get started!</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {transactions.slice(0, 5).map((tx) => (
+              <div
+                key={tx.hash}
+                className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-xl transition cursor-pointer group border border-white/5"
+                onClick={() => !demoMode && window.open(getExplorerUrl(tx.hash, network), '_blank')}
+              >
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  tx.type === 'received' ? 'bg-green-500/20' : 
+                  tx.type === 'swap' ? 'bg-purple-500/20' : 'bg-orange-500/20'
+                }`}>
+                  {tx.type === 'received' ? (
+                    <ArrowDownLeft className="w-5 h-5 text-green-400" />
+                  ) : tx.type === 'swap' ? (
+                    <ArrowLeftRight className="w-5 h-5 text-purple-400" />
+                  ) : (
+                    <ArrowUpRight className="w-5 h-5 text-orange-400" />
+                  )}
+                </div>
+                
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-white capitalize">{tx.type}</p>
+                  <p className="text-sm text-white/50 font-mono truncate">
+                    {tx.hash.slice(0, 10)}...{tx.hash.slice(-8)}
+                  </p>
+                </div>
+
+                <div className="text-right">
+                  <p className="font-semibold text-white">
+                    {tx.type === 'received' ? '+' : '-'}{tx.value} {tx.token || 'ETH'}
+                  </p>
+                  <p className="text-xs text-white/50">
+                    {new Date(tx.timestamp).toLocaleDateString()}
+                  </p>
+                </div>
+
+                {!demoMode && (
+                  <ExternalLink className="w-4 h-4 text-white/40 opacity-0 group-hover:opacity-100 transition" />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
-  );
-}
+
+    {/* Faucet Modal */}
+    {showFaucetModal && (
+      <FaucetModal
+        address={wallet.address}
+        network={network}
+        onClose={() => setShowFaucetModal(false)}
+        onSuccess={() => {
+          setShowFaucetModal(false);
+          setTimeout(() => {
+            fetchBalance();
+            fetchTransactionHistory();
+          }, 3000);
+        }}
+      />
+    )}
+  </div>
+);
 
 // Faucet Modal Component
 function FaucetModal({ address, network, onClose, onSuccess }) {
@@ -566,7 +551,7 @@ function FaucetModal({ address, network, onClose, onSuccess }) {
                   Copy
                 </>
               )}
-            </button>
+            </button> 
           </div>
         </div>
 
@@ -648,4 +633,5 @@ function FaucetModal({ address, network, onClose, onSuccess }) {
       </div>
     </div>
   );
+}
 }

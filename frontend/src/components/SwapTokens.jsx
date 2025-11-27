@@ -3,11 +3,11 @@ import useWalletStore from '@store/walletStore';
 import { swapAPI, demoAPI } from '@services/api';
 import toast from 'react-hot-toast';
 import { getExplorerUrl } from '@utils/formatters';
-import { 
-  ArrowLeftRight, 
-  Loader, 
-  CheckCircle, 
-  Zap, 
+import {
+  ArrowLeftRight,
+  Loader,
+  CheckCircle,
+  Zap,
   Settings,
   AlertCircle,
   RefreshCw,
@@ -21,20 +21,20 @@ import {
 
 export default function SwapTokens() {
   const { wallet, network, addTransaction, demoMode, balance, isAuthenticated } = useWalletStore();
-  
+
   const [tokens, setTokens] = useState([]);
   const [fromToken, setFromToken] = useState('ETH');
   const [toToken, setToToken] = useState('DAI');
   const [fromAmount, setFromAmount] = useState('0.01');
   const [toAmount, setToAmount] = useState('0');
-  
+
   const [slippage, setSlippage] = useState(0.5);
   const [showSettings, setShowSettings] = useState(false);
   const [quote, setQuote] = useState(null);
   const [loading, setLoading] = useState(false);
   const [swapping, setSwapping] = useState(false);
   const [swapHash, setSwapHash] = useState(null);
-  
+
   const [needsApproval, setNeedsApproval] = useState(false);
   const [approving, setApproving] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -53,7 +53,7 @@ export default function SwapTokens() {
       const timer = setTimeout(() => {
         getQuote();
       }, 500);
-      
+
       return () => clearTimeout(timer);
     } else {
       setQuote(null);
@@ -79,7 +79,7 @@ export default function SwapTokens() {
 
   const getQuote = async () => {
     if (!fromAmount || parseFloat(fromAmount) <= 0) return;
-    
+
     try {
       setLoading(true);
       setQuote(null);
@@ -96,7 +96,7 @@ export default function SwapTokens() {
         if (data.success) {
           setQuote(data.quote);
           setToAmount(data.quote.amountOut);
-          
+
           if (fromToken !== 'ETH') {
             await checkApproval();
           } else {
@@ -120,20 +120,20 @@ export default function SwapTokens() {
       setNeedsApproval(false);
       return;
     }
-    
+
     try {
       const tokenInfo = tokens.find(t => t.symbol === fromToken);
       if (!tokenInfo || tokenInfo.address === 'native') return;
-      
+
       const ROUTER_ADDRESS = '0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008';
-      
+
       const { data } = await swapAPI.checkAllowance(
         tokenInfo.address,
         wallet.address,
         ROUTER_ADDRESS,
         network
       );
-      
+
       if (data.success) {
         const allowance = parseFloat(data.allowance);
         const required = parseFloat(fromAmount);
@@ -149,22 +149,22 @@ export default function SwapTokens() {
     if (!password) {
       return toast.error('Please enter your password');
     }
-    
+
     try {
       setApproving(true);
       const tokenInfo = tokens.find(t => t.symbol === fromToken);
-      
+
       const loadingToast = toast.loading('Approving token...');
-      
+
       const { data } = await swapAPI.approveToken(
         password,
         tokenInfo.address,
         'unlimited',
         network
       );
-      
+
       toast.dismiss(loadingToast);
-      
+
       if (data.success) {
         toast.success(`${fromToken} approved successfully!`);
         setNeedsApproval(false);
@@ -199,11 +199,11 @@ export default function SwapTokens() {
 
       if (demoMode) {
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        const fakeHash = '0x' + Array.from({length: 64}, () => 
+
+        const fakeHash = '0x' + Array.from({ length: 64 }, () =>
           Math.floor(Math.random() * 16).toString(16)
         ).join('');
-        
+
         const demoTx = {
           hash: fakeHash,
           from: wallet.address,
@@ -218,50 +218,50 @@ export default function SwapTokens() {
           type: 'swap',
           token: `${fromToken}→${toToken}`
         };
-        
+
         addTransaction(demoTx);
         setSwapHash(fakeHash);
         toast.success(` Swapped ${fromAmount} ${fromToken} for ${toAmount} ${toToken}!`);
-        
+
         setFromAmount('0.01');
         setToAmount('0');
         setQuote(null);
-        
+
       } else {
         const loadingToast = toast.loading('Executing swap...');
-        
+
         const swapParams = {
           fromToken,
           toToken,
           amountIn: fromAmount,
           minAmountOut: quote.minAmountOut
         };
-        
+
         const { data } = await swapAPI.executeSwap(
           password,
           swapParams,
           network
         );
-        
+
         toast.dismiss(loadingToast);
-        
+
         if (data.success) {
           const txData = {
             ...data.swap,
             type: 'swap',
             token: `${fromToken}→${toToken}`
           };
-          
+
           addTransaction(txData);
           setSwapHash(data.swap.hash);
-          
+
           toast.success(
             <div>
-              Swap executed! 
-              <a 
-                className="underline ml-2" 
-                href={getExplorerUrl(data.swap.hash, network)} 
-                target="_blank" 
+              Swap executed!
+              <a
+                className="underline ml-2"
+                href={getExplorerUrl(data.swap.hash, network)}
+                target="_blank"
                 rel="noreferrer"
               >
                 View
@@ -269,7 +269,7 @@ export default function SwapTokens() {
             </div>,
             { duration: 7000 }
           );
-          
+
           setFromAmount('0.01');
           setToAmount('0');
           setQuote(null);
@@ -308,15 +308,15 @@ export default function SwapTokens() {
             <p className="text-sm text-white/60">Enter password to proceed</p>
           </div>
         </div>
-        
+
         <div className="mb-6 p-4 bg-white/5 border border-white/10 rounded-xl">
           <p className="text-sm text-white/80">
-            {needsApproval 
-              ? `Approve ${fromToken} spending on Uniswap router before swapping.` 
+            {needsApproval
+              ? `Approve ${fromToken} spending on Uniswap router before swapping.`
               : `Swap ${fromAmount} ${fromToken} for ~${toAmount} ${toToken}`}
           </p>
         </div>
-        
+
         <div className="mb-6">
           <label className="block text-sm font-semibold text-white/90 mb-2">Password</label>
           <input
@@ -333,7 +333,7 @@ export default function SwapTokens() {
             }}
           />
         </div>
-        
+
         <div className="flex gap-3">
           <button
             onClick={() => {
@@ -370,18 +370,18 @@ export default function SwapTokens() {
     </div>
   );
 
-  const tokenList = demoMode 
+  const tokenList = demoMode
     ? [
-        { symbol: 'ETH', name: 'Ethereum', logo: '⟠' },
-        { symbol: 'DAI', name: 'Dai', logo: '◈' },
-        { symbol: 'USDC', name: 'USD Coin', logo: '$' }
-      ]
+      { symbol: 'ETH', name: 'Ethereum', logo: '⟠' },
+      { symbol: 'DAI', name: 'Dai', logo: '◈' },
+      { symbol: 'USDC', name: 'USD Coin', logo: '$' }
+    ]
     : tokens;
 
   return (
     <div className="min-h-screen pb-20">
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
-        
+
         {/* Header */}
         <div className="animate-fade-in">
           <h1 className="text-3xl font-bold text-white mb-2">Swap Tokens</h1>
@@ -390,7 +390,7 @@ export default function SwapTokens() {
 
         {/* Main Card */}
         <div className="glass-dark rounded-3xl shadow-dark-lg p-8 space-y-6 border border-white/10 animate-fade-in">
-          
+
           {/* Header Row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -425,11 +425,10 @@ export default function SwapTokens() {
                   <button
                     key={val}
                     onClick={() => setSlippage(val)}
-                    className={`flex-1 px-3 py-2 rounded-xl text-sm font-semibold transition ${
-                      slippage === val 
-                        ? 'gradient-purple text-white' 
-                        : 'bg-white/10 hover:bg-white/20 text-white/80'
-                    }`}
+                    className={`flex-1 px-3 py-2 rounded-xl text-sm font-semibold transition ${slippage === val
+                      ? 'gradient-purple text-white'
+                      : 'bg-white/10 hover:bg-white/20 text-white/80'
+                      }`}
                   >
                     {val}%
                   </button>
@@ -470,7 +469,7 @@ export default function SwapTokens() {
                 value={fromAmount}
                 onChange={(e) => setFromAmount(e.target.value)}
                 placeholder="0.0"
-                className="flex-1 text-3xl font-bold bg-transparent outline-none text-white placeholder-white/30"
+                className="flex-1 min-w-[120px] text-3xl font-bold bg-transparent outline-none text-white placeholder-white/30"
                 step="0.01"
                 min="0"
               />
@@ -480,14 +479,19 @@ export default function SwapTokens() {
                   setFromToken(e.target.value);
                   setQuote(null);
                 }}
-                className="px-4 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white cursor-pointer transition"
+                className="min-w-[130px] max-w-[150px] px-4 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white cursor-pointer transition truncate"
               >
                 {tokenList.filter(t => t.symbol !== toToken).map(token => (
-                  <option key={token.symbol} value={token.symbol} className="bg-slate-800">
+                  <option
+                    key={token.symbol}
+                    value={token.symbol}
+                    className="bg-slate-800 truncate"
+                  >
                     {token.logo} {token.symbol}
                   </option>
                 ))}
               </select>
+
             </div>
           </div>
 
@@ -511,7 +515,7 @@ export default function SwapTokens() {
                 value={toAmount}
                 readOnly
                 placeholder="0.0"
-                className="flex-1 text-3xl font-bold bg-transparent outline-none text-white/70 placeholder-white/30"
+                className="flex-1 min-w-[120px] text-3xl font-bold bg-transparent outline-none text-white placeholder-white/30"
               />
               <select
                 value={toToken}
@@ -519,14 +523,19 @@ export default function SwapTokens() {
                   setToToken(e.target.value);
                   setQuote(null);
                 }}
-                className="px-4 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white cursor-pointer transition"
+                className="min-w-[130px] max-w-[150px] px-4 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white cursor-pointer transition truncate"
               >
                 {tokenList.filter(t => t.symbol !== fromToken).map(token => (
-                  <option key={token.symbol} value={token.symbol} className="bg-slate-800">
+                  <option
+                    key={token.symbol}
+                    value={token.symbol}
+                    className="bg-slate-800 truncate"
+                  >
                     {token.logo} {token.symbol}
                   </option>
                 ))}
               </select>
+
             </div>
             {loading && (
               <div className="flex items-center gap-2 text-xs text-white/50 mt-3">
@@ -585,8 +594,8 @@ export default function SwapTokens() {
 
           {/* Action Buttons */}
           <div className="flex gap-3">
-            <button 
-              onClick={getQuote} 
+            <button
+              onClick={getQuote}
               disabled={loading || !fromAmount || parseFloat(fromAmount) <= 0}
               className="flex-1 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-semibold text-white disabled:opacity-50 transition flex items-center justify-center gap-2"
             >
@@ -602,8 +611,8 @@ export default function SwapTokens() {
                 </>
               )}
             </button>
-            
-            <button 
+
+            <button
               onClick={() => demoMode ? executeSwap() : setShowPasswordModal(true)}
               disabled={!quote || loading || swapping || parseFloat(fromAmount) <= 0}
               className="flex-1 py-4 gradient-purple text-white rounded-xl font-bold disabled:opacity-50 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"

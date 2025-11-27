@@ -29,6 +29,8 @@ import SwapTokens from '@components/SwapTokens';
 import ContactsPage from './components/Contacts/ContactsPage';
 import TransactionHistory from './components/TransactionHistory';
 import Settings from './components/Settings';
+import FloatingChat from './components/FloatingChat';
+import MouseRippleBackground from './components/MouseRippleBackground';
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -217,7 +219,7 @@ function NavBar() {
             <span>Settings</span>
           </Link>
 
-          <Link
+          {/* <Link
             to="/chat"
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all whitespace-nowrap ${
               isActive('/chat')
@@ -227,7 +229,7 @@ function NavBar() {
           >
             <MessageSquare className="w-4 h-4" />
             <span>AI Chat</span>
-          </Link>
+          </Link> */}
         </nav>
       </div>
     </header>
@@ -237,6 +239,7 @@ function NavBar() {
 export default function App() {
   return (
     <BrowserRouter>
+    <MouseRippleBackground>
       {/* Toast Notifications */}
       <Toaster 
         position="top-right"
@@ -316,6 +319,8 @@ export default function App() {
           </Routes>
         </main>
       </div>
+      <FloatingChat />
+      </MouseRippleBackground>
     </BrowserRouter>
   );
 }
